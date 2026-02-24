@@ -6,6 +6,7 @@
 html,body{
   margin:0;
   padding:0;
+  height: 100vh;
    background-color: #ecfdf5;
 
 }
@@ -27,7 +28,6 @@ html,body{
  box-shadow:0 1px 12px rgb(52, 227, 69);
  border:none;
  text-align: center;
- margin-left:600px;
 
 }
 .logo-container{
