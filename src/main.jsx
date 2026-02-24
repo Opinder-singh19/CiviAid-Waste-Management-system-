@@ -16,7 +16,7 @@ const router = createBrowserRouter(
     <>
       <Route path="/" element={<CivicALogin />} />
       <Route path="/admin" element={<Admin />} />
-      <Route path="/admin" element={<Admin />} />
+      
     </>
   )
 );
