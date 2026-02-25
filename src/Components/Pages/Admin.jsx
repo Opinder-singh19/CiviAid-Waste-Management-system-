@@ -62,7 +62,7 @@ export default function Admin() {
           </p>
         </div>
 
-        <p className="footer">♻ EcoWaste Admin Portal v2.0 • Secured</p>
+        <p className="footer">CivicAid Admin Portal v2.0 • Secured</p>
 
       
 
