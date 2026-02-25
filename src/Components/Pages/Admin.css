@@ -6,11 +6,12 @@
 .Container{
   background-color: rgb(20, 97, 20);
   display: flex;
-  height: 100vh;
+  height: 100%;
   justify-content: center;
   align-items: center;
 }
 .card{
+  margin: 50px;
   background-color: #ffffff;
   border-radius: 30px;
   padding: 20px;
