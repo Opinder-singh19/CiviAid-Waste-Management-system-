@@ -1,15 +1,17 @@
-*{
-  margin:0;
-  padding:0;
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
-body{
-  margin:0;
-  padding:0;
+
+body {
+  margin: 0;
+  padding: 0;
   height: 100%;
-   background-color: #ecfdf5;
+  background-color: #ecfdf5;
 
 }
+
 .container {
   min-height: 100vh;
   width: 100%;
@@ -17,104 +19,119 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
-    
-}
-.login-card{
-  background-color: white;
- width: 500px;
- height: 650px;
- padding:30px;
- border-radius: 16px;
- box-shadow:0 1px 12px rgb(52, 227, 69);
- border:none;
- text-align: center;
 
 }
-.logo-container{
+
+.login-card {
+  background-color: white;
+  width: 500px;
+  height: 650px;
+  padding: 30px;
+  border-radius: 16px;
+  border: 5px solid rgb(183, 255, 189);
+  text-align: center;
+
+}
+
+.logo-container {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
 }
-.logo-circle{
+
+.logo-circle {
   background-color: rgba(0, 170, 97);
   padding: 16px;
   border-radius: 50%;
   color: darkgreen;
   margin-top: 20px;
-  
+
 
 
 
 }
-.logo-circle:hover{
+
+.logo-circle:hover {
   transform: scale(1.2);
   color: black;
 
-  
-  
+
+
 }
-.title{
+
+.title {
   font-size: 25px;
+  font-weight: 500;
   color: #22994e;
-  font-weight: 800;
+
 }
-.subtitle{
-font-size: 20px;
-color: grey;
-margin-bottom: 10px;
-margin:20px;
+
+.subtitle {
+  font-size: 20px;
+  color: grey;
+  margin-bottom: 10px;
+  margin: 20px;
 }
-.dots{
+
+.dots {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 6px;
   margin-bottom: 15px;
 }
+
 .dotgreen {
   width: 8px;
   height: 8px;
   border-radius: 50px;
   background-color: rgba(0, 201, 80);
 }
+
 .dotblue {
   width: 8px;
   height: 8px;
   border-radius: 50px;
   background-color: rgba(44, 127, 255);
 }
+
 .dotblack {
   width: 8px;
   height: 8px;
   border-radius: 50px;
   background-color: black;
 }
-.input-box{
+
+.input-box {
   display: flex;
-  margin-left:5px;
+  margin-left: 5px;
   align-items: center;
   border-radius: 8px;
   border: 1px solid grey;
-  padding:8px 10px;
-  margin:25px 0px 10px 0px;
+  padding: 8px 10px;
+  margin: 25px 0px 10px 0px;
 }
-.icon{
+
+.icon {
   margin-right: 15px;
   color: black;
 }
+
 input {
   border: none;
   outline: none;
   width: 100%;
   font-size: 20px;
 }
-.recycle{
-  color : white;
+
+.recycle {
+  color: white;
 }
-.login-btn{
+
+.login-btn {
   margin: 35px 20px;
-  border: 2px solid black;
+  border: none;
   border-radius: 8px;
   width: 200px;
   padding: 8px;
@@ -123,46 +140,52 @@ input {
   font-size: 16px;
 
 }
-.login-btn:hover{
+
+.login-btn:hover {
   background-color: #15803d;
 
 }
-.signup-btn{
-  
-  border: 2px solid black;
+
+.signup-btn {
+
+  border: none;
   border-radius: 8px;
-  width: 200px;
   padding: 8px;
   cursor: pointer;
-   background-color:lightgreen;
-   font-size: 16px;
+  background-color: lightgreen;
+  font-size: 16px;
 
 }
-.signup-btn:hover{
+
+.signup-btn:hover {
   background-color: #15803d;
- 
+
 
 }
+
 .login-btn,
 .signup-btn,
 .admin {
   display: block;
-  width: 200px;
+  width: 100%;
   margin: 15px auto;
   text-align: center;
 }
+
 .admin {
   font-size: 20px;
   color: gray;
   cursor: pointer;
-  margin:25px 0px 10px 0px;
+  margin: 25px 0px 10px 0px;
   margin-left: 120px;
 }
-.admin:hover{
+
+.admin:hover {
   color: blue;
 }
+
 .footer-text {
-  font-size: 20px;
+  font-size: 15px;
   color: rgb(54, 49, 49);
   margin-top: 25px;
 }
