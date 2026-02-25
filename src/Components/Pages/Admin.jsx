@@ -50,7 +50,7 @@ export default function Admin() {
          </div>
          
     </div>
-    <button className="btn"> Access Adimin Dashboard </button>
+    <button className="btn"> Access Admin Dashboard </button>
     <div className="notice">
           <div className="notice-title">
             <Shield size={16} />
