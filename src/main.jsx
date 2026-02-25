@@ -15,15 +15,10 @@ import UserDashboard from "./Components/Pages/UserDashboard.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-<<<<<<< HEAD
+
       <Route path="/" element={<CivicALogin />} />
       <Route path="/admin" element={<Admin />} />
-      
-=======
-      <Route path="/civiAlogin" element={<CivicALogin />} />
-      <Route path="/admin" element={<Admin />} />
-      <Route path="/" element={<UserDashboard />} />
->>>>>>> 3117e45 (dashboard)
+      <Route path="/userdashboard" element={<UserDashboard />} />
     </>
   )
 );
