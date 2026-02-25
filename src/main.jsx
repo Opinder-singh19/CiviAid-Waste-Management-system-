@@ -18,7 +18,7 @@ const router = createBrowserRouter(
 
       <Route path="/" element={<CivicALogin />} />
       <Route path="/admin" element={<Admin />} />
-      <Route path="/Userdashboard" element={<UserDashboard />} />
+      <Route path="/User" element={<UserDashboard />} />
     </>
   )
 );
