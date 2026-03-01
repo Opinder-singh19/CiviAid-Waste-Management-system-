@@ -1,5 +1,6 @@
 import "./UserDashboard.css";
-import DustbinMap from "../Map/DustbinMap";
+import { Link } from "react-router-dom";
+import DustbinMap from "../../Components/Map/DustbinMap";
 import {
   Leaf,
   RecycleIcon,
