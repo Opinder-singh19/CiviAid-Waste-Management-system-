@@ -1,5 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import "leaflet/dist/leaflet.css";
 import "./index.css";
 import {
   createBrowserRouter,
@@ -8,16 +9,18 @@ import {
   Route,
 } from "react-router-dom";
 
-import CivicALogin from "./Components/Pages/CivicAidLogin.jsx";
-import Admin from "./Components/Pages/Admin.jsx";
-import UserDashboard from "./Components/Pages/UserDashboard.jsx";
+import CivicALogin from "./Pages/Login/CivicAidLogin.jsx";
+import Admin from "./Pages/Admin/Admin.jsx";
+import UserDashboard from "./Pages/UserDashboard/UserDashboard.jsx";
+import WasteG from "./Pages/WasteGuide/WasteG.jsx"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<CivicALogin />} />
       <Route path="/admin" element={<Admin />} />
-      <Route path="/UserDashboard" element={<UserDashboard />} />
+      <Route path="/userdashboard" element={<UserDashboard />} />
+      <Route path="/wasteG" element={<WasteG/>}/>
 
     </>
   )
