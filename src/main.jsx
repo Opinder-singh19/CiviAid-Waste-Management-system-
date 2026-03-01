@@ -17,7 +17,6 @@ import WasteG from "./Pages/WasteGuide/WasteG.jsx"
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-
       <Route path="/" element={<CivicALogin />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/userdashboard" element={<UserDashboard />} />
