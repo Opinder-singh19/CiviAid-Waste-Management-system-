@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./Admin.css"
 export default function Admin() {
   return (
-   <div className="Container">
+   <div className="A-Container">
     <div className="card">
       <Link to="/" className="Back-to-user">
         <ArrowLeft size={20}/> 

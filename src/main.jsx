@@ -9,9 +9,10 @@ import {
   Route,
 } from "react-router-dom";
 
-import CivicALogin from "./Components/Pages/CivicAidLogin.jsx";
-import Admin from "./Components/Pages/Admin.jsx";
-import UserDashboard from "./Components/Pages/UserDashboard.jsx";
+import CivicALogin from "./Pages/Login/CivicAidLogin.jsx";
+import Admin from "./Pages/Admin/Admin.jsx";
+import UserDashboard from "./Pages/UserDashboard/UserDashboard.jsx";
+import WasteG from "./Pages/WasteGuide/WasteG.jsx"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,7 +20,9 @@ const router = createBrowserRouter(
 
       <Route path="/civic" element={<CivicALogin />} />
       <Route path="/admin" element={<Admin />} />
-      <Route path="/" element={<UserDashboard />} />
+      <Route path="/userdashboard" element={<UserDashboard />} />
+      <Route path="/wasteG" element={<WasteG/>}/>
+
     </>
   )
 );
