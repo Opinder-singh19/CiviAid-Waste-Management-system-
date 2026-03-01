@@ -254,3 +254,113 @@ font-weight: 500;
     gap: 10px;
     
 }
+
+
+
+
+.map-wrapper {
+  margin-top: 40px;
+  width: 100%;
+}
+
+.map-container {
+  height: 500px;
+  width: 100%;
+}
+
+/* Popup Container */
+.popup-content {
+  text-align: center;
+  padding: 4px 6px;
+}
+
+/* Title */
+.popup-content h4 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Button Style */
+.direction-btn {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+}
+
+.direction-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.45);
+}
+
+.direction-btn:active {
+  transform: scale(0.97);
+}
+
+.user-main3 {
+height: auto;
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.user-main3-grid1{
+    background-color: rgba(240, 253, 244);
+    height: 70px;
+    border: 1px solid rgba(194, 248, 214);
+     border-radius: 12px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0px 20px 0px 20px;
+}
+.user-main3-grid2{
+    background-color: rgba(239, 246, 255);
+    height: 70px;
+    border: 1px solid rgba(197, 225, 252);
+ border-radius: 12px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0px 20px 0px 20px;
+}
+.user-main3-grid3{
+    background-color: rgba(240, 253, 250);
+    height: 70px;
+    border: 1px solid rgba(165, 248, 230);
+ border-radius: 12px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0px 20px 0px 20px;
+}
+.grid-text{
+    text-align: left;
+font-size: 15px;
+font-weight: 500;
+}
+.grid-subtext{
+font-size: 12px;
+}
+.grid-subdiv{
+    display: flex;
+    flex-direction: column;
+}
+.main3-image1{
+    color: white;
+    background-color: rgba(0, 201, 81);
+    height: 40px;
+    width: 40px;
+    padding: 10px;
+    border-radius: 100%;
+}
