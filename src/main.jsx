@@ -18,7 +18,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <>
 
-      <Route path="/civic" element={<CivicALogin />} />
+      <Route path="/" element={<CivicALogin />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/userdashboard" element={<UserDashboard />} />
       <Route path="/wasteG" element={<WasteG/>}/>
