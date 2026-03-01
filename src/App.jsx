@@ -1,5 +1,5 @@
 import { useState } from 'react'
-
+import DustbinMap from "./Components/Map/DustbinMap";
 import './App.css'
 import CivicALogin from './Pages/Login/CivicAidLogin'
 import  Adminlogin from './Pages/Admin/Admin'
@@ -12,6 +12,7 @@ function App() {
     <>
       <CivicALogin/>
       <Adminlogin/>
+      <DustbinMap />
       <WasteG/>
     </>
   )

@@ -1,5 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import "leaflet/dist/leaflet.css";
 import "./index.css";
 import {
   createBrowserRouter,
@@ -17,7 +18,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <>
 
-      <Route path="/" element={<CivicALogin />} />
+      <Route path="/civic" element={<CivicALogin />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/userdashboard" element={<UserDashboard />} />
       <Route path="/wasteG" element={<WasteG/>}/>
