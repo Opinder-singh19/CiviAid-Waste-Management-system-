@@ -1,0 +1,180 @@
+.waste-placeholder{
+   height: 300px;
+  width: 900px;
+  margin-left: 250px;
+    margin-Right: 280px;
+    border-radius: 15px ;
+
+}
+.place-holdicon{
+  display: flex;
+justify-content: center;
+}
+
+
+
+
+.waste-full-card {
+  margin-top: 40px;
+ 
+  padding: 20px;
+  background-color: white;
+  border-radius: 20px;
+  border: 4px solid #22c55e;
+   height: 300px;
+  width: 900px;
+  margin-left: 250px;
+    margin-Right: 280px;
+    border-radius: 15px ;
+}
+
+
+.icon-section {
+  text-align: center;
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+}
+.dust-icon{
+  display: flex;
+  justify-content: center;
+  height: 200px;
+  margin-top: -30px;
+}
+.icon-title {
+  font-size: 15px;
+   margin-top: -20;
+  font-weight: 600;
+}
+.Icon-T{
+  margin-top: -20px;
+}
+
+
+.bin-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 8px 18px;
+  border-radius: 30px;
+  border: 2px solid #22c55e;
+  background: #e6f7ec;
+  font-weight: 500;
+}
+
+
+.info-box {
+  margin-top: -20px;
+  padding: 15px;
+  border-radius: 15px;
+  border: 2px solid #22c55e;
+  background: #e8f5ee;
+  text-align: center;
+  font-size: 15px;
+  height: 80px;
+}
+
+.info-box h3 {
+  margin-bottom: 15px;
+  font-weight: 600;
+
+
+}
+
+.info-box p {
+  line-height: 1.6;
+  font-size: 13px;
+  color: #374151;
+}
+
+
+.examples {
+  margin-top: 35px;
+  padding: 15px;
+  border-radius: 15px;
+  background: #f9fafb;
+  border: 2px solid #86efac;
+}
+
+.examples h3 {
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+
+.example-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.tag {
+  padding: 8px 16px;
+  border-radius: 25px;
+  border: 2px solid;
+  background: #fff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+
+.do-dont {
+  margin-top: 25px;
+  display: flex;
+  gap: 30px;
+}
+
+/* Do's Box */
+.dos {
+  flex: 1;
+  padding: 25px;
+  border-radius: 15px;
+  border: 2px solid #22c55e;
+  background: #f0fdf4;
+}
+
+.dos h3 {
+  margin-bottom: 10px;
+  color: #16a34a;
+}
+
+.dos p {
+  margin-bottom: 5px;
+  color: #374151;
+}
+
+
+.donts {
+  flex: 1;
+  padding: 25px;
+  border-radius: 15px;
+  border: 2px solid #ef4444;
+  background: #fef2f2;
+}
+
+.donts h3 {
+  margin-bottom: 5px;
+  color: #dc2626;
+}
+
+.donts p {
+  margin-bottom: 10px;
+  color: #374151;
+}
+
+
+.waste-placeholder {
+  margin-top: 40px;
+  padding: 80px 20px;
+  border-radius: 20px;
+  border: 3px dashed #22c55e;
+  background: #f0fdf4;
+  text-align: center;
+}
+
+.waste-placeholder p {
+  margin-top: 15px;
+  color: #4b5563;
+  font-size: 16px;
+}

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./Admin.css"
 export default function Admin() {
   return (
-   <div className="Container">
+   <div className="A-Container">
     <div className="card">
       <Link to="/" className="Back-to-user">
         <ArrowLeft size={20}/> 
@@ -50,7 +50,7 @@ export default function Admin() {
          </div>
          
     </div>
-    <button className="btn"> Access Adimin Dashboard </button>
+    <button className="btn"> Access Admin Dashboard </button>
     <div className="notice">
           <div className="notice-title">
             <Shield size={16} />
