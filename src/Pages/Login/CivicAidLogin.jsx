@@ -1,4 +1,4 @@
-import { Mail, Lock, Leaf,RecycleIcon } from "lucide-react";
+import { Mail, Lock, Leaf, RecycleIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import "./CivicA.css";
 
@@ -6,11 +6,10 @@ export default function CivicALogin() {
   return (
     <div className="container">
       <div className="login-card">
-
         <div className="logo-container">
           <div className="logo-circle">
             <RecycleIcon className="recycle" size={45} />
-        </div> 
+          </div>
         </div>
 
         <h2 className="title">CivicAid</h2>
@@ -31,26 +30,22 @@ export default function CivicALogin() {
           <Lock className="icon" size={25} />
           <input type="password" placeholder="Enter your password" />
         </div>
+        <Link to="/admin" className="admin1">
+          Forget Password?
+        </Link>
+        <button className="login-btn">Login to CivicAid</button>
 
-        <button className="login-btn">
-          Login to CivicAid
-        </button>
-         
-        <button className="signup-btn">
-          Sign Up
-         </button>  
-
-         <Link to="/admin" className="admin">
+        <Link to="/admin" className="admin">
           Admin Login
-       </Link>
-       
+        </Link>
+        <div className="signup-box">
+          <p className="signup-text">Are you a new User ?</p>
+          <Link to="/userdashboard" className="signup-btn1">
+            Sign Up
+          </Link>
+        </div>
 
-      
-
-        <p className="footer-text">
-          Go Green • Segregate Right • Save Earth
-        </p>
-
+        <p className="footer-text"> <Leaf className="footer-leaf" size={13}/>Go Green • Segregate Right • Save Earth</p>
       </div>
     </div>
   );
