@@ -1,8 +1,9 @@
 import { useState } from 'react'
 
 import './App.css'
-import CivicALogin from './Components/Pages/CivicAidLogin'
-import  Adminlogin from './Components/Pages/Admin'
+import CivicALogin from './Pages/Login/CivicAidLogin'
+import  Adminlogin from './Pages/Admin/Admin'
+import WasteG from './Pages/WasteGuide/WasteG'
 
 function App() {
   
@@ -11,6 +12,7 @@ function App() {
     <>
       <CivicALogin/>
       <Adminlogin/>
+      <WasteG/>
     </>
   )
 }
