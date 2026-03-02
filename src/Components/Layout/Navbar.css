@@ -1,20 +1,138 @@
-.navbar {
+.Navbar-main {
+  position: fixed;
+  bottom: 20px;
+  left: 300px;
+  width: 910px;
+  height: 50px;
   display: flex;
-  gap: 30px;
-  background: #e5e5e5;
-  padding: 15px 30px;
-  border-radius: 40px;
-}
-
-.navbar a {
-  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
   color: black;
-  font-weight: 500;
+  gap: 10px;
+  z-index: 1000;
+  border-radius: 100px;
+  border: 1px solid rgba(242, 243, 245);
+  box-shadow: 0px 1px 5px rgb(209, 209, 209);
 }
 
-.navbar a.active {
-  background: #2ecc71;
+.link1{
+  font-size:15px;
+  font-weight:500;
+  color: black;
+  padding: 0px 20px 0px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  height: 35px;
+  width: auto;
+  transition: background-color 0.2s ease;
+}
+.link1.active{
+  background-color: rgba(0, 187, 88);
   color: white;
-  padding: 8px 16px;
-  border-radius: 20px;
+}
+.link1:not(.active):hover{
+  background-color: rgba(233, 235, 239);
+}
+.link2{
+  font-size:15px;
+  font-weight:500;
+  color: black;
+  padding: 0px 20px 0px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  height: 35px;
+  width: auto;
+  transition: background-color 0.2s ease;
+}
+.link2.active{
+  background-color: rgba(0, 187, 88);
+  color: white;
+}
+.link2:not(.active):hover{
+  background-color: rgba(233, 235, 239);
+}
+.link3{
+  font-size:15px;
+  font-weight:500;
+  color: black;
+  padding: 0px 20px 0px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  height: 35px;
+  width: auto;
+  transition: background-color 0.2s ease;
+}
+.link3.active{
+  background-color: rgba(0, 187, 88);
+  color: white;
+}
+.link3:not(.active):hover{
+  background-color: rgba(233, 235, 239);
+}
+.link4{
+  font-size:15px;
+  font-weight:500;
+  color: black;
+  padding: 0px 20px 0px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  height: 35px;
+  width: auto;
+  transition: background-color 0.2s ease;
+}
+.link4.active{
+  background-color: rgba(0, 187, 88);
+  color: white;
+}
+.link4:not(.active):hover{
+  background-color: rgba(233, 235, 239);
+}
+.link5{
+  font-size:15px;
+  font-weight:500;
+  color: black;
+  padding: 0px 20px 0px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  height: 35px;
+  width: auto;
+  transition: background-color 0.2s ease;
+}
+.link5.active{
+  background-color: rgba(0, 187, 88);
+  color: white;
+}
+.link5:not(.active):hover{
+  background-color: rgba(233, 235, 239);
+}
+.link6{
+  font-size:15px;
+  font-weight:500;
+  color: black;
+  padding: 0px 20px 0px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  height: 35px;
+  width: auto;
+  transition: background-color 0.2s ease;
+}
+.link6.active{
+  background-color: rgba(0, 187, 88);
+  color: white;
+}
+.link6:not(.active):hover{
+  background-color: rgba(233, 235, 239);
 }

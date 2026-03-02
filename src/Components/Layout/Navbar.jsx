@@ -1,21 +1,19 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./Navbar";
+import { NavLink } from "react-router-dom";
+import "./Navbar.css"
 
-function App() {
+function Navbar() {
   return (
-    <BrowserRouter>
-      <Navbar />  {/* 🔥 This makes it appear on all pages */}
-
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/admin-login" element={<AdminLogin />} />
-        <Route path="/user-dashboard" element={<UserDashboard />} />
-        <Route path="/waste-guidance" element={<WasteGuide />} />
-        <Route path="/dustbin-location" element={<DustbinMap />} />
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />
-      </Routes>
-    </BrowserRouter>
+    <div className="Navbar-main-outerbox">
+    <nav className="Navbar-main">
+      <NavLink className="link2" to="/">Login</NavLink>
+      <NavLink className="link1" to="/admin">Admin Login</NavLink>
+      <NavLink className="link3" to="/userdashboard">User Dashboard</NavLink>
+      <NavLink className="link4" to="/wasteG">Waste Guidance</NavLink>
+      <NavLink className="link5" to="/A">Dustbin Location</NavLink>
+      <NavLink className="link6" to="/B">Admin Dashboard</NavLink>
+    </nav>
+    </div>
   );
 }
 
-export default App;
+export default Navbar;
