@@ -12,7 +12,7 @@ export default function Admin() {
     
     <div className="icon-section">
       <div className="Main-icon">
-        <Shield size={30} color="white"/>
+        <Shield size={40} color="white"/>
       </div>
       <div className="min-icon">
         <RecycleIcon size={20}/>

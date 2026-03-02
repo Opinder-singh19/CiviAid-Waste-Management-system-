@@ -47,6 +47,9 @@ export default function CivicALogin() {
 
         <p className="footer-text"> <Leaf className="footer-leaf" size={13}/>Go Green • Segregate Right • Save Earth</p>
       </div>
+      <RecycleIcon size={150}  className="bg-recycle"/>
+      <RecycleIcon size={70}  className="bg-recycle1"/>
+      <Leaf size={100}  className="bg-leaf1"/>
     </div>
   );
 }
