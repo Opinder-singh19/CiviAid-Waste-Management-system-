@@ -12,6 +12,7 @@
 }
 .card{
   margin: 50px;
+  margin-bottom: 100px;
   background-color: #ffffff;
   border-radius: 30px;
   padding: 20px;
@@ -36,12 +37,13 @@ cursor: pointer;
   position: relative;
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-bottom: 10px;
 }
 .Main-icon{
-  width: 60px;
-  height: 60px;
-  background-color: #1ba64e;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle at 30% 30%, #1ec76a 0%, #14a956 40%, #0e8f47 100%);  
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -50,8 +52,10 @@ cursor: pointer;
 }
 .min-icon {
   position: absolute;
-  right: 200px;
-  top: 0;
+  right: 195px;
+  border: 2px solid white;
+  top: 0px;
+  color: #1ba64e;
   background: #facc15;
   width: 15px;
   height: 15px;
@@ -63,11 +67,13 @@ cursor: pointer;
 }
 h1 {
   text-align: center;
-  color: #0b6b2e;
+  color: rgba(0, 124, 76);
   margin-bottom: 5px;
-  font-size: 25px;
+  font-size: 35px;
+  font-weight: 500;
 }
 .min-heading{
+  font-size: 16px;
   text-align: center;
   color: #666;
   margin-bottom: 15px;
