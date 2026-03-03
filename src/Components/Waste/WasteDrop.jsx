@@ -2,7 +2,6 @@ import  './WasteDrop.css'
 import { Trash2Icon } from "lucide-react";
 function WasteDrop({ selected, setSelected }){
   return(
-    <div>
       
         <div className="select-type">
         <div className="introtype">
@@ -29,7 +28,6 @@ function WasteDrop({ selected, setSelected }){
     </div>
        </div>
 
-    </div>
     
   )
 }
