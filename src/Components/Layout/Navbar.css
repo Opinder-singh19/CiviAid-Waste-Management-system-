@@ -10,7 +10,7 @@
   background-color: white;
   color: black;
   gap: 10px;
-  z-index: 1000;
+  z-index: 2000;
   border-radius: 100px;
   border: 1px solid rgba(242, 243, 245);
   box-shadow: 0px 1px 5px rgb(209, 209, 209);

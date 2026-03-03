@@ -65,6 +65,7 @@
 .user-logout-btn:hover {
     color: black;
     background-color: rgba(240, 253, 244);
+    cursor: pointer;
 }
 
 .trash1 {
@@ -134,8 +135,9 @@
     height: 300px;
     width: 100%;
     background-color: white;
-    
+    transition: transform 0.5s ease-in-out;
 }
+
 .user-main2-box2{
     padding: 20px;
     border: 5px solid rgba(150, 247, 228);
@@ -143,6 +145,8 @@
     height: 300px;
     width: 100%;
     background-color: white;
+    transition: transform 0.5s ease-in-out;
+
 }
 .user-dustbin-icon {
     display: flex;
@@ -168,24 +172,34 @@
     color: rgba(77, 184, 145);
 }
 .user-main2-div0{
-    background-color: rgba(0, 185, 89);
+    background: radial-gradient(circle at 30% 30%, #1ec76a 0%, #14a956 40%, #0e8f47 100%);  
     position: relative;
     border-radius:100%;
     top :2px;
     border: none;
     height: 100px;
     width: 100px;
+    transition: transform 0.2s ease-in-out;
     z-index: 0;
 }
 .user-main2-div01{
-    background-color: rgba(0, 167, 176);
+    background: radial-gradient(circle at 30% 30%, rgba(0, 167, 176) 0%, rgb(0, 155, 163) 40%, rgb(23, 116, 121) 100%);  
     position: relative;
     border-radius:100%;
     top :2px;
     border: none;
     height: 100px;
+    transition: transform 0.2s ease-in-out;
     width: 100px;
     z-index: 0;
+}
+.user-main2-box2:hover .user-main2-div01 {
+  transform:  scale(1.12);
+
+}
+.user-main2-box2:hover{
+    border: 5px solid rgba(0, 167, 176);
+    box-shadow: 2px 1px 30px  gray;
 }
 .user-main2-div1{
     z-index: 2;
@@ -195,6 +209,13 @@
     color: white;
 
     
+}
+.user-main2-box1:hover .user-main2-div0 {
+  transform:  scale(1.12);
+
+}
+.user-main2-box1:hover{
+    border: 5px solid rgb(66, 203, 114);
 }
 .user-main2-div2{
 color: rgb(1, 102, 48);
