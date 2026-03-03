@@ -22,62 +22,62 @@ import { useMap } from "react-leaflet";
 const dustbinLocations = [
   {
     id: 1,
-    lat: 30.859930,
-    lng: 75.860460,
+    lat: 30.85993,
+    lng: 75.86046,
     type: "green",
   },
   {
     id: 2,
-    lat: 30.860070,
-    lng: 75.860520,
+    lat: 30.86007,
+    lng: 75.86052,
     type: "blue",
   },
   {
     id: 3,
     lat: 30.860056,
-    lng: 75.860950,
+    lng: 75.86095,
     type: "green",
   },
   {
     id: 4,
-  lat: 30.859911, 
-  lng: 75.860950,
+    lat: 30.859911,
+    lng: 75.86095,
     type: "blue",
   },
   {
     id: 5,
     lat: 30.859999,
-    lng: 75.861120,
+    lng: 75.86112,
     type: "green",
   },
   {
     id: 6,
-  lat: 30.859780, 
-  lng: 75.861120,
+    lat: 30.85978,
+    lng: 75.86112,
     type: "blue",
   },
-    {
+  {
     id: 7,
     lat: 30.860799,
-    lng: 75.8611060,
+    lng: 75.861106,
     type: "green",
   },
   {
     id: 9,
-  lat: 30.860410, 
-  lng: 75.8609110,
+    lat: 30.86041,
+    lng: 75.860911,
     type: "blue",
   },
-    {
+  {
     id: 10,
     lat: 30.860559,
-    lng: 75.8609110,
+    lng: 75.860911,
     type: "green",
   },
   {
     id: 8,
-  lat: 30.860650, 
-  lng: 75.8611060,
+    lat: 30.86065,
+    lng: 75.861106,
     type: "blue",
   },
 ];
@@ -180,7 +180,6 @@ const createDustbinIcon = (color) => {
   });
 };
 
-
 function ZoomToLocation({ target }) {
   const map = useMap();
 
@@ -199,16 +198,16 @@ export default function DustbinMap() {
   const [routeCoords, setRouteCoords] = useState(null);
   const [zoomTarget, setZoomTarget] = useState(null);
 
-const openDirections = (destLat, destLng) => {
-  if (!userLocation) return;
+  const openDirections = (destLat, destLng) => {
+    if (!userLocation) return;
 
-  const origin = `${userLocation[0]},${userLocation[1]}`;
-  const destination = `${destLat},${destLng}`;
+    const origin = `${userLocation[0]},${userLocation[1]}`;
+    const destination = `${destLat},${destLng}`;
 
-  const url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=walking`;
+    const url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=walking`;
 
-  window.open(url, "_blank");
-};
+    window.open(url, "_blank");
+  };
   // ===============================
   // 📍 Get User Location
   // ===============================
@@ -246,7 +245,7 @@ const openDirections = (destLat, destLng) => {
         bin.lat,
         bin.lng,
       );
-      return distance <= 1000; // 1 KM radius only
+      return distance <= 10000; // 1 KM radius only
     });
   }, [userLocation]);
 
@@ -262,7 +261,7 @@ const openDirections = (destLat, destLng) => {
         maxZoom={18}
         zoomControl={true}
         className="map-container"
-        >
+      >
         <ResizeMap />
         {zoomTarget && <ZoomToLocation target={zoomTarget} />}
         {/* Minimal Map Style */}
@@ -288,34 +287,34 @@ const openDirections = (destLat, destLng) => {
         {/* 🟢🔵 NEARBY DUSTBINS ONLY */}
         {nearbyBins.map((bin) => (
           <Marker
-  key={bin.id}
-  position={[bin.lat, bin.lng]}
-  icon={createDustbinIcon(
-  bin.type === "green" ? "#16a34a" : "#2563eb"
-)}
-  eventHandlers={{
-    click: () => {
-      setZoomTarget([bin.lat, bin.lng]);
-    },
-  }}
->
+            key={bin.id}
+            position={[bin.lat, bin.lng]}
+            icon={createDustbinIcon(
+              bin.type === "green" ? "#16a34a" : "#2563eb",
+            )}
+            eventHandlers={{
+              click: () => {
+                setZoomTarget([bin.lat, bin.lng]);
+              },
+            }}
+          >
             <Popup>
-  <div style={{ textAlign: "center" }}>
-    <strong>{bin.type.toUpperCase()} Dustbin</strong>
-    <br />
-    <button className="direction-btn" onClick={() => setZoomTarget([bin.lat, bin.lng])}>
-  Get Directions
-</button>
-  </div>
-</Popup>
+              <div style={{ textAlign: "center" }}>
+                <strong>{bin.type.toUpperCase()} Dustbin</strong>
+                <br />
+                <button
+                  className="direction-btn"
+                  onClick={() => setZoomTarget([bin.lat, bin.lng])}
+                >
+                  Get Directions
+                </button>
+              </div>
+            </Popup>
           </Marker>
         ))}
         {routeCoords && (
-  <Routing
-    userLocation={userLocation}
-    destination={routeCoords}
-  />
-)}
+          <Routing userLocation={userLocation} destination={routeCoords} />
+        )}
       </MapContainer>
     </div>
   );

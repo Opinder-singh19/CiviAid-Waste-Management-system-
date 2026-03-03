@@ -1,31 +1,27 @@
-.select-type{
-   display: flex;
-  
-  flex-direction: column;
+.select-type {
   background-color: white;
   height: 150px;
-  width: 900px;
+  width: auto;
   margin-top: 50px;
-    margin-left: 250px;
-    margin-Right: 280px;
-    border-radius: 15px ;
-    margin-top: 25px;
-      border: 2px dashed #22c55e;
+  border-radius: 15px;
+  border: 2px dashed #22c55e;
 
 }
-.introtype{
+
+.introtype {
   display: flex;
   align-items: center;
   padding: 20px;
 
-  
- 
+
+
 }
+
 .drop-down {
   width: 100%;
   margin-top: 20px;
 
- 
+
 }
 
 .drop-down select {

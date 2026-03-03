@@ -1,17 +1,19 @@
 .user-container {
     min-height: 100vh;
     background: linear-gradient(135deg, #b2d8c6, #e6f7ee, #e6f7ee, #e6f7ee, #b2d8c6);
-    margin: 0px;
+    padding-bottom: 80px;
 }
 
 .user-head {
     padding-top: 30px;
     margin-left: 80px;
     margin-right: 80px;
-    display: flex;
+            display: flex;
     align-items: center;
     justify-content: space-between
+
 }
+
 
 .user-title {
     color: rgba(0, 131, 62);
@@ -110,8 +112,8 @@
 
 .user-main {
     margin-top: 50px;
-    margin-left: 280px;
-    margin-Right: 280px;
+    margin-left: 220px;
+    margin-Right: 220px;
 }
 
 .user-main1 {
@@ -199,7 +201,6 @@
 }
 .user-main2-box2:hover{
     border: 5px solid rgba(0, 167, 176);
-    box-shadow: 2px 1px 30px  gray;
 }
 .user-main2-div1{
     z-index: 2;
@@ -215,7 +216,7 @@
 
 }
 .user-main2-box1:hover{
-    border: 5px solid rgb(66, 203, 114);
+border: 5px solid rgb(66, 203, 114);
 }
 .user-main2-div2{
 color: rgb(1, 102, 48);
@@ -280,11 +281,11 @@ font-weight: 500;
 
 
 .map-wrapper {
-  margin-top: 40px;
   width: 100%;
 }
 
 .map-container {
+    border-radius: 12px;
   height: 500px;
   width: 100%;
 }
@@ -384,4 +385,12 @@ font-size: 12px;
     width: 40px;
     padding: 10px;
     border-radius: 100%;
+}
+.user-map-section{
+    margin-top: 50px;
+    border: 6px solid rgba(189, 247, 210);
+    border-radius: 12px;
+}
+.dustbin-main{
+    border-radius: 12px;
 }
