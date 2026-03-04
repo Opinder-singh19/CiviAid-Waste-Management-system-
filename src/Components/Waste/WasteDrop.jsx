@@ -4,6 +4,7 @@ function WasteDrop({ selected, setSelected }){
   return(
       
         <div className="select-type">
+          <div className="inner-select">
         <div className="introtype">
           <div className="icontype">
             <Trash2Icon size={20}/>
@@ -16,7 +17,7 @@ function WasteDrop({ selected, setSelected }){
         </div>
 
           <div className="drop-down">
-      <select
+      <select className="drop-down-inner" 
         value={selected}
         onChange={(e) => setSelected(e.target.value)}
       >
@@ -25,6 +26,7 @@ function WasteDrop({ selected, setSelected }){
         <option value="blue">🔵 Dry Waste (Blue Bin)</option>
         <option value="black">⚫ Mixed Waste (Black Bin)</option>
       </select>
+    </div>
     </div>
        </div>
 
