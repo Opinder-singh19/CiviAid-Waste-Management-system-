@@ -164,10 +164,10 @@
 
 
 .waste-placeholder {
-  margin-top: 40px;
+  margin-top: 30px;
   padding: 80px 20px;
   border-radius: 20px;
-  border: 3px dashed #22c55e;
+  border: 2px dashed rgb(139, 255, 181);
   background: #f0fdf4;
   text-align: center;
 }
