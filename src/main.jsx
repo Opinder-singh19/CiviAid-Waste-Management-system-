@@ -19,9 +19,9 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <>
     <Route path="/" element={<Layout />}>
-      <Route index element={<CivicALogin />} />
+      <Route index element={<UserDashboard />} />
       <Route path="admin" element={<Admin />} />
-      <Route path="userdashboard" element={<UserDashboard />} />
+      <Route path="civiAlogin" element={<CivicALogin />} />
       <Route path="wasteG" element={<WasteG />} />
     </Route>
     </>
