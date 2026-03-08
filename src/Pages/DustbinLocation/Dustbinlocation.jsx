@@ -1,8 +1,7 @@
-import { ArrowLeft, RecycleIcon, Leaf, Trash2Icon } from "lucide-react";
+import { ArrowLeft, RecycleIcon, Leaf, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
-import "./WasteG.css";
-import WasteDrop from "../../Components/Waste/WasteDrop";
-import WasteC from "../../Components/Waste/WasteCard";
+import "./Dustbinlocation.css";
+import DustbinMap from "../../Components/Map/DustbinMap";
 import { useState } from "react";
 
 function WasteG() {
@@ -10,30 +9,34 @@ function WasteG() {
   return (
     <div className="w-container">
 
-      <div className="Waste-head">
-          <div className="Waste-head-inline">
+      <div className="Location-head">
+          <div className="Location-head-inline">
       <Link to="/">
-        <div className="back-Dash3">
+        <div className="back1-Dash">
           <div className="Arrow-icon">
             <ArrowLeft size={20} />
           </div>
-          <div className="back">
+          <div className="back1">
             <p>Back to Dashboard</p>
           </div>
         </div>
       </Link>
-        <div className="top-title2">
-            <RecycleIcon className="Waste-recycle" size={45} />
-            <h1 className="Waste-title">Waste Segregation Guidance</h1>
+
+        <div className="top-title1">
+            <MapPin className="Location-recycle" size={45} />
+            <h1 className="Location-title">Find Nearby Dustbins</h1>
           </div>
-          <div className="Waste-subhead-inline">
-            <Leaf className="Waste-leaf" size={18} />
-            <p className="Waste-subtitle">
-Learn to segregate waste correctly for a sustainable future            </p>
+          <div className="Location-subhead-inline">
+            <Leaf className="Location-leaf" size={18} />
+            <p className="Location-subtitle">
+Locate eco-friendly waste disposal points near you</p>
           </div>
         </div>
       </div>
       <div className="Waste-main">
+        <div className="Location-map-section">
+                  <DustbinMap className="dustbin-main" />
+                </div>
         <div className="different-dustbin">
           <div className="diff-head">Color-Coded Waste Segregation System </div>
           <div className="w-differnt">
@@ -64,11 +67,6 @@ Learn to segregate waste correctly for a sustainable future            </p>
           </div>
         </div>
 
-        <div className="w-container1">
-          <WasteDrop selected={selected} setSelected={setSelected} />
-
-          <WasteC type={selected} />
-        </div>
       </div>
     </div>
   );

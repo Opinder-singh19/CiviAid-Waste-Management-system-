@@ -19,7 +19,7 @@
   background-color: white;
   border-radius: 20px;
   border: 4px solid #22c55e;
-  height: 300px;
+  min-height: 300px;
   width: auto;
   border-radius: 15px;
 }
@@ -41,7 +41,7 @@
 
 .icon-title {
   font-size: 15px;
-  margin-top: -20;
+  margin-bottom: 20px;
   font-weight: 600;
 }
 
@@ -169,6 +169,7 @@
   border: 2px dashed rgb(139, 255, 181);
   background: #f0fdf4;
   text-align: center;
+  min-height: 250px;
 }
 
 .waste-placeholder p {
