@@ -89,13 +89,13 @@ body {
   background-color: black;
 }
 
-.input-box {
+.input-box1 {
   display: flex;
   margin-left: 5px;
   align-items: center;
   border-radius: 8px;
   border: 1px solid grey;
-  padding: 8px 10px;
+  padding: 3px 5px;
   margin: 25px 0px 0px 0px;
 }
 
@@ -104,11 +104,11 @@ body {
   color: black;
 }
 
-input {
+.input-box1 input {
   border: none;
   outline: none;
   width: 100%;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .recycle {
