@@ -44,3 +44,6 @@
   align-items: center;
   background: #f3f4f6;
 }
+.drop-down select:focus {
+outline: none;
+}
