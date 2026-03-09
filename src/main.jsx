@@ -12,8 +12,9 @@ import {
 import CivicALogin from "./Pages/Login/CivicAidLogin.jsx";
 import Admin from "./Pages/Admin/Admin.jsx";
 import UserDashboard from "./Pages/UserDashboard/UserDashboard.jsx";
-import WasteG from "./Pages/WasteGuide/WasteG.jsx"
+import WasteG from "./Pages/WasteGuide/WasteG.jsx";
 import Layout from "./Components/Layout/Layout.jsx";
+import Dustbinlocation from "./Pages/DustbinLocation/Dustbinlocation.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,6 +24,7 @@ const router = createBrowserRouter(
       <Route path="admin" element={<Admin />} />
       <Route path="civiAlogin" element={<CivicALogin />} />
       <Route path="wasteG" element={<WasteG />} />
+      <Route path="dustbinlocation" element={<Dustbinlocation />} />
     </Route>
     </>
   )
