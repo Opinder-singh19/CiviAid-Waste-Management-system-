@@ -25,13 +25,13 @@ export default function CivicALogin() {
           <span className="dotblack"></span>
         </div>
 
-        <div className="input-box">
+        <div className="input-box1">
           <Mail className="icon" size={25} />
           <input type="email" placeholder="Enter your email"
            onChange={(e)=>setEmail(e.target.value)}/>
         </div>
 
-        <div className="input-box">
+        <div className="input-box1">
           <Lock className="icon" size={25} />
           <input type="password" placeholder="Enter your password" 
           onChange={(e)=>setPassword(e.target.value)}/>

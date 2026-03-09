@@ -43,7 +43,7 @@
 
 .icon-title {
   font-size: 15px;
-  margin-top: -20px;
+  margin-bottom: 20px;
   font-weight: 600;
 }
 
@@ -171,6 +171,7 @@
   border: 2px dashed rgb(139, 255, 181);
   background: #f0fdf4;
   text-align: center;
+  min-height: 250px;
 }
 
 .waste-placeholder p {

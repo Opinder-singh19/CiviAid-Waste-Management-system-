@@ -8,64 +8,66 @@ body {
   margin: 0;
   padding: 0;
 }
-.Waste-head {
+.Location-head {
     padding-top: 30px;
     margin-left: 80px;
     margin-right: 80px;
 
 }
-.Waste-head2{
+.Location-head2{
         display: flex;
     align-items: center;
     justify-content: space-between
 }
 
-.Waste-title {
+.Location-title {
     color: rgba(0, 131, 62);
     font-size: 45px;
     font-family: inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: 600;
 }
 
-.Waste-subtitle {
+.Location-subtitle {
     color: rgb(63, 63, 63);
     font-size: 15px;
     font-family: 'Inter', sans-serif;
     letter-spacing: 1px;
 }
-
-.Waste-head-inline {
+.top-title1{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Location-head-inline {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items:flex-start;
 }
 
-.Waste-subhead-inline {
+.Location-subhead-inline {
     display: flex;
     align-items: center;
     gap: 5px;
 }
 
-.Waste-recycle {
+.Location-recycle {
     color: rgba(0, 165, 62);
 }
 
-.Waste-leaf {
+.Location-leaf {
     color: rgba(0, 165, 62);
 }
 .w-container{
-    background: linear-gradient(135deg, #b2d8c6, #e6f7ee, #e6f7ee, #e6f7ee, #b2d8c6);
- min-height: 100vh;
-    height: auto;
+  background-color: rgba(215, 251, 234);
+  padding-bottom: 40px;
+min-height: calc(100vh + 100px);  
 }
-
-.back-Dash3{
+.back1-Dash{
   display: flex;
   align-items: center;
-
   color: darkgreen;
 }
-.back-Dash:hover{
+.back1-Dash:hover{
   color: blue;
 
 }
@@ -76,11 +78,6 @@ body {
   margin-top: 10px;
   margin-left: 25px;
 
-}
-.top-title2{
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 .w-heading{
   font-size: 45px;
