@@ -122,7 +122,7 @@ function ResizeMap() {
 // 📏 Distance Calculator (Haversine)
 // ===============================
 function getDistance(lat1, lon1, lat2, lon2) {
-  const R = 6371; // KM
+  const R = 1; // KM
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
   const dLon = ((lon2 - lon1) * Math.PI) / 180;
 
@@ -257,8 +257,8 @@ export default function DustbinMap() {
     <div className="map-wrapper">
       <MapContainer
         center={userLocation}
-        zoom={19}
-        maxZoom={18}
+        maxZoom={19}
+        zoom={18}
         zoomControl={true}
         className="map-container"
       >
@@ -304,7 +304,10 @@ export default function DustbinMap() {
                 <br />
                 <button
                   className="direction-btn"
-                  onClick={() => setZoomTarget([bin.lat, bin.lng])}
+                  onClick={() => {
+                    setZoomTarget([bin.lat, bin.lng]);
+                    setRouteCoords([bin.lat, bin.lng]);
+                  }}
                 >
                   Get Directions
                 </button>
