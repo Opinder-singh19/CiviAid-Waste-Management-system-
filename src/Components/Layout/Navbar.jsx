@@ -5,7 +5,7 @@ function Navbar() {
   return (
     <div className="Navbar-main-outerbox">
     <nav className="Navbar-main">
-      <NavLink className="link2" to="/CiviAlogin  ">Login</NavLink>
+      <NavLink className="link2" to="/civiAlogin">Login</NavLink>
       <NavLink className="link1" to="/admin">Admin Login</NavLink>
       <NavLink className="link3" to="/">User Dashboard</NavLink>
       <NavLink className="link4" to="/wasteG">Waste Guidance</NavLink>

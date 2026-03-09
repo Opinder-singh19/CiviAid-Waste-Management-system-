@@ -105,6 +105,12 @@ label {
   border-radius: 12px;
   padding: 7px;
 }
+.input-group{
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
 .input-box input {
   border: none;
   outline: none;
