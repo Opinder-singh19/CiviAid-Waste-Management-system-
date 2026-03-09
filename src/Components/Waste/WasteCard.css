@@ -1,6 +1,5 @@
 
 
-
 .waste-placeholder {
   height: 300px;
   width: auto;
@@ -146,6 +145,7 @@
   color: #374151;
 }
 
+
 .donts {
   flex: 1;
   padding: 25px;
@@ -169,12 +169,9 @@
   padding: 80px 20px;
   border-radius: 20px;
   border: 2px dashed rgb(139, 255, 181);
-  background-color: white;
+  background: #f0fdf4;
   text-align: center;
   min-height: 250px;
-  height: 300px;
-  width: auto;
-  border-radius: 15px;
 }
 
 .waste-placeholder p {
