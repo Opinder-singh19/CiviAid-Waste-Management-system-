@@ -1,36 +1,36 @@
 const mongo = require("mongodb");
-
 const MongoClient = mongo.MongoClient;
+require("dotenv").config();
 
-const MONGO_URL = "mongodb://127.0.0.1:27017";
+const MONGO_URL = process.env.MONGO_URL;
 
 let _db;
 
-const mongoConnect = (callback)=>{
+const mongoConnect = (callback) => {
 
- MongoClient.connect(MONGO_URL)
- .then(client=>{
+  MongoClient.connect(MONGO_URL)
+  .then(client => {
 
-   console.log("MongoDB connected");
+    console.log("MongoDB connected");
 
-   _db = client.db("civicaid");
+    _db = client.db("civicaid");
 
-   callback();
+    callback();
 
- })
- .catch(err=>{
-   console.log("Mongo connection error:",err);
- });
+  })
+  .catch(err => {
+    console.log("Mongo connection error:", err);
+  });
 
 };
 
-const getDB = ()=>{
+const getDB = () => {
 
- if(!_db){
-   throw new Error("Database not connected");
- }
+  if(!_db){
+    throw new Error("Database not connected");
+  }
 
- return _db;
+  return _db;
 
 };
 

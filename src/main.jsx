@@ -15,16 +15,37 @@ import UserDashboard from "./Pages/UserDashboard/UserDashboard.jsx";
 import WasteG from "./Pages/WasteGuide/WasteG.jsx";
 import Layout from "./Components/Layout/Layout.jsx";
 import Dustbinlocation from "./Pages/DustbinLocation/Dustbinlocation.jsx";
+import ProtectedRoute from "./Components/ProtectedRoute.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
     <Route path="/" element={<Layout />}>
+
       <Route index element={<UserDashboard />} />
+
       <Route path="admin" element={<Admin />} />
+
       <Route path="civiAlogin" element={<CivicALogin />} />
-      <Route path="wasteG" element={<WasteG />} />
-      <Route path="dustbinlocation" element={<Dustbinlocation />} />
+
+      <Route
+        path="wasteG"
+        element={
+          <ProtectedRoute>
+            <WasteG />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="dustbinlocation"
+        element={
+          <ProtectedRoute>
+            <Dustbinlocation />
+          </ProtectedRoute>
+        }
+      />
+
     </Route>
     </>
   )
