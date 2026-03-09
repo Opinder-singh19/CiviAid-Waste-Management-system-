@@ -65,6 +65,9 @@ Learn to segregate waste correctly for a sustainable future            </p>
         </div>
 
         <div className="w-container1">
+          <input type="text" />
+        </div>
+        <div className="w-container1">
           <WasteDrop selected={selected} setSelected={setSelected} />
 
           <WasteC type={selected} />
