@@ -39,7 +39,7 @@ export default function CivicALogin() {
         <Link to="/admin" className="admin1">
           Forget Password?
         </Link>
-        <button className="login-btn" onClick={handleLogin}>Login to CivicAid</button>
+        <button className="login-btn"  onClick={() => handleLogin(email, password)}>Login to CivicAid</button>
 
         <Link to="/admin" className="admin">
           Admin Login
