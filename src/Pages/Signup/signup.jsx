@@ -1,27 +1,30 @@
 import { ArrowLeft ,RecycleIcon,User,Phone,Mail,MapPin,Lock} from "lucide-react";
 import './signup.css'
+import { Link } from "react-router-dom";
 function SignUp(){
 return(
   <div className="sign-BackC">
   <div className="Sign-container">
-    <div className="Sign-icon">
-      <ArrowLeft  className="sign-icon" size={30}/>
+    <div className="Sign-icon1">
+    <Link to="/civiAlogin" className="Back-to-user">
+      <ArrowLeft  className="sign-icon" size={20}/>
+      <span className="back-text">Back </span>
+      </Link>
     </div>
-    <div className="Sign-Back">
-      <span>Back </span>
-    </div>
+    <div className="logo-container">
+          <div className="logo-circle">
+            <RecycleIcon className="recycle" size={45} />
+          </div>
+        </div>
 
-    <div className="SignMain-logo">
-      <RecycleIcon  className="Sign-up-logo" size={25}/>
-
-    </div>
   
-      <p className="signup-title">Join EcoWaste</p>
-      <p clssName="signup-subtitle">Create your account and start making a difference</p>
+      <h2 className="signup-title">Join CivicAid</h2>
+      <p className="signup-subtitle">Create your account and start making a difference</p>
+
 
       <form className="signup-form">
-
-      <div className="row">
+<div className="label-input1">
+      <div className="signup-row">
         <div className="form-group">
           <label>Full Name</label>
           <div className="input-box">
@@ -55,7 +58,7 @@ return(
         </div>
       </div>
 
-      <div className="row">
+      <div className="signup-row">
         <div className="form-group">
           <label>Password</label>
           <div className="input-box">
@@ -72,8 +75,17 @@ return(
           </div>
         </div>
       </div>
+      <div className="checkbox-terms">
+        <input type="checkbox"id="terms" required/>
 
-      <button type="submit">Create Account</button>
+        <label For="terms">
+          I agree to the <Link>Terms of Service</Link> and
+          <Link>Privacy Policy</Link>
+        </label>
+      </div>
+</div>
+
+      <button className="signup-btn" type="submit">Create Account</button>
 
     </form>
 
