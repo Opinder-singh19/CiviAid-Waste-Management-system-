@@ -17,6 +17,7 @@ import Layout from "./Components/Layout/Layout.jsx";
 import Dustbinlocation from "./Pages/DustbinLocation/Dustbinlocation.jsx";
 import ProtectedRoute from "./Components/ProtectedRoute.jsx";
 import SignUp from "./Pages/Signup/signup.jsx";
+import Forgotpassword from "./Pages/Forgotpassword/forgotpassword.jsx"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
 
       <Route path="civiAlogin" element={<CivicALogin />} />
       <Route path="signUp" element={<SignUp />} />
+      <Route path="forgotpassword" element={<Forgotpassword />} />
 
       <Route
         path="wasteG"

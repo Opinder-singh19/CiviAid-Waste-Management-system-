@@ -11,8 +11,8 @@ return(
       <span className="back-text">Back </span>
       </Link>
     </div>
-    <div className="logo-container">
-          <div className="logo-circle">
+    <div className="logo-container1">
+          <div className="logo-circle1">
             <RecycleIcon className="recycle" size={45} />
           </div>
         </div>

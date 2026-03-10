@@ -96,7 +96,8 @@ body {
   border-radius: 8px;
   border: 1px solid grey;
   padding: 3px 5px;
-  margin: 25px 0px 0px 0px;
+  margin: 5px 0px 25px 0px;
+  width: 100%;
 }
 
 .icon {
@@ -108,7 +109,7 @@ body {
   border: none;
   outline: none;
   width: 100%;
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .recycle {
@@ -233,4 +234,13 @@ justify-content: center;
   }
   to{transform: rotate(360deg) ;bottom: -150px; right: 100px;
   }
+}
+.form-group1{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.form-group1 label{
+  font-size: 12px;
+  font-weight: 500;
 }
