@@ -6,9 +6,7 @@ exports.loginUser = async (req,res)=>{
  const {email,password} = req.body;
 
  const db = getDB();
- if(!fullName || !phone || !email || !location || !password || !confirmPassword){
-   return res.status(400).json({message:"All fields are required"});
- }
+ 
 
  const user = await db.collection("users").findOne({email});
 
