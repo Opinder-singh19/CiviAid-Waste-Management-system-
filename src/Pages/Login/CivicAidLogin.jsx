@@ -46,7 +46,7 @@ export default function CivicALogin() {
         </Link>
         <div className="signup-box">
           <p className="signup-text">Are you a new User ?</p>
-          <Link to="/userdashboard" className="signup-btn1">
+          <Link to="/signUp" className="signup-btn1">
             Sign Up
           </Link>
         </div>
