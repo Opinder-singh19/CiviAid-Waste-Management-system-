@@ -6,7 +6,39 @@ import WasteC from "../../Components/Waste/WasteCard";
 import { useState } from "react";
 
 function WasteG() {
-  const [selected, setSelected] = useState("");
+const [selected, setSelected] = useState("");
+const [description, setDescription] = useState("");
+const detectWasteType = (text) => {
+  const value = text.toLowerCase();
+
+  if (
+    value.includes("banana") ||
+    value.includes("food") ||
+    value.includes("vegetable") ||
+    value.includes("peel")
+  ) {
+    return "green";
+  }
+
+  if (
+    value.includes("plastic") ||
+    value.includes("bottle") ||
+    value.includes("paper") ||
+    value.includes("wrapper")
+  ) {
+    return "blue";
+  }
+
+  if (
+    value.includes("tissue") ||
+    value.includes("diaper") ||
+    value.includes("mixed")
+  ) {
+    return "black";
+  }
+
+  return "";
+};
   return (
     <div className="w-container">
       <div className="Waste-head">
@@ -78,14 +110,25 @@ function WasteG() {
             </div>
             <div className="drop-down1">
               <Search size={19} className="search-icon"/>
-              <input type="text"
-                placeholder="e.g., banana peel, plastic wrapper, tissue paper, plastic bottle..."
-                className="drop-down-inner1"
-              />
+             <input
+  type="text"
+  placeholder="e.g., banana peel, plastic wrapper, tissue paper, plastic bottle..."
+  className="drop-down-inner1"
+  value={description}
+  onChange={(e) => {
+    const value = e.target.value;
+    setDescription(value);
+
+    const detected = detectWasteType(value);
+    if (detected) {
+      setSelected(detected);
+    }
+  }}
+/>
             </div>
           </div>
         </div>
-        <div class="or-divider">
+        <div className="or-divider">
   <span>OR</span>
 </div>
         <div className="w-container1">
