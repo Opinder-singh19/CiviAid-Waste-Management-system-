@@ -1,12 +1,8 @@
 import { Mail, Lock, Leaf, RecycleIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import "./CivicA.css";
-import {useState } from "react"
-import handleLogin from "./LoginHandle";
 
 export default function CivicALogin() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState(""); 
   return (
     <div className="container">
       <div className="login-card">
@@ -27,19 +23,17 @@ export default function CivicALogin() {
 
         <div className="input-box1">
           <Mail className="icon" size={25} />
-          <input type="email" placeholder="Enter your email"
-           onChange={(e)=>setEmail(e.target.value)}/>
+          <input type="email" placeholder="Enter your email" />
         </div>
 
         <div className="input-box1">
           <Lock className="icon" size={25} />
-          <input type="password" placeholder="Enter your password" 
-          onChange={(e)=>setPassword(e.target.value)}/>
+          <input type="password" placeholder="Enter your password" />
         </div>
         <Link to="/admin" className="admin1">
           Forget Password?
         </Link>
-        <button className="login-btn"  onClick={() => handleLogin(email, password)}>Login to CivicAid</button>
+        <button className="login-btn">Login to CivicAid</button>
 
         <Link to="/admin" className="admin">
           Admin Login
