@@ -1,6 +1,7 @@
 import "./UserDashboard.css";
 import { Link } from "react-router-dom";
 import DustbinMap from "../../Components/Map/DustbinMap";
+import handleLogout from "./Logout"
 import {
   Leaf,
   RecycleIcon,
@@ -26,7 +27,7 @@ export default function Userdashboard() {
           </div>
         </div>
         <div className="user-logout">
-          <button className="user-logout-btn">
+          <button className="user-logout-btn" onClick={handleLogout}>
             <LogOut className="user-logout" size={20} />
             <span>Logout</span>
           </button>
