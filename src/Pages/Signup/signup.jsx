@@ -1,6 +1,7 @@
 import { ArrowLeft ,RecycleIcon,User,Phone,Mail,MapPin,Lock} from "lucide-react";
 import './signup.css'
 import { Link } from "react-router-dom";
+import handleSignup from "./Signuphandle"
 function SignUp(){
 return(
   <div className="sign-BackC">
@@ -22,14 +23,14 @@ return(
       <p className="signup-subtitle">Create your account and start making a difference</p>
 
 
-      <form className="signup-form">
+      <form className="signup-form" onSubmit={handleSignup}>
 <div className="label-input1">
       <div className="signup-row">
         <div className="form-group">
           <label>Full Name</label>
           <div className="input-box">
             <User className="icon" size={18}/>
-            <input type="text" placeholder="Enter your full name" />
+            <input type="text" placeholder="Enter your full name" required/>
           </div>
         </div>
 
@@ -37,7 +38,7 @@ return(
           <label>Phone Number</label>
           <div className="input-box">
             <Phone className="icon" size={18}/>
-            <input type="tel" placeholder="+91 12345 67890" />
+            <input type="tel" placeholder="+91 12345 67890"  required/>
           </div>
         </div>
       </div>
@@ -46,7 +47,7 @@ return(
         <label>Email Address</label>
         <div className="input-box">
           <Mail className="icon" size={18}/>
-          <input type="email" placeholder="your.email@example.com" />
+          <input type="email" placeholder="your.email@example.com"  required/>
         </div>
       </div>
 
@@ -54,7 +55,7 @@ return(
         <label>Location</label>
         <div className="input-box">
           <MapPin className="icon" size={18}/>
-          <input type="text" placeholder="City, State" />
+          <input type="text" placeholder="City, State" required />
         </div>
       </div>
 
@@ -63,7 +64,7 @@ return(
           <label>Password</label>
           <div className="input-box">
             <Lock className="icon" size={18}/>
-            <input type="password" placeholder="Create a strong password" />
+            <input type="password" placeholder="Create a strong password"  required/>
           </div>
         </div>
 
@@ -71,7 +72,7 @@ return(
           <label>Confirm Password</label>
           <div className="input-box">
             <Lock className="icon" size={18}/>
-            <input type="password" placeholder="Confirm your password" />
+            <input type="password" placeholder="Confirm your password" required />
           </div>
         </div>
       </div>

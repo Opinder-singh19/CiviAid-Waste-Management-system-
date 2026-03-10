@@ -1,11 +1,14 @@
 const { getDB } = require("../config/db");
 
-// login user
+
 exports.loginUser = async (req,res)=>{
 
  const {email,password} = req.body;
 
  const db = getDB();
+ if(!fullName || !phone || !email || !location || !password || !confirmPassword){
+   return res.status(400).json({message:"All fields are required"});
+ }
 
  const user = await db.collection("users").findOne({email});
 
@@ -30,7 +33,39 @@ exports.loginUser = async (req,res)=>{
 };
 
 
-// check login
+
+exports.signupUser = async (req,res)=>{
+
+ const {fullName, phone, email, location, password, confirmPassword} = req.body;
+
+ const db = getDB();
+
+
+ if(password !== confirmPassword){
+   return res.status(400).json({message:"Passwords do not match"});
+ }
+
+ const existingUser = await db.collection("users").findOne({email});
+
+ if(existingUser){
+   return res.status(400).json({message:"User already exists"});
+ }
+ 
+
+ await db.collection("users").insertOne({
+   fullName,
+   phone,
+   email,
+   location,
+   password,
+   role:"user"
+ });
+
+ res.json({message:"Signup successful"});
+};
+
+
+
 exports.checkAuth = (req,res)=>{
 
  if(req.session.user){
@@ -45,7 +80,7 @@ exports.checkAuth = (req,res)=>{
 };
 
 
-// logout
+
 exports.logoutUser = (req,res)=>{
 
  req.session.destroy(()=>{
