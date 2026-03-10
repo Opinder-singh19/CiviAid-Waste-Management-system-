@@ -3,41 +3,27 @@ import { Link } from "react-router-dom";
 import "./WasteG.css";
 import WasteDrop from "../../Components/Waste/WasteDrop";
 import WasteC from "../../Components/Waste/WasteCard";
+import wasteData from "../../data/wasteData";
 import { useState } from "react";
 
 function WasteG() {
 const [selected, setSelected] = useState("");
-const [description, setDescription] = useState("");
-const detectWasteType = (text) => {
-  const value = text.toLowerCase();
+const [query, setQuery] = useState("");
+const [suggestions, setSuggestions] = useState([]);
 
-  if (
-    value.includes("banana") ||
-    value.includes("food") ||
-    value.includes("vegetable") ||
-    value.includes("peel")
-  ) {
-    return "green";
+const handleSearch = (value) => {
+  setQuery(value);
+
+  if (!value) {
+    setSuggestions([]);
+    return;
   }
 
-  if (
-    value.includes("plastic") ||
-    value.includes("bottle") ||
-    value.includes("paper") ||
-    value.includes("wrapper")
-  ) {
-    return "blue";
-  }
+  const results = wasteData.filter((item) =>
+    item.name.toLowerCase().includes(value.toLowerCase())
+  );
 
-  if (
-    value.includes("tissue") ||
-    value.includes("diaper") ||
-    value.includes("mixed")
-  ) {
-    return "black";
-  }
-
-  return "";
+  setSuggestions(results);
 };
   return (
     <div className="w-container">
@@ -109,23 +95,40 @@ const detectWasteType = (text) => {
       </div>
             </div>
             <div className="drop-down1">
-              <Search size={19} className="search-icon"/>
-             <input
-  type="text"
-  placeholder="e.g., banana peel, plastic wrapper, tissue paper, plastic bottle..."
-  className="drop-down-inner1"
-  value={description}
-  onChange={(e) => {
-    const value = e.target.value;
-    setDescription(value);
+  <Search size={19} className="search-icon"/>
 
-    const detected = detectWasteType(value);
-    if (detected) {
-      setSelected(detected);
-    }
-  }}
-/>
-            </div>
+  <input
+    type="text"
+    placeholder="e.g., banana peel, plastic wrapper..."
+    className="drop-down-inner1"
+    value={query}
+    onChange={(e)=>handleSearch(e.target.value)}
+  />
+
+  {suggestions.length > 0 && (
+    <div className="suggestion-box">
+      {suggestions.map((item,index)=>(
+        <div
+          key={index}
+          className="suggestion-item"
+          onClick={()=>{
+            setSelected(item.bin)
+            setQuery(item.name)
+            setSuggestions([])
+          }}
+        >
+          <span>{item.name}</span>
+
+          <span className={`bin-label ${item.bin}`}>
+            {item.bin === "green" && "Green Bin"}
+            {item.bin === "blue" && "Blue Bin"}
+            {item.bin === "black" && "Black Bin"}
+          </span>
+        </div>
+      ))}
+    </div>
+  )}
+</div>
           </div>
         </div>
         <div className="or-divider">
