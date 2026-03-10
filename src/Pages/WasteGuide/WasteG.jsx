@@ -3,10 +3,28 @@ import { Link } from "react-router-dom";
 import "./WasteG.css";
 import WasteDrop from "../../Components/Waste/WasteDrop";
 import WasteC from "../../Components/Waste/WasteCard";
+import wasteData from "../../data/wasteData";
 import { useState } from "react";
 
 function WasteG() {
-  const [selected, setSelected] = useState("");
+const [selected, setSelected] = useState("");
+const [query, setQuery] = useState("");
+const [suggestions, setSuggestions] = useState([]);
+
+const handleSearch = (value) => {
+  setQuery(value);
+
+  if (!value) {
+    setSuggestions([]);
+    return;
+  }
+
+  const results = wasteData.filter((item) =>
+    item.name.toLowerCase().includes(value.toLowerCase())
+  );
+
+  setSuggestions(results);
+};
   return (
     <div className="w-container">
       <div className="Waste-head">
@@ -77,15 +95,43 @@ function WasteG() {
       </div>
             </div>
             <div className="drop-down1">
-              <Search size={19} className="search-icon"/>
-              <input type="text"
-                placeholder="e.g., banana peel, plastic wrapper, tissue paper, plastic bottle..."
-                className="drop-down-inner1"
-              />
-            </div>
+  <Search size={19} className="search-icon"/>
+
+  <input
+    type="text"
+    placeholder="e.g., banana peel, plastic wrapper..."
+    className="drop-down-inner1"
+    value={query}
+    onChange={(e)=>handleSearch(e.target.value)}
+  />
+
+  {suggestions.length > 0 && (
+    <div className="suggestion-box">
+      {suggestions.map((item,index)=>(
+        <div
+          key={index}
+          className="suggestion-item"
+          onClick={()=>{
+            setSelected(item.bin)
+            setQuery(item.name)
+            setSuggestions([])
+          }}
+        >
+          <span>{item.name}</span>
+
+          <span className={`bin-label ${item.bin}`}>
+            {item.bin === "green" && "Green Bin"}
+            {item.bin === "blue" && "Blue Bin"}
+            {item.bin === "black" && "Black Bin"}
+          </span>
+        </div>
+      ))}
+    </div>
+  )}
+</div>
           </div>
         </div>
-        <div class="or-divider">
+        <div className="or-divider">
   <span>OR</span>
 </div>
         <div className="w-container1">
