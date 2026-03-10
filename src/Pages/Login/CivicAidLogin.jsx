@@ -24,19 +24,23 @@ export default function CivicALogin() {
           <span className="dotblue"></span>
           <span className="dotblack"></span>
         </div>
-
+        <div className="form-group1">
+          <label>Email</label>
         <div className="input-box1">
           <Mail className="icon" size={25} />
           <input type="email" placeholder="Enter your email"
            onChange={(e)=>setEmail(e.target.value)}/>
         </div>
-
+        </div>
+        <div className="form-group1">
+          <label>Password</label>
         <div className="input-box1">
           <Lock className="icon" size={25} />
           <input type="password" placeholder="Enter your password" 
           onChange={(e)=>setPassword(e.target.value)}/>
         </div>
-        <Link to="/admin" className="admin1">
+        </div>
+        <Link to="/forgotpassword" className="admin1">
           Forget Password?
         </Link>
         <button className="login-btn"  onClick={() => handleLogin(email, password)}>Login to CivicAid</button>
