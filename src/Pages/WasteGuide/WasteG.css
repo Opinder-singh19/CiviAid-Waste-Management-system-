@@ -399,3 +399,25 @@ outline: none;
 .suggestion-item:hover{
   background:#f3fdf7;
 }
+.find-dustbin-btn{
+  width: 50%;
+  margin-top:18px;
+  margin-bottom: 50px;
+  padding:12px 18px;
+  background:#16a34a;
+  color:white;
+  border:none;
+  border-radius:8px;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+}
+.dustbin-btn-div{
+ display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.find-dustbin-btn:hover{
+  background:#15803d;
+}
