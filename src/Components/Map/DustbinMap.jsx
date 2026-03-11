@@ -15,6 +15,8 @@ import {
   Popup,
 } from "react-leaflet";
 import { useMap } from "react-leaflet";
+import { useLocation } from "react-router-dom";
+
 
 // ===============================
 // 🟢🔵 ASSIGN YOUR DUSTBINS HERE
@@ -85,24 +87,38 @@ function Routing({ userLocation, destination }) {
   const map = useMap();
 
   useEffect(() => {
-    if (!destination) return;
+  if (!destination) return;
 
-    const routingControl = L.Routing.control({
-      waypoints: [
-        L.latLng(userLocation[0], userLocation[1]),
-        L.latLng(destination[0], destination[1]),
-      ],
-      lineOptions: {
-        styles: [{ color: "#2563eb", weight: 4 }],
-      },
-      addWaypoints: false,
-      draggableWaypoints: false,
-      routeWhileDragging: false,
-      createMarker: () => null,
-    }).addTo(map);
+  const routingControl = L.Routing.control({
+    waypoints: [
+      L.latLng(userLocation[0], userLocation[1]),
+      L.latLng(destination[0], destination[1]),
+    ],
+    lineOptions: {
+      styles: [{ color: "#2563eb", weight: 4 }],
+    },
+    addWaypoints: false,
+    draggableWaypoints: false,
+    routeWhileDragging: false,
+    show: false,
+    createMarker: () => null,
+  }).addTo(map);
 
-    return () => map.removeControl(routingControl);
-  }, [destination, map, userLocation]);
+  routingControl.on("routesfound", function (e) {
+    const route = e.routes[0];
+    const bounds = L.latLngBounds(route.coordinates);
+
+    map.fitBounds(bounds, {
+      padding: [50, 50],
+      animate: true,
+      duration: 1.5,
+      easeLinearity: 0.25
+    });
+  });
+
+  return () => map.removeControl(routingControl);
+
+}, [destination, map, userLocation]);
 
   return null;
 }
@@ -140,43 +156,65 @@ function getDistance(lat1, lon1, lat2, lon2) {
 // 🎨 Create Dustbin Icon
 // ===============================
 const createDustbinIcon = (color) => {
-  const iconSize = 30; // 🔥 smaller size
-  const innerSize = 16;
+  const size = 28;
+  const iconSize = 14;
 
   return new L.DivIcon({
     html: `
       <div style="
-        width:${iconSize}px;
-        height:${iconSize}px;
-        background:${color};
-        border-radius:10px;
+        position: relative;
+        width:${size}px;
+        height:${size}px;
         display:flex;
+        flex-direction:column;
         align-items:center;
-        justify-content:center;
-        box-shadow:0 4px 10px rgba(0,0,0,0.18);
       ">
-        <svg 
-          xmlns="http://www.w3.org/2000/svg"
-          width="${innerSize}"
-          height="${innerSize}"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="white"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <polyline points="3 6 5 6 21 6"></polyline>
-          <path d="M19 6l-1 14H6L5 6"></path>
-          <path d="M10 11v6"></path>
-          <path d="M14 11v6"></path>
-          <path d="M9 6V4h6v2"></path>
-        </svg>
+        
+        <div style="
+          width:${size}px;
+          height:${size}px;
+          background:${color};
+          border-radius:50%;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          box-shadow:0 4px 10px rgba(0,0,0,0.25);
+        ">
+        
+          <svg 
+            xmlns="http://www.w3.org/2000/svg"
+            width="${iconSize}"
+            height="${iconSize}"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="white"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6l-1 14H6L5 6"></path>
+            <path d="M10 11v6"></path>
+            <path d="M14 11v6"></path>
+            <path d="M9 6V4h6v2"></path>
+          </svg>
+
+        </div>
+
+        <div style="
+          width:0;
+          height:0;
+          border-left:10px solid transparent;
+          border-right:10px solid transparent;
+          border-top:10px solid ${color};
+          margin-top:-2px;
+        "></div>
+
       </div>
     `,
     className: "",
-    iconSize: [iconSize, iconSize],
-    iconAnchor: [iconSize / 2, iconSize / 2],
+    iconSize: [size, size + 10],
+    iconAnchor: [size / 2, size + 10],
   });
 };
 
@@ -186,15 +224,27 @@ function ZoomToLocation({ target }) {
   useEffect(() => {
     if (!target) return;
 
-    map.flyTo(target, 18, {
-      duration: 1.2, // smooth animation
-    });
+    map.flyTo(target, 17, {
+  animate: true,
+  duration: 1,
+  easeLinearity: 0.1
+});
+
   }, [target, map]);
 
   return null;
 }
 export default function DustbinMap() {
+  const location = useLocation();
+  const binType = location?.state?.binType || "";
   const [userLocation, setUserLocation] = useState(null);
+  useEffect(() => {
+  if (!userLocation) return;
+
+  // zoom to the user area when map loads
+  setZoomTarget(userLocation);
+
+}, [userLocation]);
   const [routeCoords, setRouteCoords] = useState(null);
   const [zoomTarget, setZoomTarget] = useState(null);
 
@@ -238,16 +288,20 @@ export default function DustbinMap() {
   const nearbyBins = useMemo(() => {
     if (!userLocation) return [];
 
-    return dustbinLocations.filter((bin) => {
-      const distance = getDistance(
-        userLocation[0],
-        userLocation[1],
-        bin.lat,
-        bin.lng,
-      );
-      return distance <= 10000; // 1 KM radius only
-    });
-  }, [userLocation]);
+return dustbinLocations.filter((bin) => {
+
+  if (binType && bin.type !== binType) return false;
+
+  const distance = getDistance(
+    userLocation[0],
+    userLocation[1],
+    bin.lat,
+    bin.lng
+  );
+
+  return distance <= 1; // 1 KM radius
+});
+  }, [userLocation, binType]);
 
   if (!userLocation) {
     return <p>Getting your location...</p>;
@@ -257,7 +311,7 @@ export default function DustbinMap() {
     <div className="map-wrapper">
       <MapContainer
         center={userLocation}
-        zoom={19}
+        zoom={14}
         maxZoom={18}
         zoomControl={true}
         className="map-container"
@@ -303,11 +357,14 @@ export default function DustbinMap() {
                 <strong>{bin.type.toUpperCase()} Dustbin</strong>
                 <br />
                 <button
-                  className="direction-btn"
-                  onClick={() => setZoomTarget([bin.lat, bin.lng])}
-                >
-                  Get Directions
-                </button>
+  className="direction-btn"
+  onClick={() => {
+    setZoomTarget([bin.lat, bin.lng]);
+    setRouteCoords([bin.lat, bin.lng]);
+  }}
+>
+  Get Directions
+</button>
               </div>
             </Popup>
           </Marker>
