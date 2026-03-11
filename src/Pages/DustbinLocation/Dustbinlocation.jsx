@@ -37,35 +37,6 @@ Locate eco-friendly waste disposal points near you</p>
         <div className="Location-map-section">
                   <DustbinMap className="dustbin-main" />
                 </div>
-        <div className="different-dustbin">
-          <div className="diff-head">Color-Coded Waste Segregation System </div>
-          <div className="w-differnt">
-            <div className="Green-bin">
-              <div className="green-box"></div>
-
-              <div className="about-green">
-                <span className="wordG1">Green Bin</span>
-                <span className="wordG2"> Wet/Organic Waste</span>
-              </div>
-            </div>
-
-            <div className="blue-bin">
-              <div className="blue-box"></div>
-              <div className="about-blue">
-                <span className="wordG1">Blue Bin</span>
-                <span className="wordG2"> Dry/Recyclable Waste</span>
-              </div>
-            </div>
-
-            <div className="black-bin">
-              <div className="black-box"></div>
-              <div className="about-black">
-                <span className="wordG1">Black Bin</span>
-                <span className="wordG2">Mixed/Reject Waste</span>
-              </div>
-            </div>
-          </div>
-        </div>
 
       </div>
     </div>

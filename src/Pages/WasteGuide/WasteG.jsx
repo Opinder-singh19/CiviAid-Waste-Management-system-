@@ -5,8 +5,21 @@ import WasteDrop from "../../Components/Waste/WasteDrop";
 import WasteC from "../../Components/Waste/WasteCard";
 import wasteData from "../../data/wasteData";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function WasteG() {
+  const navigate = useNavigate();
+  
+  const handleFindNearby = () => {
+    if (!selected) {
+      alert("Please select waste type");
+      return;
+    }
+  
+    navigate("/dustbinlocation", {
+      state: { binType: selected }
+    });
+  };
 const [selected, setSelected] = useState("");
 const [query, setQuery] = useState("");
 const [suggestions, setSuggestions] = useState([]);
@@ -139,7 +152,13 @@ const handleSearch = (value) => {
 
           <WasteC type={selected} />
         </div>
+        <div className="dustbin-btn-div">
+        <button className="find-dustbin-btn" onClick={handleFindNearby}>
+  Find Nearby Dustbins
+</button>
+</div>
       </div>
+
     </div>
   );
 }
