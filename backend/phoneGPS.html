@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Phone GPS</title>
+</head>
+
+<body>
+
+<h2>Send Phone GPS</h2>
+
+<button onclick="startGPS()">Start GPS</button>
+
+<p id="status">Waiting...</p>
+
+<script>
+function startGPS(){
+
+navigator.geolocation.watchPosition(function(position){
+
+const lat = position.coords.latitude;
+const lng = position.coords.longitude;
+
+document.getElementById("status").innerText =
+"Lat: " + lat + " Lng: " + lng;
+
+fetch("http://10.86.21.161:8000/phone-location",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({lat,lng})
+});
+
+},
+function(error){
+alert("GPS error: "+error.message);
+},
+{
+enableHighAccuracy:true
+});
+
+}
+</script>
+
+</body>
+</html>
