@@ -1,33 +1,61 @@
-const express=require("express")// download just import for use its functionalites 
-const cors=require("cors");   // download just import for use its functionalites 
-const app=express();     //import express functionality in app variable
-const session = require("express-session"); // to create session 
+const express = require("express");
+const cors = require("cors");
+const app = express();
+const session = require("express-session");
 const authRoutes = require("./Routes/authRoutes");
 const { mongoConnect } = require("./config/db");
 
-app.use(express.json()); // read JSON data from frontend
-app.use(cors({         //this line helps  do react and backend server to talk with each and   allow cookie session to be sent between react and backend 
+app.use(express.json());
+app.use(express.static(__dirname));
+
+app.use(cors({
   origin: "http://localhost:5173",
   credentials: true
 }));
 
-
-
-app.use(session({        //. create session key 
+app.use(session({
   secret: "secretkey",
   resave: false,
   saveUninitialized: false
 }));
 
+// Backend test route
+app.get("/", (req, res) => {
+  res.send("backend is working");
+});
 
-app.get("/",(req,res)=>{
-  res.send("backend is working")//res send to verify backend working or not 
-})
 app.use("/", authRoutes);
-mongoConnect(()=>{
-  const PORT=8000;      // create a server on port no 8000 
-app.listen(PORT,()=>{
-  console.log(`your server running at http://localhost:${PORT}`)
-})
 
-})
+// ----------------------------
+// 📍 PHONE GPS STORAGE
+// ----------------------------
+let phoneLocation = { lat: null, lng: null };
+
+app.post("/phone-location", (req, res) => {
+  const { lat, lng } = req.body;
+
+  phoneLocation = { lat, lng };
+
+  console.log("Phone Location:", phoneLocation);
+
+  res.json({ status: "ok" });
+});
+
+app.get("/phone-location", (req, res) => {
+  res.json(phoneLocation);
+});
+
+// ----------------------------
+// Start Server
+// ----------------------------
+mongoConnect(() => {
+
+  const PORT=8000;
+// const https = require("https");
+// const fs = require("fs");
+
+  app.listen(PORT, "0.0.0.0", () => {
+  console.log(`your server running at http://localhost:${PORT}`);
+});
+
+});
