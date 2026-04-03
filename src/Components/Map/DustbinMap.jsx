@@ -1,6 +1,7 @@
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-
+// import PanoramaViewer from "../Panorama/PanoramaViewer";
+import { dustbinLocations } from "../../data/Dustbins";
 // VERY IMPORTANT ↓
 window.L = L;
 import { useEffect, useState, useMemo, useRef } from "react";
@@ -21,120 +22,58 @@ import { useLocation } from "react-router-dom";
 // ===============================
 // 🟢🔵 ASSIGN YOUR DUSTBINS HERE
 // ===============================
-const dustbinLocations = [
-  {
-    id: 1,
-    lat: 30.85993,
-    lng: 75.86046,
-    type: "green",
-  },
-  {
-    id: 2,
-    lat: 30.86007,
-    lng: 75.86052,
-    type: "blue",
-  },
-  {
-    id: 3,
-    lat: 30.860056,
-    lng: 75.86095,
-    type: "green",
-  },
-  {
-    id: 4,
-    lat: 30.859911,
-    lng: 75.86095,
-    type: "blue",
-  },
-  {
-    id: 5,
-    lat: 30.859999,
-    lng: 75.86112,
-    type: "green",
-  },
-  {
-    id: 6,
-    lat: 30.85978,
-    lng: 75.86112,
-    type: "blue",
-  },
-  {
-    id: 7,
-    lat: 30.860799,
-    lng: 75.861106,
-    type: "green",
-  },
-  {
-    id: 9,
-    lat: 30.86041,
-    lng: 75.860911,
-    type: "blue",
-  },
-  {
-    id: 10,
-    lat: 30.860559,
-    lng: 75.860911,
-    type: "green",
-  },
-  {
-    id: 8,
-    lat: 30.86065,
-    lng: 75.861106,
-    type: "blue",
-  },
-];
+
 function Routing({ userLocation, destination }) {
   const map = useMap();
   const routingRef = useRef(null);
+ 
 
-  useEffect(() => {
+useEffect(() => {
+  if (!destination || !userLocation) return;
 
-    if (!destination || !userLocation) return;
+  if (routingRef.current) {
+    map.removeControl(routingRef.current);
+    routingRef.current = null;
+  }
 
-    // remove old route
+  const control = L.Routing.control({
+    router: L.Routing.osrmv1({
+      serviceUrl: "https://router.project-osrm.org/route/v1",
+    }),
+    waypoints: [
+      L.latLng(userLocation[0], userLocation[1]),
+      L.latLng(destination[0], destination[1]),
+    ],
+    lineOptions: {
+      styles: [{ color: "#2563eb", weight: 5 }],
+    },
+    addWaypoints: false,
+    draggableWaypoints: false,
+    routeWhileDragging: false,
+    show: false,
+    createMarker: () => null,
+  }).addTo(map);
+
+  routingRef.current = control;
+
+  // 🔥 AUTO ZOOM TO ROUTE
+  control.on("routesfound", (e) => {
+    const route = e.routes[0];
+    const bounds = L.latLngBounds(route.coordinates);
+
+    map.fitBounds(bounds, {
+      padding: [50, 50],
+    });
+  });
+
+  return () => {
     if (routingRef.current) {
       map.removeControl(routingRef.current);
       routingRef.current = null;
     }
+  };
 
-    const routingControl = L.Routing.control({
-      router: L.Routing.osrmv1({
-        serviceUrl: "https://router.project-osrm.org/route/v1",
-      }),
-      waypoints: [
-        L.latLng(userLocation[0], userLocation[1]),
-        L.latLng(destination[0], destination[1]),
-      ],
-      lineOptions: {
-        styles: [{ color: "#2563eb", weight: 4 }],
-      },
-      addWaypoints: false,
-      draggableWaypoints: false,
-      routeWhileDragging: false,
-      show: false,
-      createMarker: () => null,
-    }).addTo(map);
-
-    routingRef.current = routingControl;
-
-    routingControl.on("routesfound", (e) => {
-      const route = e.routes[0];
-      const bounds = L.latLngBounds(route.coordinates);
-
-      map.fitBounds(bounds, {
-        padding: [50, 50],
-      });
-    });
-
-    return () => {
-      if (routingRef.current) {
-        map.removeControl(routingRef.current);
-        routingRef.current = null;
-      }
-    };
-
-  }, [destination]);
-
+}, [userLocation, destination]);
   return null;
 }
 function ResizeMap() {
@@ -170,6 +109,21 @@ function getDistance(lat1, lon1, lat2, lon2) {
 // ===============================
 // 🎨 Create Dustbin Icon
 // ===============================
+const createUserIcon = (heading = 0) => {
+  return L.divIcon({
+    html: `
+      <div style="
+        transform: rotate(${heading}deg);
+        font-size: 24px;
+      ">
+        ➤
+      </div>
+    `,
+    className: "",
+    iconSize: [30, 30],
+    iconAnchor: [15, 15],
+  });
+};
 const createDustbinIcon = (color) => {
   const size = 28;
   const iconSize = 14;
@@ -236,15 +190,15 @@ const createDustbinIcon = (color) => {
 function ZoomToLocation({ target }) {
   const map = useMap();
 
-  useEffect(() => {
-    if (!target) return;
+useEffect(() => {
+  if (!target) return;
 
-    map.flyTo(target, 17, {
-      animate: true,
-      duration: 1
-    });
+  map.flyTo(target, 17, {
+    animate: true,
+    duration: 1.2
+  });
 
-  }, []);   // run only once
+}, [target]); // ✅ FIX  // run only once
 
   return null;
 }
@@ -254,13 +208,130 @@ function FollowUser({ location, active }) {
   useEffect(() => {
     if (!location || !active) return;
 
-    map.panTo(location);
+    map.flyTo(location, map.getZoom(), {
+      animate: true,
+      duration: 0.8,
+    });
 
-  }, [location]);
+  }, [location, active]);
 
   return null;
 }
-export default function DustbinMap() {
+function LocateButton({ userLocation }) {
+  const map = useMap();
+
+  const handleClick = () => {
+    if (!userLocation) return;
+
+    map.flyTo(userLocation, 17, {
+      animate: true,
+      duration: 1.5,
+    });
+  };
+
+  return (
+<button
+  onClick={handleClick}
+  style={{
+    position: "absolute",
+    bottom: "100px",
+    right: "20px",
+    zIndex: 1000,
+    width: "50px",
+    height: "50px",
+    borderRadius: "50%",
+    border: "none",
+    background: "white",
+    boxShadow: "0 4px 10px rgba(0,0,0,0.3)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    cursor: "pointer",
+  }}
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    fill="none"
+    stroke="#2563eb"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="12" r="6" />
+    <line x1="12" y1="2" x2="12" y2="6" />
+    <line x1="12" y1="18" x2="12" y2="22" />
+    <line x1="2" y1="12" x2="6" y2="12" />
+    <line x1="18" y1="12" x2="22" y2="12" />
+  </svg>
+</button>
+  );
+}
+function Compass({ heading }) {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: "20px",
+        right: "20px",
+        zIndex: 1000,
+        width: "70px",
+        height: "70px",
+        borderRadius: "50%",
+        background: "white",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        boxShadow: "0 4px 10px rgba(0,0,0,0.3)",
+      }}
+    >
+      <div
+        style={{
+          position: "relative",
+          width: "50px",
+          height: "50px",
+          transform: `rotate(${heading}deg)`
+        }}
+      >
+        {/* Arrow */}
+        <div style={{
+          position: "absolute",
+          top: "0",
+          left: "50%",
+          transform: "translateX(-50%)",
+          fontSize: "18px",
+          color: "red"
+        }}>
+          ▲
+        </div>
+
+        {/* Directions */}
+        <div style={{ position: "absolute", top: "0", left: "50%", transform: "translateX(-50%)", fontSize: "10px" }}>N</div>
+        <div style={{ position: "absolute", bottom: "0", left: "50%", transform: "translateX(-50%)", fontSize: "10px" }}>S</div>
+        <div style={{ position: "absolute", left: "0", top: "50%", transform: "translateY(-50%)", fontSize: "10px" }}>W</div>
+        <div style={{ position: "absolute", right: "0", top: "50%", transform: "translateY(-50%)", fontSize: "10px" }}>E</div>
+      </div>
+    </div>
+  );
+}
+export default function DustbinMap({
+  setSelectedDustbin,
+  setRouteFromParent,
+  setImageFromParent,
+  isRouting,   
+  setIsRouting
+}){
+   useEffect(() => {
+  if (!isRouting) {
+    setTargetDustbin(null);
+    setRouteCoords([]);
+  }
+}, [isRouting]);
+  const [heading, setHeading] = useState(0);
+const [autoFollow, setAutoFollow] = useState(true);
+const prevLocation = useRef(null);
+  const [selectedImage, setSelectedImage] = useState(null);
   const location = useLocation();
   const binType = location?.state?.binType || "";
   const [userLocation, setUserLocation] = useState(null);
@@ -269,6 +340,38 @@ export default function DustbinMap() {
   const [navigationActive, setNavigationActive] = useState(false);
   const [targetDustbin, setTargetDustbin] = useState(null);
   const [distanceTravelled, setDistanceTravelled] = useState(0);
+  const sortedBins = useMemo(() => {
+  if (!userLocation) return [];
+
+  return dustbinLocations
+    .map((bin) => ({
+      ...bin,
+      distance: getDistance(
+        userLocation[0],
+        userLocation[1],
+        bin.lat,
+        bin.lng
+      ),
+    }))
+    .sort((a, b) => a.distance - b.distance)
+    .slice(0, 5); // optional
+}, [userLocation]);
+useEffect(() => {
+  if (setRouteFromParent) {
+    setRouteFromParent(() => (coords) => {
+      setTargetDustbin(coords);
+      setRouteCoords(coords);
+      setZoomTarget(coords);
+    });
+  }
+
+  if (setImageFromParent) {
+    setImageFromParent(() => (img) => {
+      setSelectedImage(img);
+    });
+  }
+
+}, []);
   useEffect(() => {
   if (!userLocation) return;
 
@@ -287,55 +390,7 @@ export default function DustbinMap() {
 
     window.open(url, "_blank");
   };
-  // ===============================
-  // 📍 Get User Location
-  // ===============================
-// useEffect(() => {
-//   const watchId = navigator.geolocation.watchPosition(
-//     (position) => {
-//       const newLocation = [
-//         position.coords.latitude,
-//         position.coords.longitude,
-//       ];
-
-//       setUserLocation(newLocation);
-      
-// if (targetDustbin) {
-
-//   const distance = getDistance(
-//     newLocation[0],
-//     newLocation[1],
-//     targetDustbin[0],
-//     targetDustbin[1]
-//   );
-
-//   setDistanceTravelled(distance);
-
-//   if (navigationActive) {
-//     setRouteCoords(targetDustbin);
-//   }
-
-//   if (distance < 0.03 && navigationActive) {
-//     alert(
-//       `You reached the dustbin!\nDistance travelled: ${(distance * 1000).toFixed(0)} meters.\nPlease dispose garbage properly.`
-//     );
-
-//     setNavigationActive(false);
-//     setTargetDustbin(null);
-//     setRouteCoords(null);
-//   }
-// }
-//     },
-//     (error) => console.error(error),
-// {
-//   enableHighAccuracy: true,
-//   maximumAge: 5000,
-//   timeout: 20000
-// }
-//   );
-
-//   return () => navigator.geolocation.clearWatch(watchId);
-// }, [navigationActive, targetDustbin]);
+  // Get User Location
 useEffect(() => {
 
   if (!userLocation || !targetDustbin) return;
@@ -366,18 +421,52 @@ useEffect(() => {
 
     try {
 
-      const res = await fetch("http://10.86.21.161:8000/phone-location");
+      const res = await fetch("http://192.168.1.101:8000/phone-location");
       const data = await res.json();
 
       if (data.lat && data.lng) {
-        setUserLocation([data.lat, data.lng]);
+
+        // 🔥 CALCULATE DIRECTION (heading)
+        if (prevLocation.current) {
+  const dx = data.lng - prevLocation.current[1];
+  const dy = data.lat - prevLocation.current[0];
+
+  const latDiff = Math.abs(dy);
+  const lngDiff = Math.abs(dx);
+
+  // ❌ ignore tiny movement
+  if (latDiff < 0.00005 && lngDiff < 0.00005) return;
+
+  const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+
+  setHeading(prev => prev + (angle - prev) * 0.2); // smooth
+}
+
+        // store current location for next calculation
+        prevLocation.current = [data.lat, data.lng];
+
+        // 🔥 OPTIMIZED LOCATION UPDATE
+        setUserLocation(prev => {
+  if (!prev) return [data.lat, data.lng];
+
+  const latDiff = Math.abs(data.lat - prev[0]);
+  const lngDiff = Math.abs(data.lng - prev[1]);
+
+  // 🔥 Ignore tiny GPS noise
+if (latDiff < 0.00005 && lngDiff < 0.00005) {
+  return prev;
+}
+
+  return [data.lat, data.lng];
+});
+
       }
 
     } catch (err) {
       console.log(err);
     }
 
-  }, 1000);
+  }, 2000);
 
   return () => clearInterval(interval);
 
@@ -400,7 +489,7 @@ return dustbinLocations.filter((bin) => {
     bin.lng
   );
 
-  return distance <= 2; // 1 KM radius
+  return distance <= 2000; // 1 KM radius
 });
   }, [userLocation, binType]);
 
@@ -417,28 +506,27 @@ return dustbinLocations.filter((bin) => {
         zoomControl={true}
         className="map-container"
       >
-        <FollowUser location={userLocation} active={navigationActive} />
-        <ResizeMap />
+<Compass heading={heading} userLocation={userLocation} />
+        <LocateButton userLocation={userLocation} />
+<FollowUser 
+  location={userLocation} 
+  active={autoFollow && !navigationActive} 
+/>   
+ <ResizeMap />
         {zoomTarget && <ZoomToLocation target={zoomTarget} />}
         {/* Minimal Map Style */}
         <TileLayer
-          attribution="© OpenStreetMap"
-          url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png"
-        />
+  attribution="© OpenStreetMap"
+  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+/>
 
         {/* 🔵 USER LOCATION */}
-        <CircleMarker
-          center={userLocation}
-          radius={8}
-          pathOptions={{
-            color: "white",
-            weight: 3,
-            fillColor: "#2563eb",
-            fillOpacity: 1,
-          }}
-        >
-          <Popup>You are here</Popup>
-        </CircleMarker>
+        <Marker
+  position={userLocation}
+  icon={createUserIcon(heading)}
+>
+  <Popup>You are here</Popup>
+</Marker>
 
         {/* 🟢🔵 NEARBY DUSTBINS ONLY */}
         {nearbyBins.map((bin) => (
@@ -450,72 +538,90 @@ return dustbinLocations.filter((bin) => {
             )}
             eventHandlers={{
   click: () => {
-    setZoomTarget([bin.lat, bin.lng]);
+    if (!userLocation) return;
 
-    // reset previous route
-    setTargetDustbin(null);
-    setRouteCoords(null);
+    const distance = getDistance(
+      userLocation[0],
+      userLocation[1],
+      bin.lat,
+      bin.lng
+    );
+
+    setSelectedDustbin({
+      ...bin,
+      distance, // ✅ ADD THIS
+    });
   },
 }}
           >
-            <Popup>
-              <div style={{ textAlign: "center" }}>
-                <strong>{bin.type.toUpperCase()} Dustbin</strong>
-                <br />
-                {targetDustbin?.[0] !== bin.lat && (
-<button
-  className="direction-btn"
-  onClick={() => {
-    setTargetDustbin([bin.lat, bin.lng]);
-    setRouteCoords([bin.lat, bin.lng]);
-    setZoomTarget([bin.lat, bin.lng]);
-  }}
->
-  Get Directions
-</button>
-)}
-              </div>
-            </Popup>
           </Marker>
         ))}
         {routeCoords && (
           <Routing userLocation={userLocation} destination={routeCoords} />
         )}
       </MapContainer>
-      {targetDustbin && (
-  <div className="nav-panel">
-
-    {!navigationActive && (
       <button
-        className="start-route"
-        onClick={() => {
-  setNavigationActive(true);
-  setRouteCoords(targetDustbin);
-  setZoomTarget(userLocation);
-}}
-      >
-        Start Route
-      </button>
-    )}
-
+  onClick={() => setAutoFollow(!autoFollow)}
+  style={{
+    position: "absolute",
+    bottom: "160px",
+    right: "20px",
+    zIndex: 1000,
+    padding: "10px",
+    background: autoFollow ? "#16a34a" : "#aaa",
+    color: "white",
+    border: "none",
+    borderRadius: "8px",
+    cursor: "pointer",
+  }}
+>
+  {autoFollow ? "Follow ON" : "Follow OFF"}
+</button>
+      {selectedImage && (
+  <div
+    style={{
+      position: "fixed",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      background: "rgba(0,0,0,0.85)",
+      zIndex: 1000,
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+    }}
+  >
+    {/* Close Button */}
     <button
-      className="cancel-route"
-      onClick={() => {
-  setTargetDustbin(null);
-  setRouteCoords(null);
-  setNavigationActive(false);
-  setDistanceTravelled(0);
-  
-}}
+      onClick={() => setSelectedImage(null)}
+      style={{
+        position: "absolute",
+        top: "20px",
+        right: "20px",
+        padding: "8px 14px",
+        background: "#fff",
+        border: "none",
+        borderRadius: "6px",
+        cursor: "pointer",
+      }}
     >
-      Cancel
+      Close ✖
     </button>
 
-  </div>
-)}
-{targetDustbin && distanceTravelled > 0 && (
-  <div className="nav-info">
-    Distance remaining: {(distanceTravelled * 1000).toFixed(0)} m
+    {/* Image */}
+    <img
+      src={selectedImage}
+      alt="Dustbin Location"
+      style={{
+        width: "80%",
+        maxHeight: "80%",
+        objectFit: "contain",
+        borderRadius: "10px",
+        boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
+      }}
+    />
   </div>
 )}
     </div>
