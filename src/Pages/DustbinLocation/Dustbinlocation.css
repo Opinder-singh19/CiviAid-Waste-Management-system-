@@ -59,7 +59,7 @@ body {
 }
 .w-container{
   background-color: rgba(215, 251, 234);
-  padding-bottom: 40px;
+  padding-bottom: 100px;
 min-height: calc(100vh + 100px);  
 }
 .back1-Dash{
@@ -221,4 +221,150 @@ min-height: calc(100vh + 100px);
     margin-top: 50px;
     margin-left: 220px;
     margin-Right: 220px;
+}
+.featured-bin {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #e6f7ec;
+  border: 2px solid #22c55e;
+  padding: 20px;
+  border-radius: 16px;
+  margin-top: 20px;
+}
+
+.bin-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid #22c55e33;
+  padding: 16px;
+  border-radius: 14px;
+  margin-top: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.bin-card:hover {
+  transform: scale(1.02);
+}
+
+.selected {
+  border-color: #22c55e;
+  background: #ecfdf5;
+}
+
+.bin-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bin-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+}
+
+.direction-btn {
+  background: #16a34a;
+  color: white;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  width: auto;
+}
+.get-direction{
+  display: flex;
+  gap: 5px;
+}
+.selected-tag {
+  color: #16a34a;
+  font-weight: bold;
+}
+
+.route-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 16px;
+  background: white;
+
+  border-radius: 0 0 20px 20px;
+  border-top: 1px solid #eee;
+}
+.route-left {
+  font-weight: 600;
+  font-size: 16px;
+}
+.route-actions {
+  display: flex;
+  gap: 10px;
+}
+.start-btn {
+  background: #16a34a;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.start-btn:hover {
+  background: #15803d;
+  transform: translateY(-2px);
+}
+
+.cancel-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.cancel-btn:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+}
+.route-info {
+  font-weight: 600;
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+.route-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.start-btn {
+  flex: 1;
+  background: #16a34a;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  flex: 1;
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
 }

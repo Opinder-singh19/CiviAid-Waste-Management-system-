@@ -15,16 +15,16 @@
 }
 
 .map-wrapper{
-  width:100%;
-  height:420px;
-  border-radius:12px;
-  overflow:hidden;
-  margin-top:20px;
+  border-radius: 20px 20px 0px 0px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  background: white;
 }
+
 
 .map-container{
   width:100%;
-  height:100%;
+   height: 450px;
 }
 
 .direction-btn{
@@ -58,12 +58,6 @@
   background:#15803d;
 }
 
-.map-wrapper{
-  width:100%;
-  height:420px;
-  border-radius:12px;
-  overflow:hidden;
-}
 .user-title {
     color: rgba(0, 131, 62);
     font-size: 45px;
@@ -329,15 +323,6 @@ font-weight: 500;
 
 
 
-.map-wrapper {
-  width: 100%;
-}
-
-.map-container {
-    border-radius: 12px;
-  height: 500px;
-  width: 100%;
-}
 
 /* Popup Container */
 .popup-content {
