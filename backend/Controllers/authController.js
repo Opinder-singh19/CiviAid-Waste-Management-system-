@@ -1,4 +1,9 @@
 const { getDB } = require("../config/db");
+const nodemailer = require("nodemailer");
+
+
+
+
 
 
 exports.loginUser = async (req,res)=>{
@@ -85,4 +90,56 @@ exports.logoutUser = (req,res)=>{
    res.json({message:"Logged out"});
  });
 
+};
+
+exports.forgotPassword = async (req, res) => {
+
+  const { email } = req.body;
+
+  const db = getDB();
+
+  const user = await db.collection("users").findOne({ email });
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+
+  const otpExpiry = Date.now() + 5 * 60 * 1000;
+  
+
+  await db.collection("users").updateOne(
+    { email },
+    { $set: { otp, otpExpiry } }
+  );
+
+  console.log("OTP:", otp); 
+  
+
+  res.json({ message: "OTP sent" });
+};
+
+exports.verifyOtp = async (req, res) => {
+
+  const { email, otp } = req.body;
+
+  const db = getDB();
+
+  const user = await db.collection("users").findOne({ email });
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  if (user.otp !== otp) {
+    return res.status(400).json({ message: "Invalid OTP" });
+  }
+
+  if (user.otpExpiry < Date.now()) {
+    return res.status(400).json({ message: "OTP expired" });
+  }
+
+  res.json({ message: "OTP verified" });
 };

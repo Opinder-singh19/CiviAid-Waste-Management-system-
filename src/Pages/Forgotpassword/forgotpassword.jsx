@@ -1,7 +1,46 @@
 import { ArrowLeft ,RecycleIcon,User,Phone,Mail,MapPin,Lock} from "lucide-react";
 import './forgotpassword.css'
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
+import { useState } from "react"; // to store values
+import axios from "axios"; // to call backend
+
 function SignUp(){
+ const [email, setEmail] = useState(""); 
+ const [otp, setOtp] = useState(""); 
+ const [showOtp, setShowOtp] = useState(false); 
+ const [isOtpVerified, setIsOtpVerified] = useState(false); 
+ const navigate = useNavigate(); 
+
+ const handleSendOtp = async (e) => {
+  e.preventDefault(); 
+
+  try {
+    await axios.post("http://localhost:8000/api/auth/forgot-password", { email });
+    // send email to backend
+
+    setShowOtp(true); // show OTP input
+
+    alert("OTP sent to your email");
+  } catch (err) {
+    alert("Error sending OTP");
+  }
+};
+
+ const handleVerifyOtp = async (e) => {
+  e.preventDefault();
+
+  try {
+    await axios.post("http://localhost:8000/api/auth/verify-otp", { email, otp });
+    // verify otp
+
+    setIsOtpVerified(true); // show reset button
+
+    alert("OTP verified");
+  } catch (err) {
+    alert("Invalid OTP");
+  }
+};
+
 return(
   <div className="sign-BackC">
   <div className="Sign-container">
@@ -29,18 +68,53 @@ return(
         <label>Email Address</label>
         <div className="input-box">
           <Mail className="icon" size={18}/>
-          <input type="email" placeholder="your.email@example.com" />
+          <input type="email" value={email} placeholder="your.email@example.com"   onChange={(e) => setEmail(e.target.value)} />
         </div>
       </div>
+     
+      {showOtp && (
+      <div className="form-group">
+      <label>Enter OTP</label>
+      <div className="input-box">
+      <input 
+        type="text" 
+        placeholder="Enter OTP"
+        value={otp}
+        onChange={(e) => setOtp(e.target.value)}
+      />
+       </div>
+       </div>
+      )}
 
       <div className="checkbox-terms">
         <p For="terms">
           Enter the email associated with your account
         </p>
       </div>
-</div>
+     </div>
+       {!showOtp ? (
 
-      <button className="signup-btn" type="submit">Create Account</button>
+      <button className="signup-btn" onClick={handleSendOtp}>
+       Send OTP
+      </button>
+
+      ) : !isOtpVerified ? (
+
+      <button type="button" className="signup-btn" onClick={handleSendOtp}>
+    Verify OTP
+      </button>
+
+      ) : (
+
+  <button 
+    className="signup-btn"
+    onClick={() => navigate("/reset-password", { state: { email } })}
+  >
+    Reset Password
+  </button>
+
+)}
+
 
     </form>
 
