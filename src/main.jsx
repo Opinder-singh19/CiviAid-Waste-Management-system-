@@ -18,6 +18,7 @@ import Dustbinlocation from "./Pages/DustbinLocation/Dustbinlocation.jsx";
 import ProtectedRoute from "./Components/ProtectedRoute.jsx";
 import SignUp from "./Pages/Signup/signup.jsx";
 import Forgotpassword from "./Pages/Forgotpassword/forgotpassword.jsx"
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
