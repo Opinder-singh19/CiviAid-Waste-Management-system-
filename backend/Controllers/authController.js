@@ -118,7 +118,7 @@ exports.forgotPassword = async (req, res) => {
 
 
 
-
+// mail system 
  transporter.sendMail({
   from: "civiaidofficial@gmail.com",
   to: email,
@@ -132,10 +132,10 @@ exports.forgotPassword = async (req, res) => {
     <p>Dear User,</p>
 
     <p>We received a request to reset your password.</p>
+   
+     <br/>
 
-    <br/>
-
-    <p>Your One-Time Password (OTP) is:</p>
+    <p> then Your One-Time Password (OTP) is:</p>
 
     <h1 style="color:#2c7be5; letter-spacing:2px;">${otp}</h1>
 
@@ -145,7 +145,7 @@ exports.forgotPassword = async (req, res) => {
 
     <p style="color:#777;">Do not share this code with anyone.</p>
 
-    <hr style="margin:20px 0;" />
+    <hr style="margin:20px 0;"/>
 
     <p style="font-size:12px; color:#aaa;">
       If you did not request this, you can ignore this email.
@@ -153,7 +153,7 @@ exports.forgotPassword = async (req, res) => {
 
     <p style="margin-top:20px;">
       🌱 <b>Team CiviAid</b><br/>
-      Smart Waste Management
+          Smart Waste Management
     </p>
 
   </div>
