@@ -1,7 +1,42 @@
 import { Mail, Lock, Leaf, RecycleIcon } from "lucide-react";
 import "./Newpassword.css";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
 
 export default function Newpassword() {
+  const location = useLocation();
+const navigate = useNavigate();
+
+const email = location.state?.email;
+
+const [password, setPassword] = useState("");
+const [confirmPassword, setConfirmPassword] = useState("");
+
+const handleResetPassword = async () => {
+
+  if (password !== confirmPassword) {
+    alert("Passwords do not match");
+    return;
+  }
+
+  try {
+    const res = await axios.post(
+      "http://localhost:8000/api/auth/reset-password",
+      { email, newPassword: password }
+    );
+
+    if (res.data.success) {
+      alert("Password updated successfully");
+      navigate("/civiAlogin");
+    } else {
+      alert("Error updating password");
+    }
+
+  } catch (err) {
+    alert("Server error");
+  }
+};
   return (
     <div className="np-container">
       <div className="np-login-card">
@@ -18,17 +53,19 @@ export default function Newpassword() {
           <label>New Password</label>
           <div className="np-input-box1">
             <Mail className="np-icon" size={25} />
-            <input type="password" placeholder="Enter your password" />
+            <input type="password" placeholder="Enter your password" value={password}
+             onChange={(e) => setPassword(e.target.value)} />
           </div>
         </div>
         <div className="np-form-group1">
           <label>Confirm New Password</label>
           <div className="np-input-box1">
             <Lock className="np-icon" size={25} />
-            <input type="password" placeholder="Enter your password again" />
+            <input type="password" placeholder="Enter your password again" value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}/>
           </div>
         </div>
-        <button className="np-login-btn"><Lock className="np-btn-icon" size={15} />Reset Password</button>
+        <button className="np-login-btn" onClick={handleResetPassword}><Lock className="np-btn-icon" size={15} />Reset Password</button>
         <hr class="np-divider" />
         <div className="np-footer-text">
           <div className="np-footer-leaf1">
