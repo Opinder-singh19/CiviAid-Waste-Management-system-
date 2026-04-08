@@ -50,6 +50,7 @@ const handleVerifyOtp = async (e) => {
       
 
       setIsOtpVerified(true); 
+      localStorage.setItem("resetEmail", email);
 
       navigate("/reset-password", { state: { email } });
 

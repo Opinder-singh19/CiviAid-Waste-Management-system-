@@ -5,15 +5,26 @@ import { useState } from "react";
 import axios from "axios";
 
 export default function Newpassword() {
+
   const location = useLocation();
 const navigate = useNavigate();
-
-const email = location.state?.email;
+const email = location.state?.email || localStorage.getItem("resetEmail");
 
 const [password, setPassword] = useState("");
 const [confirmPassword, setConfirmPassword] = useState("");
 
 const handleResetPassword = async () => {
+
+  if (!email) {
+    alert("Session expired. Please try again.");
+    navigate("/forgot-password");
+    return;
+  }
+
+  if (!password || !confirmPassword) {
+    alert("Please fill all fields");
+    return;
+  }
 
   if (password !== confirmPassword) {
     alert("Passwords do not match");
@@ -22,18 +33,26 @@ const handleResetPassword = async () => {
 
   try {
     const res = await axios.post(
-      "http://localhost:8000/api/auth/reset-password",
-      { email, newPassword: password }
-    );
+  "http://localhost:8000/api/auth/reset-password",
+  { email, newPassword: password }
+);
 
     if (res.data.success) {
-      alert("Password updated successfully");
-      navigate("/civiAlogin");
+     
+
+      
+      setPassword("");
+      setConfirmPassword("");
+
+      setTimeout(() => {
+       navigate("/civiAlogin");
+      }, 500);
     } else {
-      alert("Error updating password");
+      alert(res.data.message || "Error updating password");
     }
 
   } catch (err) {
+    console.log(err);
     alert("Server error");
   }
 };
@@ -66,7 +85,7 @@ const handleResetPassword = async () => {
           </div>
         </div>
         <button className="np-login-btn" onClick={handleResetPassword}><Lock className="np-btn-icon" size={15} />Reset Password</button>
-        <hr class="np-divider" />
+        <hr className="np-divider" />
         <div className="np-footer-text">
           <div className="np-footer-leaf1">
             <Leaf className="np-footer-leaf" size={18} />
