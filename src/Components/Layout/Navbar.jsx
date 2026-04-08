@@ -8,9 +8,9 @@ function Navbar() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:8000/check-auth", {
-      credentials: "include"
-    })
+    fetch("http://localhost:8000/api/auth/check-auth", {
+  credentials: "include"
+})
       .then(res => res.json())
       .then(data => {
         setLoggedIn(data.loggedIn);

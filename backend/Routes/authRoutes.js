@@ -14,5 +14,6 @@ router.post("/signup", signupUser);
 
 router.post("/forgot-password", forgotPassword);
 router.post("/verify-otp", verifyOtp);
+//router.post("/")
 
 module.exports = router;
