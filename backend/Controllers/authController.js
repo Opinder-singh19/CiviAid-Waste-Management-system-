@@ -2,10 +2,13 @@ const { getDB } = require("../config/db");
 const nodemailer = require("nodemailer");
 
 
-
-
-
-
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "civiaidofficial@gmail.com",
+    pass: "vkbfrckhrzixhpny"
+  }
+});
 exports.loginUser = async (req,res)=>{
 
  const {email,password} = req.body;
@@ -94,52 +97,62 @@ exports.logoutUser = (req,res)=>{
 
 exports.forgotPassword = async (req, res) => {
 
-  const { email } = req.body;
+  const email = req.body.email.toLowerCase(); 
 
   const db = getDB();
 
   const user = await db.collection("users").findOne({ email });
 
   if (!user) {
-    return res.status(404).json({ message: "User not found" });
+    return res.status(404).json({ success: false, message: "User not found" }); 
   }
 
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
-
   const otpExpiry = Date.now() + 5 * 60 * 1000;
-  
 
   await db.collection("users").updateOne(
     { email },
     { $set: { otp, otpExpiry } }
   );
 
-  console.log("OTP:", otp); 
-  
+  console.log("OTP:", otp);
 
-  res.json({ message: "OTP sent" });
+
+ transporter.sendMail({
+  from: "your_email@gmail.com",
+  to: email,
+  subject: "Password Reset OTP",
+  text: `Your OTP is ${otp}`
+});
+console.log("API HIT");
+
+res.json({ success: true, message: "OTP sent to email" });
 };
-
 exports.verifyOtp = async (req, res) => {
 
-  const { email, otp } = req.body;
+  const email = req.body.email.toLowerCase(); 
+const otp = req.body.otp.trim(); 
 
   const db = getDB();
 
   const user = await db.collection("users").findOne({ email });
 
   if (!user) {
-    return res.status(404).json({ message: "User not found" });
-  }
-
-  if (user.otp !== otp) {
-    return res.status(400).json({ message: "Invalid OTP" });
+    return res.status(404).json({ success: false, message: "User not found" });
   }
 
   if (user.otpExpiry < Date.now()) {
-    return res.status(400).json({ message: "OTP expired" });
+    return res.status(400).json({ success: false, message: "OTP expired" });
+  }
+  if (user.otp !== otp) {
+    return res.status(400).json({ success: false, message: "Invalid OTP" }); 
   }
 
-  res.json({ message: "OTP verified" });
+  res.json({ success: true, message: "OTP verified" }); 
+
+  await db.collection("users").updateOne(
+  { email },
+  { $unset: { otp: "", otpExpiry: "" } }
+);
 };

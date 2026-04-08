@@ -6,38 +6,67 @@ import axios from "axios"; // to call backend
 
 function SignUp(){
  const [email, setEmail] = useState(""); 
- const [otp, setOtp] = useState(""); 
- const [showOtp, setShowOtp] = useState(false); 
- const [isOtpVerified, setIsOtpVerified] = useState(false); 
- const navigate = useNavigate(); 
+const [otp, setOtp] = useState(""); 
+const [showOtp, setShowOtp] = useState(false); 
+const [isOtpVerified, setIsOtpVerified] = useState(false); 
+const [message, setMessage] = useState(""); // ✅ ADD THIS
+const navigate = useNavigate(); 
 
- const handleSendOtp = async (e) => {
+
+const handleSendOtp = async (e) => {
   e.preventDefault(); 
 
   try {
     await axios.post("http://localhost:8000/api/auth/forgot-password", { email });
-    // send email to backend
 
-    setShowOtp(true); // show OTP input
+    setShowOtp(true);
 
-    alert("OTP sent to your email");
+    setMessage("OTP sent to your email 📩");
+
+    setTimeout(() => {
+      setMessage("");
+    }, 10000);
+
   } catch (err) {
-    alert("Error sending OTP");
+    setMessage("Error sending OTP");
+
+    setTimeout(() => {
+      setMessage("");
+    }, 5000);
   }
 };
 
- const handleVerifyOtp = async (e) => {
+
+const handleVerifyOtp = async (e) => {
   e.preventDefault();
 
   try {
-    await axios.post("http://localhost:8000/api/auth/verify-otp", { email, otp });
-    // verify otp
+    const res = await axios.post(
+      "http://localhost:8000/api/auth/verify-otp",
+      { email, otp }
+    );
 
-    setIsOtpVerified(true); // show reset button
+    if (res.data.success) {
+      
 
-    alert("OTP verified");
+      setIsOtpVerified(true); 
+
+      navigate("/reset-password", { state: { email } });
+
+    } else {
+      setMessage(res.data.message || "Invalid OTP");
+
+      setTimeout(() => {
+        setMessage("");
+      }, 5000);
+    }
+
   } catch (err) {
-    alert("Invalid OTP");
+    setMessage("Error verifying OTP");
+
+    setTimeout(() => {
+      setMessage("");
+    }, 5000);
   }
 };
 
@@ -62,61 +91,66 @@ return(
 
 
       <form className="signup-form">
-<div className="label-input1">
+  <div className="label-input1">
 
+    <div className="form-group">
+      <label>Email Address</label>
+      <div className="input-box">
+        <Mail className="icon" size={18}/>
+        <input 
+          type="email" 
+          value={email} 
+          placeholder="your.email@example.com"   
+          onChange={(e) => setEmail(e.target.value)} 
+        />
+      </div>
+    </div>
+
+    {showOtp && (
       <div className="form-group">
-        <label>Email Address</label>
+        <label>Enter OTP</label>
         <div className="input-box">
-          <Mail className="icon" size={18}/>
-          <input type="email" value={email} placeholder="your.email@example.com"   onChange={(e) => setEmail(e.target.value)} />
+          <input 
+            type="text" 
+            placeholder="Enter OTP"
+            value={otp}
+            onChange={(e) => setOtp(e.target.value.trim())}
+          />
         </div>
       </div>
-     
-      {showOtp && (
-      <div className="form-group">
-      <label>Enter OTP</label>
-      <div className="input-box">
-      <input 
-        type="text" 
-        placeholder="Enter OTP"
-        value={otp}
-        onChange={(e) => setOtp(e.target.value)}
-      />
-       </div>
-       </div>
-      )}
+    )}
 
-      <div className="checkbox-terms">
-        <p For="terms">
-          Enter the email associated with your account
-        </p>
-      </div>
-     </div>
-       {!showOtp ? (
+    <div className="checkbox-terms">
+      <p>Enter the email associated with your account</p>
+    </div>
 
-      <button className="signup-btn" onClick={handleSendOtp}>
-       Send OTP
-      </button>
+  </div>
 
-      ) : !isOtpVerified ? (
+  {!showOtp ? (
+    <button className="signup-btn" onClick={handleSendOtp}>
+      Send OTP
+    </button>
+  ) : (
+    <button type="button" className="signup-btn" onClick={handleVerifyOtp}>
+      Verify OTP
+    </button>
+  )}
 
-      <button type="button" className="signup-btn" onClick={handleSendOtp}>
-    Verify OTP
-      </button>
-
-      ) : (
-
-  <button 
-    className="signup-btn"
-    onClick={() => navigate("/reset-password", { state: { email } })}
-  >
-    Reset Password
-  </button>
-
+</form>
+{message && (
+  <div style={{
+    position: "fixed",
+    top: "20px",
+    right: "600px",
+    background: "#333",
+    color: "#fff",
+    padding: "10px 20px",
+    borderRadius: "5px",
+    zIndex: 1000
+  }}>
+    {message}
+  </div>
 )}
-
-
-    </form>
 
   </div>
 </div>
