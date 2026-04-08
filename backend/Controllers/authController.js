@@ -116,16 +116,51 @@ exports.forgotPassword = async (req, res) => {
     { $set: { otp, otpExpiry } }
   );
 
-  console.log("OTP:", otp);
+
 
 
  transporter.sendMail({
-  from: "your_email@gmail.com",
+  from: "civiaidofficial@gmail.com",
   to: email,
-  subject: "Password Reset OTP",
-  text: `Your OTP is ${otp}`
+  subject: "Join CiviAid - Segregate Today for a Cleaner Future",
+  html: `
+<div style="font-family: Arial, sans-serif; background:#f4f4f4; padding:20px;">
+  <div style="max-width:500px; margin:auto; background:#ffffff; padding:25px; border-radius:10px; text-align:center;">
+
+    <h2 style="color:#2c7be5;">CiviAid Password Reset 🔐</h2>
+
+    <p>Dear User,</p>
+
+    <p>We received a request to reset your password.</p>
+
+    <br/>
+
+    <p>Your One-Time Password (OTP) is:</p>
+
+    <h1 style="color:#2c7be5; letter-spacing:2px;">${otp}</h1>
+
+    <p>This OTP is valid for 5 minutes.</p>
+
+    <br/>
+
+    <p style="color:#777;">Do not share this code with anyone.</p>
+
+    <hr style="margin:20px 0;" />
+
+    <p style="font-size:12px; color:#aaa;">
+      If you did not request this, you can ignore this email.
+    </p>
+
+    <p style="margin-top:20px;">
+      🌱 <b>Team CiviAid</b><br/>
+      Smart Waste Management
+    </p>
+
+  </div>
+</div>
+`
 });
-console.log("API HIT");
+
 
 res.json({ success: true, message: "OTP sent to email" });
 };
@@ -149,10 +184,37 @@ const otp = req.body.otp.trim();
     return res.status(400).json({ success: false, message: "Invalid OTP" }); 
   }
 
+  
+  await db.collection("users").updateOne(
+    { email },
+    { 
+      $set: { otpVerified: true },   
+      $unset: { otp: "", otpExpiry: "" }
+    }
+  );
   res.json({ success: true, message: "OTP verified" }); 
 
+
+};
+exports.resetPassword = async (req, res) => {
+
+  const { email, newPassword } = req.body;
+
+  const db = getDB();
+
+  const user = await db.collection("users").findOne({ email });
+
+  if (!user || !user.otpVerified) {
+    return res.status(400).json({ success: false, message: "Unauthorized request" });
+  }
+
   await db.collection("users").updateOne(
-  { email },
-  { $unset: { otp: "", otpExpiry: "" } }
-);
+    { email },
+    {
+      $set: { password: newPassword },
+      $unset: { otpVerified: "" }
+    }
+  );
+
+  res.json({ success: true, message: "Password updated successfully" });
 };
