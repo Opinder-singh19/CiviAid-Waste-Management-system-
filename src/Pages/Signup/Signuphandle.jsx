@@ -13,7 +13,7 @@ const handleSignup = (e) => {
     confirmPassword: form[5].value
   };
 
-  fetch("http://localhost:8000/signup",{
+ fetch("http://localhost:8000/api/auth/signup",{
     method:"POST",
     headers:{
       "Content-Type":"application/json"
