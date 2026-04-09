@@ -67,7 +67,7 @@ const handleResetPassword = async () => {
 
         <h2 className="np-title">Create New Password</h2>
         <p className="np-subtitle">Enter a strong password for your account</p>
-
+        <p className="displayemail">{email}</p>
         <div className="np-form-group1">
           <label>New Password</label>
           <div className="np-input-box1">

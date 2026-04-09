@@ -28,7 +28,7 @@ const handleSendOtp = async (e) => {
     }, 10000);
 
   } catch (err) {
-    setMessage("Error sending OTP");
+    setMessage("Not Registered Email");
 
     setTimeout(() => {
       setMessage("");
