@@ -9,6 +9,7 @@ import {
   BookOpen,
   MapPin,
 } from "lucide-react";
+
 export default function Userdashboard() {
   return (
     <div className="user-container">
@@ -32,7 +33,9 @@ export default function Userdashboard() {
           </button>
         </div>
       </div>
+
       <div className="user-main">
+       
         <div className="user-main1">
           <div className="user-main1-whole">
             <div className="user-main1-inner">
@@ -111,6 +114,7 @@ export default function Userdashboard() {
             </div>
           </div>
         </div>
+      
         <div className="user-map-section">
           <DustbinMap className="dustbin-main" />
         </div>
