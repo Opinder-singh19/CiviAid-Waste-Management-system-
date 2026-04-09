@@ -13,7 +13,7 @@
     "@photo-sphere-viewer/core": "^5.14.1",
     "@react-google-maps/api": "^2.20.8",
     "@tailwindcss/vite": "^4.2.0",
-    "axios": "^1.14.0",
+    "axios": "^1.15.0",
     "leaflet": "^1.9.4",
     "leaflet-rotate": "^0.2.8",
     "leaflet-routing-machine": "^3.2.12",
