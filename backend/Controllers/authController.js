@@ -1,6 +1,14 @@
 const { getDB } = require("../config/db");
+const nodemailer = require("nodemailer");
 
 
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "civiaidofficial@gmail.com",
+    pass: "vkbfrckhrzixhpny"
+  }
+});
 exports.loginUser = async (req,res)=>{
 
  const {email,password} = req.body;
@@ -85,4 +93,128 @@ exports.logoutUser = (req,res)=>{
    res.json({message:"Logged out"});
  });
 
+};
+
+exports.forgotPassword = async (req, res) => {
+
+  const email = req.body.email.toLowerCase(); 
+
+  const db = getDB();
+
+  const user = await db.collection("users").findOne({ email });
+
+  if (!user) {
+    return res.status(404).json({ success: false, message: "User not found" }); 
+  }
+
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+  const otpExpiry = Date.now() + 5 * 60 * 1000;
+
+  await db.collection("users").updateOne(
+    { email },
+    { $set: { otp, otpExpiry } }
+  );
+
+
+
+// mail system 
+ transporter.sendMail({
+  from: "civiaidofficial@gmail.com",
+  to: email,
+  subject: "Join CiviAid - Segregate Today for a Cleaner Future",
+  html: `
+<div style="font-family: Arial, sans-serif; background:#f4f4f4; padding:20px;">
+  <div style="max-width:500px; margin:auto; background:#ffffff; padding:25px; border-radius:10px; text-align:center;">
+
+    <h2 style="color:#2c7be5;">CiviAid Password Reset 🔐</h2>
+
+    <p>Dear User,</p>
+
+    <p>We received a request to reset your password.</p>
+   
+     <br/>
+
+    <p> then Your One-Time Password (OTP) is:</p>
+
+    <h1 style="color:#2c7be5; letter-spacing:2px;">${otp}</h1>
+
+    <p>This OTP is valid for 5 minutes.</p>
+
+    <br/>
+
+    <p style="color:#777;">Do not share this code with anyone.</p>
+
+    <hr style="margin:20px 0;"/>
+
+    <p style="font-size:12px; color:#aaa;">
+      If you did not request this, you can ignore this email.
+    </p>
+
+    <p style="margin-top:20px;">
+      🌱 <b>Team CiviAid</b><br/>
+          Smart Waste Management
+    </p>
+
+  </div>
+</div>
+`
+});
+
+
+res.json({ success: true, message: "OTP sent to email" });
+};
+exports.verifyOtp = async (req, res) => {
+
+  const email = req.body.email.toLowerCase(); 
+const otp = req.body.otp.trim(); 
+
+  const db = getDB();
+
+  const user = await db.collection("users").findOne({ email });
+
+  if (!user) {
+    return res.status(404).json({ success: false, message: "User not found" });
+  }
+
+  if (user.otpExpiry < Date.now()) {
+    return res.status(400).json({ success: false, message: "OTP expired" });
+  }
+  if (user.otp !== otp) {
+    return res.status(400).json({ success: false, message: "Invalid OTP" }); 
+  }
+
+  
+  await db.collection("users").updateOne(
+    { email },
+    { 
+      $set: { otpVerified: true },   
+      $unset: { otp: "", otpExpiry: "" }
+    }
+  );
+  res.json({ success: true, message: "OTP verified" }); 
+
+
+};
+exports.resetPassword = async (req, res) => {
+
+  const { email, newPassword } = req.body;
+
+  const db = getDB();
+
+  const user = await db.collection("users").findOne({ email });
+
+  if (!user || !user.otpVerified) {
+    return res.status(400).json({ success: false, message: "Unauthorized request" });
+  }
+
+  await db.collection("users").updateOne(
+    { email },
+    {
+      $set: { password: newPassword },
+      $unset: { otpVerified: "" }
+    }
+  );
+
+  res.json({ success: true, message: "Password updated successfully" });
 };
