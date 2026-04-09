@@ -1,7 +1,76 @@
 import { ArrowLeft ,RecycleIcon,User,Phone,Mail,MapPin,Lock} from "lucide-react";
 import './forgotpassword.css'
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
+import { useState } from "react"; // to store values
+import axios from "axios"; // to call backend
+
 function SignUp(){
+ const [email, setEmail] = useState(""); 
+const [otp, setOtp] = useState(""); 
+const [showOtp, setShowOtp] = useState(false); 
+const [isOtpVerified, setIsOtpVerified] = useState(false); 
+const [message, setMessage] = useState(""); // ✅ ADD THIS
+const navigate = useNavigate(); 
+
+
+const handleSendOtp = async (e) => {
+  e.preventDefault(); 
+
+  try {
+    await axios.post("http://localhost:8000/api/auth/forgot-password", { email });
+
+    setShowOtp(true);
+
+    setMessage("OTP sent to your email 📩");
+
+    setTimeout(() => {
+      setMessage("");
+    }, 10000);
+
+  } catch (err) {
+    setMessage("Error sending OTP");
+
+    setTimeout(() => {
+      setMessage("");
+    }, 5000);
+  }
+};
+
+
+const handleVerifyOtp = async (e) => {
+  e.preventDefault();
+
+  try {
+    const res = await axios.post(
+      "http://localhost:8000/api/auth/verify-otp",
+      { email, otp }
+    );
+
+    if (res.data.success) {
+      
+
+      setIsOtpVerified(true); 
+      localStorage.setItem("resetEmail", email);
+
+      navigate("/reset-password", { state: { email } });
+
+    } else {
+      setMessage(res.data.message || "Invalid OTP");
+
+      setTimeout(() => {
+        setMessage("");
+      }, 5000);
+    }
+
+  } catch (err) {
+    setMessage("Error verifying OTP");
+
+    setTimeout(() => {
+      setMessage("");
+    }, 5000);
+  }
+};
+
 return(
   <div className="sign-BackC">
   <div className="Sign-container">
@@ -23,26 +92,66 @@ return(
 
 
       <form className="signup-form">
-<div className="label-input1">
+  <div className="label-input1">
 
+    <div className="form-group">
+      <label>Email Address</label>
+      <div className="input-box">
+        <Mail className="icon" size={18}/>
+        <input 
+          type="email" 
+          value={email} 
+          placeholder="your.email@example.com"   
+          onChange={(e) => setEmail(e.target.value)} 
+        />
+      </div>
+    </div>
+
+    {showOtp && (
       <div className="form-group">
-        <label>Email Address</label>
+        <label>Enter OTP</label>
         <div className="input-box">
-          <Mail className="icon" size={18}/>
-          <input type="email" placeholder="your.email@example.com" />
+          <input 
+            type="text" 
+            placeholder="Enter OTP"
+            value={otp}
+            onChange={(e) => setOtp(e.target.value.trim())}
+          />
         </div>
       </div>
+    )}
 
-      <div className="checkbox-terms">
-        <p For="terms">
-          Enter the email associated with your account
-        </p>
-      </div>
-</div>
+    <div className="checkbox-terms">
+      <p>Enter the email associated with your account</p>
+    </div>
 
-      <button className="signup-btn" type="submit">Create Account</button>
+  </div>
 
-    </form>
+  {!showOtp ? (
+    <button className="signup-btn" onClick={handleSendOtp}>
+      Send OTP
+    </button>
+  ) : (
+    <button type="button" className="signup-btn" onClick={handleVerifyOtp}>
+      Verify OTP
+    </button>
+  )}
+
+</form>
+{message && (
+  <div style={{
+    position: "fixed",
+    top: "20px",
+    right: "600px",
+    background: "#333",
+    color: "#fff",
+    padding: "10px 20px",
+    borderRadius: "5px",
+    zIndex: 1000
+  }}>
+    {message}
+  </div>
+)}
 
   </div>
 </div>

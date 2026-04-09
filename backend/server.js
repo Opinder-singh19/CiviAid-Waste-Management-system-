@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
   res.send("backend is working");
 });
 
-app.use("/", authRoutes);
+app.use("/api/auth", authRoutes);
 
 // ----------------------------
 // 📍 PHONE GPS STORAGE
