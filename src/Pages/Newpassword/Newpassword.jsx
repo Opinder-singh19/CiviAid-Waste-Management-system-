@@ -8,7 +8,7 @@ export default function Newpassword() {
 
   const location = useLocation();
 const navigate = useNavigate();
-const email = location.state?.email || localStorage.getItem("resetEmail");
+  const email = location.state?.email || localStorage.getItem("resetEmail");
 
 const [password, setPassword] = useState("");
 const [confirmPassword, setConfirmPassword] = useState("");
