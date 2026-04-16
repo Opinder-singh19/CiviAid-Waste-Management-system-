@@ -8,7 +8,7 @@ export default function ProtectedRoute({ children }) {
 
  useEffect(() => {
 
-  fetch("http://192.168.1.101:8000/api/auth/check-auth", {
+  fetch("http://192.168.1.99:8000/api/auth/check-auth", {
   credentials: "include"
 })
   .then(res => res.json())
