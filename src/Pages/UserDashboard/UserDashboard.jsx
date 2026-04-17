@@ -20,8 +20,7 @@ export default function Userdashboard() {
           </div>
           <div className="user-subhead-inline">
             <Leaf className="user-leaf" size={18} />
-            <p className="user-subtitle">
-              Together we can make our planet cleaner
+            <p className="user-subtitle">Together we can make our planet cleaner
             </p>
           </div>
         </div>

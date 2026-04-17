@@ -113,9 +113,6 @@ export default function Userdashboard() {
                     </div>
                   </div>
                 </div>
-                <div className="user-map-section">
-                  <DustbinMap className="dustbin-main" />
-                </div>
       </div>
     </div>
   );
