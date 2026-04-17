@@ -320,8 +320,45 @@ export default function DustbinMap({
   setRouteFromParent,
   setImageFromParent,
   isRouting,   
-  setIsRouting
+  setIsRouting,
+  onSelectLocation 
 }){
+  const [searchText, setSearchText] = useState("");
+const [searchResults, setSearchResults] = useState([]);
+const [selectedPos, setSelectedPos] = useState(null);
+const [selectedAddress, setSelectedAddress] = useState("");
+const searchLocation = async (text) => {
+  setSearchText(text);
+
+  if (text.length < 3) {
+    setSearchResults([]);
+    return;
+  }
+
+  const res = await fetch(
+    `https://nominatim.openstreetmap.org/search?format=json&q=${text}`
+  );
+
+  const data = await res.json();
+  setSearchResults(data);
+};
+const selectSearchLocation = (place) => {
+  const lat = parseFloat(place.lat);
+  const lng = parseFloat(place.lon);
+
+  const pos = [lat, lng];
+
+  setSelectedPos(pos);
+  setSearchResults([]);
+  setSearchText(place.display_name);
+  setSelectedAddress(place.display_name);
+
+  onSelectLocation({
+  address,
+  lat,
+  lng
+});
+};
    useEffect(() => {
   if (!isRouting) {
     setTargetDustbin(null);
@@ -332,7 +369,8 @@ export default function DustbinMap({
 const [autoFollow, setAutoFollow] = useState(true);
 const prevLocation = useRef(null);
   const [selectedImage, setSelectedImage] = useState(null);
-  const location = useLocation();
+  
+  const routeLocation = useLocation();
   const binType = location?.state?.binType || "";
   const [userLocation, setUserLocation] = useState(null);
   const [routeCoords, setRouteCoords] = useState(null);
@@ -520,7 +558,50 @@ return dustbinLocations.filter((bin) => {
   if (!userLocation) {
     return <p>Getting your location...</p>;
   }
+function MapClickHandler({ onSelectLocation }) {
+  const map = useMap();
 
+  useEffect(() => {
+    if (!onSelectLocation) return;
+
+    const handleClick = async (e) => {
+      const lat = e.latlng.lat;
+      const lng = e.latlng.lng;
+
+      try {
+        const res = await fetch(
+          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
+        );
+
+        const data = await res.json();
+
+        const address = data.display_name || `${lat}, ${lng}`;
+
+        // ✅ THIS IS WHERE YOU ADD IT
+        const [selectedLocation, setSelectedLocation] = useState({
+  address: "",
+  lat: null,
+  lng: null
+});
+
+      } catch (err) {
+        console.log(err);
+
+        onSelectLocation({
+          address: `${lat}, ${lng}`,
+          lat,
+          lng
+        });
+      }
+    };
+
+    map.on("click", handleClick);
+
+    return () => map.off("click", handleClick);
+  }, [map, onSelectLocation]);
+
+  return null;
+}
   return (
     <div className="map-wrapper">
       <MapContainer
@@ -530,6 +611,9 @@ return dustbinLocations.filter((bin) => {
         zoomControl={true}
         className="map-container"
       >
+        {onSelectLocation && (
+  <MapClickHandler onSelectLocation={onSelectLocation} />
+)}
 <Compass heading={heading} userLocation={userLocation} />
         <LocateButton userLocation={userLocation} />
 <FollowUser 
@@ -584,7 +668,7 @@ return dustbinLocations.filter((bin) => {
           <Routing userLocation={userLocation} destination={routeCoords} />
         )}
       </MapContainer>
-      <button
+      {/* <button
   onClick={() => setAutoFollow(!autoFollow)}
   style={{
     position: "absolute",
@@ -600,7 +684,7 @@ return dustbinLocations.filter((bin) => {
   }}
 >
   {autoFollow ? "Follow ON" : "Follow OFF"}
-</button>
+</button> */}
       {selectedImage && (
   <div
     style={{
