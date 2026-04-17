@@ -39,6 +39,7 @@ function Navbar() {
             <NavLink className="link4" to="/wasteG">Waste Guidance</NavLink>
             <NavLink className="link5" to="/dustbinlocation">Dustbin Location</NavLink>
             <NavLink className="link6" to="/Counsellordashboard">Counsellor Dashboard</NavLink>
+            <NavLink className="link6" to="/UserComplaints">User Complaints</NavLink>
           </>
         )}
 
