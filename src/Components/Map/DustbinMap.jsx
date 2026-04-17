@@ -417,6 +417,40 @@ useEffect(() => {
 }, [userLocation, targetDustbin, navigationActive]);
 useEffect(() => {
 
+  if (!navigator.geolocation) return;
+
+  const watchId = navigator.geolocation.watchPosition(
+    (pos) => {
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
+
+      setUserLocation(prev => {
+        if (!prev) return [lat, lng];
+
+        const latDiff = Math.abs(lat - prev[0]);
+        const lngDiff = Math.abs(lng - prev[1]);
+
+        // 🔥 IGNORE SMALL MOVEMENTS
+        if (latDiff < 0.00005 && lngDiff < 0.00005) {
+          return prev;
+        }
+
+        return [lat, lng];
+      });
+
+    },
+    (err) => console.log(err),
+    {
+      enableHighAccuracy: true,
+      maximumAge: 5000
+    }
+  );
+
+  return () => navigator.geolocation.clearWatch(watchId);
+
+}, []);
+useEffect(() => {
+
   const interval = setInterval(async () => {
 
     try {
@@ -446,19 +480,9 @@ useEffect(() => {
         prevLocation.current = [data.lat, data.lng];
 
         // 🔥 OPTIMIZED LOCATION UPDATE
-        setUserLocation(prev => {
-  if (!prev) return [data.lat, data.lng];
-
-  const latDiff = Math.abs(data.lat - prev[0]);
-  const lngDiff = Math.abs(data.lng - prev[1]);
-
-  // 🔥 Ignore tiny GPS noise
-if (latDiff < 0.00005 && lngDiff < 0.00005) {
-  return prev;
+        if (!userLocation && data.lat && data.lng) {
+  setUserLocation([data.lat, data.lng]);
 }
-
-  return [data.lat, data.lng];
-});
 
       }
 

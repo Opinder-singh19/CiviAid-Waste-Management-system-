@@ -8,7 +8,7 @@ function Navbar() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/auth/check-auth", {
+    fetch("http://192.168.1.99:8000/api/auth/check-auth", {
   credentials: "include"
 })
       .then(res => res.json())
@@ -38,6 +38,7 @@ function Navbar() {
           <NavLink className="link3" to="/">User Dashboard</NavLink>
             <NavLink className="link4" to="/wasteG">Waste Guidance</NavLink>
             <NavLink className="link5" to="/dustbinlocation">Dustbin Location</NavLink>
+            <NavLink className="link6" to="/Counsellordashboard">Counsellor Dashboard</NavLink>
           </>
         )}
 

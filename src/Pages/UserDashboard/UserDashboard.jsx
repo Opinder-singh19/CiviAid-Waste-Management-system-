@@ -1,5 +1,4 @@
 import "./UserDashboard.css";
-import { Link } from "react-router-dom";
 import DustbinMap from "../../Components/Map/DustbinMap";
 import handleLogout from "./Logout"
 import {

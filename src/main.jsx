@@ -19,6 +19,7 @@ import ProtectedRoute from "./Components/ProtectedRoute.jsx";
 import SignUp from "./Pages/Signup/signup.jsx";
 import Forgotpassword from "./Pages/Forgotpassword/forgotpassword.jsx"
 import NewPassword   from "./Pages/Newpassword/Newpassword.jsx";
+import Counsellor   from "./Pages/Counsellor/CounsellorDashboard.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -32,6 +33,7 @@ const router = createBrowserRouter(
       <Route path="signUp" element={<SignUp />} />
       <Route path="forgotpassword" element={<Forgotpassword />} />
      <Route path="reset-password" element={<NewPassword />} />
+     <Route path="Counsellordashboard" element={<Counsellor />} />
 
       <Route
         path="wasteG"
