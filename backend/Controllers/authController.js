@@ -218,7 +218,7 @@ exports.resetPassword = async (req, res) => {
 
   res.json({ success: true, message: "Password updated successfully" });
 };
-
+// user complaints logic backend 
 exports.UserComplaints=async(req,res)=>{
   const { issueType, description, location, counselor } = req.body
   const db=getDB();
