@@ -20,6 +20,8 @@ import SignUp from "./Pages/Signup/signup.jsx";
 import Forgotpassword from "./Pages/Forgotpassword/forgotpassword.jsx"
 import NewPassword   from "./Pages/Newpassword/Newpassword.jsx";
 import Counsellor   from "./Pages/Counsellor/CounsellorDashboard.jsx";
+import Usercomplaints   from "./Pages/UserComplaints/Usercomplaint.jsx";
+import Mycomplaint   from "./Pages/UserComplaints/Mycomplaints.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -34,6 +36,8 @@ const router = createBrowserRouter(
       <Route path="forgotpassword" element={<Forgotpassword />} />
      <Route path="reset-password" element={<NewPassword />} />
      <Route path="Counsellordashboard" element={<Counsellor />} />
+     <Route path="UserComplaints" element={<Usercomplaints />} />
+     <Route path="Mycomplaints" element={<Mycomplaint />} />
 
       <Route
         path="wasteG"
