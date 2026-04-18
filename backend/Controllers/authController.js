@@ -218,3 +218,38 @@ exports.resetPassword = async (req, res) => {
 
   res.json({ success: true, message: "Password updated successfully" });
 };
+
+exports.UserComplaints=async(req,res)=>{
+  const { issueType, description, location, counselor } = req.body
+  const db=getDB();
+  if (!req.session.user) {
+  return res.status(401).json({ message: "Please login first" });
+}
+  
+  try{
+    await db.collection("userComplaints").insertOne({
+    issueType, description, location, counselor ,  createdAt: new Date() ,userId: req.session.user.id 
+  })
+  res.status(200).json({Message:"Your Complaint Submitted "})
+  }
+  catch(err){
+    console.log("ERROR:", err); 
+    res.status(500).json({Message:"Something Went wrong"})
+  }
+  console.log("SESSION:", req.session);
+  console.log(req.body);
+}
+
+exports.mycomplaints=async(req,res)=>{
+  const db=getDB();
+  if (!req.session.user) {
+  return res.status(401).json({ message: "Please login first" });
+}
+const complaints = await db.collection("userComplaints")
+    .find({ userId: req.session.user.id })
+    .toArray();
+
+  res.json(complaints);
+
+
+}
