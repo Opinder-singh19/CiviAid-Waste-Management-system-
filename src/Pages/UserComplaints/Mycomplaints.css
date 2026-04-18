@@ -257,16 +257,8 @@ z
 .uc-user-main2-box1:hover{
 border: 5px solid rgb(66, 203, 114);
 }
-.uc-user-main2-div2{
-color: rgb(1, 102, 48);
-font-size: 25px;
-font-weight: 500;
-}
-.uc-user-main2-div02{
-color: rgba(0, 167, 176);
-font-size: 25px;
-font-weight: 500;
-}
+
+
 .uc-user-main2-box1,.uc-user-main2-box2{
     display: flex;
     flex-direction: column;
