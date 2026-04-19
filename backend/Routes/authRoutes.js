@@ -15,7 +15,7 @@ router.post("/signup", signupUser);
 router.post("/forgot-password", forgotPassword);
 router.post("/verify-otp", verifyOtp);
 router.post("/reset-password", resetPassword);
-router.post("/User-Complaint",UserComplaints)
+router.post("/complaint",UserComplaints)
 router.get("/my-complaints",mycomplaints)
 
 module.exports = router;

@@ -12,12 +12,15 @@ import { useState, useEffect } from "react";
 import DustbinMapPicker from "../../Components/Map/DustbinMapPicker";
 export default function UserComplaints() {
   const [issue, setIssue] = useState("");
-  const [counsellor, setCounsellor] = useState("");
+  const [description, setDescription] = useState("");
+  
   const [location, setLocation] = useState({
   address: "",
   lat: null,
   lng: null
 });
+const [counsellor, setCounsellor] = useState("");
+const [loadingLocation, setLoadingLocation] = useState(false);
   const [showMap, setShowMap] = useState(false);
   const getCurrentLocation = () => {
   if (!navigator.geolocation) {
@@ -25,26 +28,37 @@ export default function UserComplaints() {
     return;
   }
 
+  setLoadingLocation(true);   // ✅ START loading
+
   navigator.geolocation.getCurrentPosition(
     async (position) => {
+      setLoadingLocation(false);  // ✅ STOP loading
+
       const lat = position.coords.latitude;
       const lng = position.coords.longitude;
 
       const address = await getAddressFromCoords(lat, lng);
 
       setLocation({
-  address,
-  lat,
-  lng
-});
+        address,
+        lat,
+        lng
+      });
+
       setShowMap(false);
     },
     (error) => {
-      alert("Permission denied or unable to get location");
-      console.log(error);
+      setLoadingLocation(false);  // ✅ STOP loading
+
+      console.log("GPS Error:", error);
+
+      // ❌ no alert
+      setShowMap(true); // fallback to map
     },
     {
       enableHighAccuracy: true,
+      timeout: 5000,     // ✅ VERY IMPORTANT
+      maximumAge: 0
     }
   );
 };
@@ -53,6 +67,46 @@ export default function UserComplaints() {
     setIssue("");
     setCounsellor("");
   }, []);
+
+
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const res = await fetch("http://192.168.1.99:8000/api/auth/complaint", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        issueType: issue,
+        description: description,
+       location: location.lat ? location : null,
+        counselor: counsellor,
+      }),
+    });
+
+    const data = await res.json();
+    alert(data.Message);
+
+  } catch (err) {
+    console.log(err);
+    alert("Error submitting complaint");
+  }
+};
+
+const getAddressFromCoords = async (lat, lng) => {
+  try {
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`
+    );
+    const data = await res.json();
+    return data.display_name || "Selected Location";
+  } catch (err) {
+    return "Location Selected";
+  }
+};
   return (
     <div className="uc-user-container">
       <div className="uc-user-head">
@@ -76,7 +130,7 @@ export default function UserComplaints() {
 </div>
       </div>
       <div className="uc-user-main">
-        <form action="">
+        <form onSubmit={handleSubmit}>
           <div className="uc-form-group2">
             <label>Issue type</label>
 
@@ -103,6 +157,8 @@ export default function UserComplaints() {
                 className="uc-input-box-inner"
                 type="text"
                 placeholder="Enter the description of the complaint"
+                value={description}
+                  onChange={(e) => setDescription(e.target.value)}
                 required
               />
             </div>
