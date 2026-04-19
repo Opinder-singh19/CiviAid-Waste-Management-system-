@@ -1,57 +1,94 @@
-import { Mail, Lock, Shield, ArrowLeft,RecycleIcon } from "lucide-react";
+import { Mail, Lock, Shield, ArrowLeft, RecycleIcon } from "lucide-react";
 import { Link } from "react-router-dom";
-import "./Admin.css"
+import "./Admin.css";
+import { useState } from "react";
+
 export default function Admin() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); 
+
+    try {
+      const res = await fetch("http://192.168.1.99:8000/api/admin/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await res.json();
+      alert(data.message);
+
+      if (data.message === "Admin login success") {
+        window.location.href = "/admin-dashboard";
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
-   <div className="A-Container">
-    <div className="card">
-      <Link to="/" className="Back-to-user">
-        <ArrowLeft size={20}/> 
-        <span> Back  </span>
-      </Link>
-    
-    <div className="icon-section">
-      <div className="Main-icon">
-        <Shield size={40} color="white"/>
-      </div>
-      <div className="min-icon">
-        <RecycleIcon size={20}/>
+    <div className="A-Container">
+      <div className="card">
+        <Link to="/" className="Back-to-user">
+          <ArrowLeft size={20} />
+          <span> Back </span>
+        </Link>
 
-      </div>
+        <div className="icon-section">
+          <div className="Main-icon">
+            <Shield size={40} color="white" />
+          </div>
+          <div className="min-icon">
+            <RecycleIcon size={20} />
+          </div>
+        </div>
 
-    </div>
-    <h1>Admin Portal</h1>
-    <p className="min-heading"> Secure CivicAid Management</p>
-    <div className="secure">
-      <Shield size={20}/>
-      <span> Adminstrative Access</span>
+        <h1>Admin Portal</h1>
+        <p className="min-heading"> Secure CivicAid Management</p>
 
-    </div>
-    <div className="input-group">
-      <label >Admin Email</label>
-      <div className="input-box">
-        <Mail Size={18}/>
-        <input type="Email"  placeholder="xyz@gmail.com"/>
-         </div>
-    </div>
-    <div className="input-group">
-      <label >Password</label>
-      <div className="input-box">
-        <Lock Size={18}/>
-        <input type="password"  placeholder=" Admin password"/>
-         </div>
-    </div>
+       
+        <form onSubmit={handleSubmit}>
+          <div className="input-group">
+            <label>Admin Email</label>
+            <div className="input-box">
+              <Mail size={18} />
+              <input
+                type="email"
+                placeholder="xyz@gmail.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+          </div>
 
-    <div className="input-group">
-      <label >Admin Key</label>
-      <div className="input-box">
-        <Shield Size={18}/>
-        <input type="text"  placeholder=" Enter key here"/>
-         </div>
-         
-    </div>
-    <button className="btn"> Access Admin Dashboard </button>
-    <div className="notice">
+          <div className="input-group">
+            <label>Password</label>
+            <div className="input-box">
+              <Lock size={18} />
+              <input
+                type="password"
+                placeholder="Admin password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+          </div>
+
+        
+
+          <button className="btn" type="submit">
+            Access Admin Dashboard
+          </button>
+        </form>
+     
+
+        <div className="notice">
           <div className="notice-title">
             <Shield size={16} />
             Security Notice
@@ -63,12 +100,7 @@ export default function Admin() {
         </div>
 
         <p className="footer">CivicAid Admin Portal v2.0 • Secured</p>
-
-      
-
-
-  </div>
-</div>
-   
+      </div>
+    </div>
   );
 }
