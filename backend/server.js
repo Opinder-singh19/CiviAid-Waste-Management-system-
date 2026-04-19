@@ -4,12 +4,13 @@ const app = express();
 const session = require("express-session");
 const authRoutes = require("./Routes/authRoutes");
 const { mongoConnect } = require("./config/db");
+const adminRoutes=require("./Routes/adminRoutes")
 
 app.use(express.json());
 app.use(express.static(__dirname));
 
 app.use(cors({
-  origin: "http://192.168.1.99:5173",
+  origin: ["http://192.168.1.99:5173", "http://localhost:5173"],
   credentials: true
 }));
 
@@ -25,6 +26,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/admin",adminRoutes)
 
 // ----------------------------
 // 📍 PHONE GPS STORAGE
