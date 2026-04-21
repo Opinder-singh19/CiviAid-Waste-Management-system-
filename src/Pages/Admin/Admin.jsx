@@ -1,11 +1,14 @@
 import { Mail, Lock, Shield, ArrowLeft, RecycleIcon } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 import "./Admin.css";
 import { useState } from "react";
+
 
 export default function Admin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault(); 
@@ -23,8 +26,9 @@ export default function Admin() {
       const data = await res.json();
       alert(data.message);
 
-      if (data.message === "Admin login success") {
-        window.location.href = "/admin-dashboard";
+    if (data.message === "Login success") {
+        navigate("/admin/Counsellordashboard", { replace: true });
+          window.history.pushState(null, "", "/admin/Counsellordashboard");
       }
 
     } catch (err) {

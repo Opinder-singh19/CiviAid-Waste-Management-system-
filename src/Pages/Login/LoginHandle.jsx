@@ -1,4 +1,6 @@
-const handleLogin = (email, password) => {
+import { useNavigate } from "react-router-dom";
+
+const handleLogin = (email, password, navigate) => {
 
  fetch("http://192.168.1.99:8000/api/auth/login", {
     method: "POST",
@@ -6,22 +8,16 @@ const handleLogin = (email, password) => {
       "Content-Type": "application/json"
     },
     credentials: "include",
-    body: JSON.stringify({
-      email: email,
-      password: password
-    })
+    body: JSON.stringify({ email, password })
   })
   .then(res => res.json())
   .then(data => {
 
-    console.log(data.message);
-
     if(data.message === "Login success"){
-      window.location.href = "/";
+      navigate("/", { replace: true }); 
     }
 
   });
-
 };
 
 export default handleLogin;

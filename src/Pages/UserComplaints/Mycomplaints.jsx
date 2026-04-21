@@ -25,18 +25,12 @@ export default function Mycomplaint() {
         <div>
           <div className="uc-user-head-inline">
             <MapPin className="uc-user-recycle" size={45} />
-            <h1 className="uc-user-title">Find Nearby Dustbins</h1>
-          </div>
-          <div className="uc-subhead-inline">
-            <Leaf className="uc-user-leaf" size={18} />
-            <p className="uc-user-subtitle">
-              Locate eco-friendly waste disposal points near you
-            </p>
+            <h1 className="uc-user-title">My Complaints</h1>
           </div>
         </div>
       </div>
 
-      <div className="uc-user-main">
+      
         {complaints.map((c, index) => (
           <div className="UC-user-main2-inside-box1" key={index}>
             <div className="my-complaint1">
@@ -69,6 +63,6 @@ export default function Mycomplaint() {
           </div>
         ))}
       </div>
-    </div>
+    
   );
 }
