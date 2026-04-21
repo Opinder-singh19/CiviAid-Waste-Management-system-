@@ -28,11 +28,11 @@ const [loadingLocation, setLoadingLocation] = useState(false);
     return;
   }
 
-  setLoadingLocation(true);   // ✅ START loading
+  setLoadingLocation(true); 
 
   navigator.geolocation.getCurrentPosition(
     async (position) => {
-      setLoadingLocation(false);  // ✅ STOP loading
+      setLoadingLocation(false); 
 
       const lat = position.coords.latitude;
       const lng = position.coords.longitude;
@@ -48,16 +48,16 @@ const [loadingLocation, setLoadingLocation] = useState(false);
       setShowMap(false);
     },
     (error) => {
-      setLoadingLocation(false);  // ✅ STOP loading
+      setLoadingLocation(false);
 
       console.log("GPS Error:", error);
 
-      // ❌ no alert
-      setShowMap(true); // fallback to map
+
+      setShowMap(true);
     },
     {
       enableHighAccuracy: true,
-      timeout: 5000,     // ✅ VERY IMPORTANT
+      timeout: 5000,     
       maximumAge: 0
     }
   );
@@ -145,7 +145,7 @@ const getAddressFromCoords = async (lat, lng) => {
                   Select issue
                 </option>
                 <option value="dustbin">Dustbin</option>
-                <option value="light">Light</option>
+                <option value="light">Street Light</option>
                 <option value="other">Other</option>
               </select>
             </div>
