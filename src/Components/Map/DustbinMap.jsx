@@ -493,7 +493,7 @@ useEffect(() => {
 
     try {
 
-      const res = await fetch("http://192.168.1.101:8000/phone-location");
+      const res = await fetch("http://192.168.1.99:8000/phone-location");
       const data = await res.json();
 
       if (data.lat && data.lng) {
