@@ -35,7 +35,15 @@ const router = createBrowserRouter(
       <Route path="signUp" element={<SignUp />} />
       <Route path="forgotpassword" element={<Forgotpassword />} />
      <Route path="reset-password" element={<NewPassword />} />
-     <Route path="Counsellordashboard" element={<Counsellor />} />
+
+     <Route
+  path="admin/Counsellordashboard"
+  element={
+    <ProtectedRoute>
+      <Counsellor />
+    </ProtectedRoute>
+  }
+/>
      <Route path="UserComplaints" element={<Usercomplaints />} />
      <Route path="Mycomplaints" element={<Mycomplaint />} />
 

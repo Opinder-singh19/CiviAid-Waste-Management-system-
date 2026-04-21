@@ -56,7 +56,7 @@ const Avatar = ({ name, profilePic }) => {
     </div>
   );
 };
-export default function Userdashboard() {
+export default function CounsellorDashboard() {
   const user = JSON.parse(localStorage.getItem("user"));
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState("All Types");
@@ -108,12 +108,33 @@ const filteredComplaints = complaints.filter((c) => {
 
   return typeMatch && statusMatch;
 });
+
+const handleAdminLogout = async () => {
+  try {
+    await fetch("http://192.168.1.99:8000/api/admin/logout", {
+      method: "POST",
+      credentials: "include"
+    });
+
+  
+    localStorage.removeItem("admin");
+
+  
+    window.location.href = "/";
+  } catch (err) {
+    console.log("Logout error:", err);
+  }
+};
   return (
     <div className="CD-user-container">
       <div className="CD-user-head">
         <div className="CD-user-head-inline">
           <Avatar name={user?.fullName} profilePic={user?.profilePic} />
         </div>
+        <button className="logout-btn" onClick={handleAdminLogout}>
+    Logout
+  </button>
+
         <div className="CD-user-subhead-inline">
           <h1 className="CD-user-title">Raghav Sharma</h1>
           <div className="CD-call">

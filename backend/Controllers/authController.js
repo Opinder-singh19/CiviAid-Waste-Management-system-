@@ -26,10 +26,12 @@ exports.loginUser = async (req,res)=>{
    return res.status(401).json({message:"Wrong password"});
  }
 
- req.session.user = {
-   id:user._id,
-   role:user.role
- };
+ req.session.admin = null;
+
+req.session.user = {
+  id: user._id,
+  role: user.role
+};
 
  res.json({
    message:"Login success",

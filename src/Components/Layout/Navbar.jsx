@@ -8,15 +8,28 @@ function Navbar() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    fetch("http://192.168.1.101:8000/api/auth/check-auth", {
-  credentials: "include"
-})
-      .then(res => res.json())
-      .then(data => {
-        setLoggedIn(data.loggedIn);
-        setRole(data.role);
-      });
-  }, []);
+  fetch("http://192.168.1.99:8000/api/auth/check-auth", {
+    credentials: "include"
+  })
+    .then(res => res.json())
+    .then(userData => {
+      if (userData.loggedIn) {
+        setLoggedIn(true);
+        setRole("user");
+      } else {
+        fetch("http://192.168.1.99:8000/api/admin/check-auth", {
+          credentials: "include"
+        })
+          .then(res => res.json())
+          .then(adminData => {
+            if (adminData.loggedIn) {
+              setLoggedIn(true);
+              setRole("admin");
+            }
+          });
+      }
+    });
+}, []);
 
   return (
     <div className="Navbar-main-outerbox">
@@ -38,18 +51,19 @@ function Navbar() {
           <NavLink className="link3" to="/">User Dashboard</NavLink>
             <NavLink className="link4" to="/wasteG">Waste Guidance</NavLink>
             <NavLink className="link5" to="/dustbinlocation">Dustbin Location</NavLink>
-            <NavLink className="link6" to="/Counsellordashboard">Counsellor Dashboard</NavLink>
+            
             <NavLink className="link6" to="/UserComplaints">User Complaints</NavLink>
           </>
         )}
 
       
         {loggedIn && role === "admin" && (
-          <>
-            <NavLink className="link6" to="/B">Admin Dashboard</NavLink>
-          </>
-        )}
-
+  <>
+          <NavLink className="link6" to="/admin/Counsellordashboard">
+      Counsellor Dashboard
+        </NavLink>
+  </>
+)}
       </nav>
     </div>
   );

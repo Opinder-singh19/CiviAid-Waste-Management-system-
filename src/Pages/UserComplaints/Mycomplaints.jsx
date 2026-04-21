@@ -11,7 +11,7 @@ export default function Mycomplaint() {
   const [complaints, setComplaints] = useState([]);
 
   useEffect(() => {
-  fetch("http://192.168.1.101:8000/api/auth/my-complaints", {
+  fetch("http://192.168.1.99:8000/api/auth/my-complaints", {
     credentials: "include",
   })
     .then((res) => res.json())
