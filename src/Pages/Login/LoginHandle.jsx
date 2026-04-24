@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 const handleLogin = (email, password, navigate) => {
 
- fetch("http://192.168.1.99:8000/api/auth/login", {
+ fetch("http://localhost:8000/api/auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
