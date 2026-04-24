@@ -1,6 +1,6 @@
 const handleLogout = () => {
 
- fetch("http://192.168.1.99:8000/api/auth/logout", {
+ fetch("http://localhost:8000/api/auth/logout", {
   credentials: "include"
 })
  .then(res => res.json())
