@@ -73,7 +73,7 @@ const [loadingLocation, setLoadingLocation] = useState(false);
   e.preventDefault();
 
   try {
-    const res = await fetch("http://192.168.1.99:8000/api/auth/complaint", {
+    const res = await fetch("http://localhost:8000/api/auth/complaint", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

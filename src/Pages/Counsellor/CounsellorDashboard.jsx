@@ -111,7 +111,7 @@ const filteredComplaints = complaints.filter((c) => {
 
 const handleAdminLogout = async () => {
   try {
-    await fetch("http://192.168.1.99:8000/api/admin/logout", {
+    await fetch("http://localhost:8000/api/admin/logout", {
       method: "POST",
       credentials: "include"
     });
