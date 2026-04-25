@@ -60,7 +60,7 @@ export default function CounsellorDashboard() {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState("All Types");
 
-  const options = ["All Types", "Dustbin", "Other", "Street Light"];
+  const options = ["All Types", "Dustbin", "Other", "Light"];
   const [openStatus, setOpenStatus] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState("All Status");
 
