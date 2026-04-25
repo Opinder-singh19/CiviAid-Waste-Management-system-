@@ -46,3 +46,9 @@ exports.loginAdmin = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+// admin side
+exports.getComplaints = async (req, res) => {
+  const db = getDB();
+  const complaints = await db.collection("userComplaints").find().toArray();
+  res.json(complaints);
+};
