@@ -66,15 +66,17 @@ export default function CounsellorDashboard() {
   const [selectedStatus, setSelectedStatus] = useState("All Status");
 
   const statusOptions = ["All Status", "Pending", "Resolved"];
- const [complaints, setComplaints] = useState([
-  {
-    _id: 1,
-    name: "Amit Sharma",
-    issueType: "Dustbin",
-    description: "overflowing dustbin",
-    status: "Pending"
-  }
-]);
+ const [complaints, setComplaints] = useState([]);
+
+useEffect(() => {
+  fetch("http://localhost:8000/api/complaints", {
+    credentials: "include"
+  })
+    .then(res => res.json())
+    .then(data => setComplaints(data))
+    .catch(err => console.log(err));
+}, []);
+
 const handleStart = (id) => {
   setComplaints(prev =>
     prev.map(c =>

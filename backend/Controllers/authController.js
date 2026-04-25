@@ -230,7 +230,7 @@ exports.UserComplaints=async(req,res)=>{
   
   try{
     await db.collection("userComplaints").insertOne({
-    issueType, description, location, counselor ,  createdAt: new Date() ,userId: req.session.user.id 
+    issueType, description, location, counselor ,  createdAt: new Date() , name: req.session.user.fullName, status: "pending",  
   })
   res.status(200).json({Message:"Your Complaint Submitted "})
   }
