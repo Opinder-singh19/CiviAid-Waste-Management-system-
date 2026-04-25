@@ -4,19 +4,50 @@ import {
   MapPin,
   Trash2Icon,
   Clock,
+  Lightbulb,
+  AlertCircle,
+  CheckCircle,
+  XCircle,
+  Loader
 } from "lucide-react";
 import { useState, useEffect } from "react";
 
 export default function Mycomplaint() {
   const [complaints, setComplaints] = useState([]);
 
-  useEffect(() => {
+
+const fetchComplaints = () => {
   fetch("http://localhost:8000/api/auth/my-complaints", {
     credentials: "include",
   })
     .then((res) => res.json())
-    .then((data) => setComplaints(data))
+    .then((data) => {
+      const sorted = data.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+      setComplaints(sorted);
+    })
     .catch((err) => console.log(err));
+};
+useEffect(() => {
+  fetchComplaints();
+}, []);
+
+useEffect(() => {
+  fetchComplaints();
+
+  const onFocus = () => fetchComplaints();
+  window.addEventListener("focus", onFocus);
+
+  return () => window.removeEventListener("focus", onFocus);
+}, []);
+
+useEffect(() => {
+  fetchComplaints();
+
+  const interval = setInterval(fetchComplaints, 3000);
+
+  return () => clearInterval(interval);
 }, []);
 
   return (
@@ -32,10 +63,20 @@ export default function Mycomplaint() {
 
       
         {complaints.map((c, index) => (
-          <div className="UC-user-main2-inside-box1" key={index}>
+          <div className="UC-user-main2-inside-box1" key={c._id}>
             <div className="my-complaint1">
-              <Trash2Icon className="my-complaint12" size={20} />
-            </div>
+  {c.issueType === "dustbin" && (
+    <Trash2Icon className="my-complaint12" size={20} />
+  )}
+
+  {c.issueType === "light" && (
+    <Lightbulb className="my-complaint12" size={20} />
+  )}
+
+  {c.issueType === "other" && (
+    <AlertCircle className="my-complaint12" size={20} />
+  )}
+</div>
 
             <div className="uc-mycomplants-outer">
               <div className="action-uc">
@@ -44,9 +85,16 @@ export default function Mycomplaint() {
                      ? c.issueType.charAt(0).toUpperCase() + c.issueType.slice(1)
                           : "Dustbin"}
                 </div>
-                <div className="action-p-r">
-                  {c.status || "Pending"}
-                </div>
+                <div className={`action-p-r status-${c.status || "pending"}`}>
+  {c.status === "Resolved" && <CheckCircle size={16} />}
+  {c.status === "Rejected" && <XCircle size={16} />}
+  {c.status === "In Progress" && <Loader size={16} />}
+  {(!c.status || c.status === "Pending") && <Clock size={16} />}
+
+  <span>
+    {c.status || "Pending"}
+  </span>
+</div>
               </div>
 
               <p className="CD-user-main2-uc1">

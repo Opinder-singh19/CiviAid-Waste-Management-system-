@@ -57,25 +57,57 @@ const Avatar = ({ name, profilePic }) => {
   );
 };
 export default function CounsellorDashboard() {
-  const user = JSON.parse(localStorage.getItem("user"));
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState("All Types");
 
-  const options = ["All Types", "Dustbin", "Road", "Street Light"];
+  const options = ["All Types", "Dustbin", "Other", "Street Light"];
   const [openStatus, setOpenStatus] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState("All Status");
 
-  const statusOptions = ["All Status", "Pending", "Resolved"];
- const [complaints, setComplaints] = useState([
-  {
-    _id: 1,
-    name: "Amit Sharma",
-    issueType: "Dustbin",
-    description: "overflowing dustbin",
-    status: "Pending"
+  const statusOptions = [
+  "All Status",
+  "Pending",
+  "In Progress",
+  "Resolved",
+  "Rejected"
+];
+const [complaints, setComplaints] = useState([]);
+
+const fetchComplaints = async () => {
+  try {
+    const res = await fetch("http://localhost:8000/api/admin/complaints", {
+      credentials: "include",
+    });
+
+    const data = await res.json();
+
+    console.log("FROM DB:", data);
+
+    setComplaints(Array.isArray(data) ? data : []);
+  } catch (err) {
+    console.log(err);
   }
-]);
-const handleStart = (id) => {
+};
+useEffect(() => {
+  fetchComplaints();
+}, []);
+
+useEffect(() => {
+  fetchComplaints();
+
+  const onFocus = () => fetchComplaints();
+  window.addEventListener("focus", onFocus);
+
+  return () => window.removeEventListener("focus", onFocus);
+}, []);
+const handleStart = async (id) => {
+  await fetch(`http://localhost:8000/api/admin/complaint/${id}/status`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify({ status: "In Progress" })
+  });
+
   setComplaints(prev =>
     prev.map(c =>
       c._id === id ? { ...c, status: "In Progress" } : c
@@ -83,24 +115,39 @@ const handleStart = (id) => {
   );
 };
 
-const handleReject = (id) => {
+const handleReject = async (id) => {
+  await fetch(`http://localhost:8000/api/admin/complaint/${id}/status`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify({ status: "Rejected" })
+  });
+
   setComplaints(prev =>
     prev.map(c =>
       c._id === id ? { ...c, status: "Rejected" } : c
     )
   );
 };
-const handleWorkDone = (id) => {
+const handleWorkDone = async (id) => {
+  await fetch(`http://localhost:8000/api/admin/complaint/${id}/status`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify({ status: "Resolved" })
+  });
+
   setComplaints(prev =>
     prev.map(c =>
       c._id === id ? { ...c, status: "Resolved" } : c
     )
   );
 };
+
 const filteredComplaints = complaints.filter((c) => {
   const typeMatch =
     selected === "All Types" ||
-    c.issueType === selected;
+    (c.issueType || "").toLowerCase() === selected.toLowerCase().replace(/\s/g, "");
 
   const statusMatch =
     selectedStatus === "All Status" ||
@@ -125,6 +172,21 @@ const handleAdminLogout = async () => {
     console.log("Logout error:", err);
   }
 };
+const user = JSON.parse(localStorage.getItem("user"));
+
+const myComplaints = complaints.filter(
+  (c) => c.email === user?.email
+);
+const total = complaints.length;
+const pending = complaints.filter(
+  (c) => (c.status || "Pending") === "Pending"
+).length;
+const resolved = complaints.filter(
+  (c) => c.status === "Resolved"
+).length;
+const inProgress = complaints.filter(
+  (c) => c.status === "In Progress"
+).length;
   return (
     <div className="CD-user-container">
       <div className="CD-user-head">
@@ -151,34 +213,40 @@ const handleAdminLogout = async () => {
       </div>
       <div className="CD-user-main">
         <div className="CD-user-main2">
-          <div className="CD-user-word1">
-            <div className="complaint-numbering">
-              <p>Total Complaints</p>
-              <p>4</p>
-            </div>
-            <div className="CD-user-main2-div0">
-              <MessageSquare className="CD-user-main2-div1" size={30} />
-            </div>
-          </div>
-          <div className="CD-user-word2">
-            <div className="complaint-numbering">
-              <p>Pending</p>
-              <p>4</p>
-            </div>
-            <div className="CD-user-main2-div001">
-              <Recycle className="CD-user-main2-div1" size={30} />
-            </div>
-          </div>
-          <div className="CD-user-word3">
-            <div className="complaint-numbering">
-              <p>Resolved</p>
-              <p>4</p>
-            </div>
-            <div className="CD-user-main2-div002">
-              <Leaf className="CD-user-main2-div1" size={30} />
-            </div>
-          </div>
-        </div>
+  <div className="CD-user-word1">
+    <div className="complaint-numbering">
+      <p>Total Complaints</p>
+      <p>{total}</p>
+    </div>
+    <div className="CD-user-main2-div0">
+      <MessageSquare className="CD-user-main2-div1" size={30} />
+    </div>
+  </div>
+
+  <div className="CD-user-word2">
+    <div className="complaint-numbering">
+      <p>Pending</p>
+      <p>
+        {pending}
+      </p>
+    </div>
+    <div className="CD-user-main2-div001">
+      <Recycle className="CD-user-main2-div1" size={30} />
+    </div>
+  </div>
+
+  <div className="CD-user-word3">
+    <div className="complaint-numbering">
+      <p>Resolved</p>
+      <p>
+        {resolved}
+      </p>
+    </div>
+    <div className="CD-user-main2-div002">
+      <Leaf className="CD-user-main2-div1" size={30} />
+    </div>
+  </div>
+</div>
         <div className="CD-user-word3">
           <div className="filter-container">
             <label>Filter by Issue Type</label>
@@ -258,6 +326,7 @@ const handleAdminLogout = async () => {
       <th>User Name</th>
       <th>Issue Type</th>
       <th>Description</th>
+      <th>Location</th>
       <th>Status</th>
       <th>Action</th>
     </tr>
@@ -266,7 +335,9 @@ const handleAdminLogout = async () => {
   <tbody>
     {filteredComplaints.map((c, index) => (
       <tr key={c._id}>
-        <td>{c.name}</td>
+        <td>
+  {c.name || "Unknown User"}
+</td>
 
         <td className="issue-type">
           {c.issueType}
@@ -275,35 +346,58 @@ const handleAdminLogout = async () => {
         <td className="desc">{c.description}</td>
 
         <td>
-          <span className={`status ${c.status?.toLowerCase().replace(" ", "-")}`}>
+  {c.location?.lat && c.location?.lng ? (
+    <span
+      style={{ color: "#2563eb", cursor: "pointer", textDecoration: "underline" }}
+      onClick={() =>
+        window.open(
+          `https://www.google.com/maps?q=${c.location.lat},${c.location.lng}`,
+          "_blank"
+        )
+      }
+    >
+      View Location
+    </span>
+  ) : (
+    "No Location"
+  )}
+</td>
+
+        <td>
+          <span className={`status ${(c.status || "").toLowerCase().replace(/\s+/g, "-")}`}>
             {c.status}
           </span>
         </td>
 
         <td className="actions">
-          {c.status === "Pending" && (
-            <>
-              <button className="btn start" onClick={() => handleStart(c._id)}>
-  Start
-</button>
+  {c.status === "Pending" && (
+    <>
+      <button className="btn start" onClick={() => handleStart(c._id)}>
+        Start
+      </button>
 
-<button className="btn reject" onClick={() => handleReject(c._id)}>
-  Reject
-</button>
-            </>
-          )}
+      <button className="btn reject" onClick={() => handleReject(c._id)}>
+        Reject
+      </button>
+    </>
+  )}
 
-         {c.status === "In Progress" && (
-  <button
-  className="btn done"
-  onClick={() => handleWorkDone(c._id)}
->
-  Work Done
-</button>
-)}
+  {c.status === "In Progress" && (
+    <button
+      className="btn done"
+      onClick={() => handleWorkDone(c._id)}
+    >
+      Work Done
+    </button>
+  )}
 
-          {c.status === "Resolved" && <span>—</span>}
-        </td>
+  {c.status === "Resolved" && <span>—</span>}
+
+  {/* ✅ ADD THIS */}
+  {c.status === "Rejected" && (
+    <span style={{ opacity: 0.6 }}>Closed</span>
+  )}
+</td>
       </tr>
     ))}
   </tbody>
