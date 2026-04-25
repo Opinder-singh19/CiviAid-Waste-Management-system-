@@ -30,7 +30,8 @@ exports.loginUser = async (req,res)=>{
 
 req.session.user = {
   id: user._id,
-  role: user.role
+  role: user.role,
+  fullName: user.fullName
 };
 
  res.json({
@@ -222,24 +223,30 @@ exports.resetPassword = async (req, res) => {
 };
 // user complaints logic backend 
 exports.UserComplaints=async(req,res)=>{
-  const { issueType, description, location, counselor } = req.body
   const db=getDB();
   if (!req.session.user) {
-  return res.status(401).json({ message: "Please login first" });
-}
-  
+    return res.status(401).json({ message: "Please login first" });
+  }
+    console.log("SESSION:", req.session);
+  console.log("BODY:", req.body);
+  const { issueType, description, location, counsellor } = req.body
   try{
     await db.collection("userComplaints").insertOne({
-    issueType, description, location, counselor ,  createdAt: new Date() ,userId: req.session.user.id 
-  })
+  issueType: req.body.issueType,
+  description: req.body.description,
+  location: req.body.location,
+  email: counsellor, // EMAIL stored here
+  name: req.session.user.fullName, // from login session
+  userId: req.session.user.id,
+  status: "Pending",
+  createdAt: new Date()
+});
   res.status(200).json({Message:"Your Complaint Submitted "})
   }
   catch(err){
     console.log("ERROR:", err); 
     res.status(500).json({Message:"Something Went wrong"})
   }
-  console.log("SESSION:", req.session);
-  console.log(req.body);
 }
 
 exports.mycomplaints=async(req,res)=>{

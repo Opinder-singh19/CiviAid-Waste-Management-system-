@@ -13,100 +13,103 @@ import DustbinMapPicker from "../../Components/Map/DustbinMapPicker";
 export default function UserComplaints() {
   const [issue, setIssue] = useState("");
   const [description, setDescription] = useState("");
-  
+
   const [location, setLocation] = useState({
-  address: "",
-  lat: null,
-  lng: null
-});
-const [counsellor, setCounsellor] = useState("");
-const [loadingLocation, setLoadingLocation] = useState(false);
+    address: "",
+    lat: null,
+    lng: null,
+  });
+  const [counsellor, setCounsellor] = useState("");
+  const [loadingLocation, setLoadingLocation] = useState(false);
   const [showMap, setShowMap] = useState(false);
   const getCurrentLocation = () => {
-  if (!navigator.geolocation) {
-    alert("Geolocation not supported");
-    return;
-  }
-
-  setLoadingLocation(true); 
-
-  navigator.geolocation.getCurrentPosition(
-    async (position) => {
-      setLoadingLocation(false); 
-
-      const lat = position.coords.latitude;
-      const lng = position.coords.longitude;
-
-      const address = await getAddressFromCoords(lat, lng);
-
-      setLocation({
-        address,
-        lat,
-        lng
-      });
-
-      setShowMap(false);
-    },
-    (error) => {
-      setLoadingLocation(false);
-
-      console.log("GPS Error:", error);
-
-
-      setShowMap(true);
-    },
-    {
-      enableHighAccuracy: true,
-      timeout: 5000,     
-      maximumAge: 0
+    if (!navigator.geolocation) {
+      alert("Geolocation not supported");
+      return;
     }
-  );
-};
+
+    setLoadingLocation(true);
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        setLoadingLocation(false);
+
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+
+        const address = await getAddressFromCoords(lat, lng);
+
+        setLocation({
+          address,
+          lat,
+          lng,
+        });
+
+        setShowMap(false);
+      },
+      (error) => {
+        setLoadingLocation(false);
+
+        console.log("GPS Error:", error);
+
+        setShowMap(true);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0,
+      },
+    );
+  };
 
   useEffect(() => {
     setIssue("");
     setCounsellor("");
   }, []);
 
-
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    const res = await fetch("http://localhost:8000/api/auth/complaint", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({
-        issueType: issue,
-        description: description,
-       location: location.lat ? location : null,
-        counselor: counsellor,
-      }),
-    });
+    try {
+      console.log({
+  issueType: issue,
+  description,
+  location,
+  counsellor
+});
+      const res = await fetch("http://localhost:8000/api/auth/complaint", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+  issueType: issue,
+  description: description,
+  location: location?.lat && location?.lng ? location : { lat: null, lng: null },
+  counsellor: counsellor,
+})
+      });
 
-    const data = await res.json();
-    alert(data.Message);
+      const data = await res.json();
+      alert(data.Message);
+    } catch (err) {
+      console.log(err);
+      alert("Error submitting complaint");
+    }
+  };
 
-  } catch (err) {
-    console.log(err);
-    alert("Error submitting complaint");
-  }
-};
-
-const getAddressFromCoords = async (lat, lng) => {
-  try {
-    const res = await fetch(
-      `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`
-    );
-    const data = await res.json();
-    return data.display_name || "Selected Location";
-  } catch (err) {
-    return "Location Selected";
-  }
-};
+  const getAddressFromCoords = async (lat, lng) => {
+    try {
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`,
+      );
+      const data = await res.json();
+      return data.display_name || "Selected Location";
+    } catch (err) {
+      return "Location Selected";
+    }
+  };
   return (
     <div className="uc-user-container">
       <div className="uc-user-head">
@@ -123,11 +126,11 @@ const getAddressFromCoords = async (lat, lng) => {
           </div>
         </div>
         <div className="uc-user-logout">
-  <Link to="/Mycomplaints" className="uc-user-logout-btn">
-    <HistoryIcon size={20} color="green" />
-    <span>My Complaints</span>
-  </Link>
-</div>
+          <Link to="/Mycomplaints" className="uc-user-logout-btn">
+            <HistoryIcon size={20} color="green" />
+            <span>My Complaints</span>
+          </Link>
+        </div>
       </div>
       <div className="uc-user-main">
         <form onSubmit={handleSubmit}>
@@ -158,7 +161,7 @@ const getAddressFromCoords = async (lat, lng) => {
                 type="text"
                 placeholder="Enter the description of the complaint"
                 value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                onChange={(e) => setDescription(e.target.value)}
                 required
               />
             </div>
@@ -168,13 +171,13 @@ const getAddressFromCoords = async (lat, lng) => {
 
             <div className="uc-input-box1">
               <input
-  type="text"
-  value={location.address}
-  placeholder="Click to select location"
-  readOnly
-  onClick={() => setShowMap(true)}
-  style={{ cursor: "pointer", color: "#2563eb" }}
-/>
+                type="text"
+                value={location.address}
+                placeholder="Click to select location"
+                readOnly
+                onClick={() => setShowMap(true)}
+                style={{ cursor: "pointer", color: "#2563eb" }}
+              />
             </div>
           </div>
           <div className="uc-form-group1">
@@ -190,10 +193,14 @@ const getAddressFromCoords = async (lat, lng) => {
                 <option value="" disabled>
                   Choose counsellor
                 </option>
-                <option value="Raghav">Raghav Sharma(Ishar Nagar)</option>
-                <option value="Hardeep">Hardeep Singh(Dugri)</option>
-                <option value="Tarun">Tarun Gupta(Model Town)</option>
-                <option value="Ravindar">Ravindar Sharma(Shimlapuri)</option>
+                <option value="civiAid@gmail.com">
+                  Raghav Sharma (Ishar Nagar)
+                </option>
+                <option value="hardeep@gmail.com">Hardeep Singh (Dugri)</option>
+                <option value="tarun@gmail.com">Tarun Gupta (Model Town)</option>
+                <option value="ravinder@gmail.com">
+                  Ravindar Sharma (Shimlapuri)
+                </option>
               </select>
             </div>
           </div>
@@ -213,11 +220,11 @@ const getAddressFromCoords = async (lat, lng) => {
             </button>
 
             <DustbinMapPicker
-  onSelectLocation={(loc) => {
-    setLocation(loc);  
-    setShowMap(false);
-  }}
-/>
+              onSelectLocation={(loc) => {
+                setLocation(loc);
+                setShowMap(false);
+              }}
+            />
             <button
               onClick={getCurrentLocation}
               style={{
@@ -230,7 +237,7 @@ const getAddressFromCoords = async (lat, lng) => {
                 cursor: "pointer",
               }}
             >
-               Use My Current Location
+              Use My Current Location
             </button>
           </div>
         </div>
