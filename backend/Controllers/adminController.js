@@ -8,6 +8,8 @@ const checkAdmin = (req, res, next) => {
   next();
 };
 
+const { ObjectId } = require("mongodb");
+
 // Admin login
 exports.loginAdmin = async (req, res) => {
   try {
@@ -32,9 +34,10 @@ exports.loginAdmin = async (req, res) => {
 
     
     req.session.admin = {
-      id: admin._id,
-      role: admin.role
-    };
+  id: admin._id,
+  role: admin.role,
+  email: admin.email  
+};
 
     res.json({
       message: "Login success",
@@ -46,9 +49,65 @@ exports.loginAdmin = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
-// admin side
-exports.getComplaints = async (req, res) => {
-  const db = getDB();
-  const complaints = await db.collection("userComplaints").find().toArray();
-  res.json(complaints);
+
+// Get complaints assigned to counsellor
+exports.getCounsellorComplaints = async (req, res) => {
+  try {
+    const db = getDB();
+
+    if (!req.session.admin) {
+      return res.status(401).json({ message: "Not logged in" });
+    }
+
+    const email = req.session.admin.email;
+
+    const complaints = await db
+      .collection("userComplaints")
+      .find({ email: email })   // ✅ MUST MATCH DB FIELD
+      .sort({ createdAt: -1 })
+      .toArray();
+
+    console.log("FETCHED:", complaints); // 🔥 DEBUG
+
+    res.json(complaints);
+
+  } catch (err) {
+    console.log("ERROR:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+exports.updateComplaintStatus = async (req, res) => {
+  try {
+    const db = getDB();
+
+    const id = req.params.id;
+    const { status } = req.body;
+
+    console.log("🔵 Incoming ID:", id);
+    console.log("🔵 Status:", status);
+
+    // ✅ validate ObjectId FIRST
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid complaint ID" });
+    }
+
+    const result = await db.collection("userComplaints").updateOne(
+      { _id: new ObjectId(id) },
+      { $set: { status } }
+    );
+
+    console.log("🟢 Matched:", result.matchedCount);
+    console.log("🟢 Modified:", result.modifiedCount);
+
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ message: "Complaint not found" });
+    }
+
+    res.json({ message: "Status updated successfully" });
+
+  } catch (err) {
+    console.log("❌ ERROR IN UPDATE:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
 };
