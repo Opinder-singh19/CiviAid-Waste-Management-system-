@@ -44,8 +44,9 @@ const router = createBrowserRouter(
     </ProtectedRoute>
   }
 />
-     <Route path="UserComplaints" element={<Usercomplaints />} />
-     <Route path="Mycomplaints" element={<Mycomplaint />} />
+     {/* <Route path="UserComplaints" element={<Usercomplaints />} />
+     <Route path="Mycomplaints" element={<Mycomplaint />} /> */}
+
 
       <Route
         path="wasteG"
@@ -55,7 +56,22 @@ const router = createBrowserRouter(
           </ProtectedRoute>
         }
       />
-
+      <Route
+        path="Mycomplaints"
+        element={
+          <ProtectedRoute>
+            <Mycomplaint />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="UserComplaints"
+        element={
+          <ProtectedRoute>
+            <Usercomplaints />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path="dustbinlocation"
         element={

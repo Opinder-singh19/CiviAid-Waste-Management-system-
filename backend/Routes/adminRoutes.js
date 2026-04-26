@@ -1,11 +1,19 @@
 const express = require("express");
 const router = express.Router();
 
-const { loginAdmin } = require("../Controllers/adminController");
-
+const { 
+  loginAdmin,
+  getCounsellorComplaints,
+  updateComplaintStatus
+} = require("../Controllers/adminController");
 // Admin login
 router.post("/login", loginAdmin);
 
+// ✅ ADD THIS (fetch complaints)
+router.get("/complaints", getCounsellorComplaints);
+
+// ✅ ADD THIS (update status)
+router.patch("/complaint/:id/status", updateComplaintStatus);
 
 router.get("/check-auth", (req, res) => {
   if (req.session.admin && req.session.admin.role === "admin") {
@@ -19,7 +27,6 @@ router.get("/check-auth", (req, res) => {
     });
   }
 });
-
 
 router.post("/logout", (req, res) => {
   req.session.admin = null;

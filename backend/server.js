@@ -6,13 +6,16 @@ const authRoutes = require("./Routes/authRoutes");
 const { mongoConnect } = require("./config/db");
 const adminRoutes=require("./Routes/adminRoutes")
 
-app.use(express.json());
-app.use(express.static(__dirname));
-
 app.use(cors({
   origin: ["http://localhost:5173"],
   credentials: true
 }));
+
+// app.options("*", cors());
+
+app.use(express.json());
+app.use(express.static(__dirname));
+
 
 app.use(session({
   secret: "secretkey",
@@ -20,14 +23,14 @@ app.use(session({
   saveUninitialized: false
 }));
 
-// Backend test route
-app.get("/", (req, res) => {
-  res.send("backend is working");
-});
 
 app.use("/api/auth", authRoutes);
 app.use("/api/admin",adminRoutes)
 
+// Backend test route
+app.get("/", (req, res) => {
+  res.send("backend is working");
+});
 // ----------------------------
 // 📍 PHONE GPS STORAGE
 // ----------------------------
