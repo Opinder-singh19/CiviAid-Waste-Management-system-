@@ -36,7 +36,9 @@ exports.loginAdmin = async (req, res) => {
     req.session.admin = {
   id: admin._id,
   role: admin.role,
-  email: admin.email  
+  email: admin.email,
+  name:admin.name,
+  area:admin.area 
 };
 
     res.json({

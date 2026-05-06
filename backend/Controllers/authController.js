@@ -1,5 +1,6 @@
 const { getDB } = require("../config/db");
 const nodemailer = require("nodemailer");
+const bcrypt = require("bcrypt");
 
 
 const transporter = nodemailer.createTransport({
@@ -22,9 +23,11 @@ exports.loginUser = async (req,res)=>{
    return res.status(401).json({message:"User not found"});
  }
 
- if(user.password !== password){
-   return res.status(401).json({message:"Wrong password"});
- }
+ const isMatch = await bcrypt.compare(password, user.password);
+
+if(!isMatch){
+  return res.status(401).json({message:"Wrong password"});
+}
 
  req.session.admin = null;
 
@@ -61,14 +64,16 @@ exports.signupUser = async (req,res)=>{
  }
  
 
- await db.collection("users").insertOne({
-   fullName,
-   phone,
-   email,
-   location,
-   password,
-   role:"user"
- });
+ const hashedPassword = await bcrypt.hash(password, 10);
+
+await db.collection("users").insertOne({
+  fullName,
+  phone,
+  email,
+  location,
+  password: hashedPassword,
+  role:"user"
+});
 
  res.json({message:"Signup successful"});
 };
@@ -211,14 +216,15 @@ exports.resetPassword = async (req, res) => {
     return res.status(400).json({ success: false, message: "Unauthorized request" });
   }
 
-  await db.collection("users").updateOne(
-    { email },
-    {
-      $set: { password: newPassword },
-      $unset: { otpVerified: "" }
-    }
-  );
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
 
+await db.collection("users").updateOne(
+  { email },
+  {
+    $set: { password: hashedPassword },
+    $unset: { otpVerified: "" }
+  }
+);
   res.json({ success: true, message: "Password updated successfully" });
 };
 // user complaints logic backend 
