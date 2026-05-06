@@ -7,7 +7,7 @@ import { useState, useEffect, useMemo } from "react";
 import { dustbinLocations } from "../../data/Dustbins";
 import { useLocation } from "react-router-dom";
 
-function WasteG() {
+function Dustbinlocation() {
   const [distance, setDistance] = useState(0);
   const getTheme = (type) => {
   if (type === "green") {
@@ -283,4 +283,4 @@ const otherBins = sortedBins.slice(1);
     </div>
   );
 }
-export default WasteG;
+export default Dustbinlocation;
