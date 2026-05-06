@@ -269,4 +269,59 @@ const complaints = await db.collection("userComplaints")
 
 }
 
+exports.getUserProfile = async (req, res) => {
 
+  try {
+
+    if (!req.session.user) {
+
+      return res.status(401).json({
+        message: "Please login first",
+      });
+    }
+
+    const db = getDB();
+
+    const user = await db
+      .collection("users")
+      .findOne({
+        _id: req.session.user.id,
+      });
+
+    if (!user) {
+
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    res.json({
+
+      fullName: user.fullName,
+
+      email: user.email,
+
+      phone: user.phone,
+
+      location: user.location,
+
+      role: user.role,
+
+      coins: user.coins || 0,
+
+      wasteSegregations:
+        user.wasteSegregations || 0,
+
+      joined:
+        user.createdAt || "2026",
+    });
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).json({
+      message: "Server Error",
+    });
+  }
+};

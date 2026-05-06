@@ -1,10 +1,10 @@
 import { ArrowLeft ,RecycleIcon,User,Phone,Mail,MapPin,Lock} from "lucide-react";
-import './forgotpassword.css'
+import './Forgotpassword.css'
 import { Link,useNavigate } from "react-router-dom";
 import { useState } from "react"; // to store values
 import axios from "axios"; // to call backend
 
-function SignUp(){
+function Forgotpassword(){
  const [email, setEmail] = useState(""); 
 const [otp, setOtp] = useState(""); 
 const [showOtp, setShowOtp] = useState(false); 
@@ -157,4 +157,4 @@ return(
 </div>
 )
 }
-export default SignUp
+export default Forgotpassword;
