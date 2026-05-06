@@ -20,33 +20,24 @@ import { Link } from "react-router-dom";
 export default function UserProfile() {
   const [userData, setUserData] = useState({});
   useEffect(() => {
-
-  const fetchProfile = async () => {
-
-    try {
-
-      const response = await fetch(
-        "http://localhost:5000/profile",
-        {
+    const fetchProfile = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/auth/profile", {
           credentials: "include",
-        }
-      );
+        });
 
-      const data = await response.json();
+        const data = await response.json();
 
-      console.log(data);
+        console.log(data);
 
-      setUserData(data);
+        setUserData(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-    } catch (error) {
-
-      console.log(error);
-    }
-  };
-
-  fetchProfile();
-
-}, []);
+    fetchProfile();
+  }, []);
   return (
     <div className="pf-main-wrapper">
       {/* TOP HEADER */}
@@ -81,15 +72,23 @@ export default function UserProfile() {
         {/* LEFT CARD */}
         <div className="pf-left-card">
           <div className="pf-profile-top">
-            <div className="pf-avatar">
-  {userData?.fullName?.charAt(0)}
-</div>
+            <div className="pf-avatar">{userData?.fullName?.charAt(0)}</div>
 
             <h2>{userData.fullName}</h2>
 
             <div className="pf-joined-row">
               <Calendar size={16} />
-              <span>Joined {userData.joined}</span>
+              <span>
+  Joined{" "}
+  {userData.joined
+    ? new Date(userData.joined)
+        .toLocaleDateString("en-GB", {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        })
+    : ""}
+</span>
             </div>
           </div>
 
@@ -98,7 +97,7 @@ export default function UserProfile() {
             <div className="pf-stat-card green-card">
               <div>
                 <p>Waste Segregations</p>
-                <h3>{userData.wasteSegregations} Times</h3>
+                <h3>Times</h3>
               </div>
 
               <div className="pf-stat-icon green-icon">
@@ -109,7 +108,7 @@ export default function UserProfile() {
             <div className="pf-stat-card gold-card">
               <div>
                 <p>Coins Earned</p>
-                <h3>{userData.coins}</h3>
+                <h3></h3>
               </div>
 
               <div className="pf-stat-icon gold-icon">
@@ -138,9 +137,7 @@ export default function UserProfile() {
                   Full Name
                 </label>
 
-                <div className="pf-info-box">
-  {userData.fullName}
-</div>
+                <div className="pf-info-box">{userData.fullName}</div>
               </div>
 
               <div className="pf-info-item">
