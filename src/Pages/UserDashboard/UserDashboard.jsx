@@ -1,6 +1,5 @@
 import "./UserDashboard.css";
 import DustbinMap from "../../Components/Map/DustbinMap";
-import handleLogout from "./Logout"
 import {
   Leaf,
   RecycleIcon,
@@ -24,12 +23,6 @@ export default function Userdashboard() {
             <p className="user-subtitle">Together we can make our planet cleaner
             </p>
           </div>
-        </div>
-        <div className="user-logout">
-          <button className="user-logout-btn" onClick={handleLogout}>
-            <LogOut className="user-logout" size={20} />
-            <span>Logout</span>
-          </button>
         </div>
       </div>
 
