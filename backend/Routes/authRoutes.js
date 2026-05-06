@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
+const authController = require("../Controllers/authController");
 
 
 const { loginUser, checkAuth, logoutUser ,signupUser,forgotPassword, verifyOtp,resetPassword ,UserComplaints,mycomplaints} = require("../Controllers/authController");
@@ -8,7 +8,10 @@ const { loginUser, checkAuth, logoutUser ,signupUser,forgotPassword, verifyOtp,r
 router.post("/login", loginUser);
 
 router.get("/check-auth", checkAuth);
-
+router.get(
+  "/profile",
+  authController.getUserProfile
+);
 router.get("/logout", logoutUser);
 router.post("/signup", signupUser);
 

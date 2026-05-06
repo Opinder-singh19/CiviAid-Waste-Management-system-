@@ -101,11 +101,11 @@ useEffect(() => {
   return () => window.removeEventListener("focus", onFocus);
 }, []);
 useEffect(() => {
-  fetchComplaints(); // initial fetch
+  fetchComplaints();
 
   const interval = setInterval(() => {
     fetchComplaints();
-  }, 5000); // every 5 seconds (adjust as needed)
+  }, 5000);
 
   return () => clearInterval(interval);
 }, []);

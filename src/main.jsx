@@ -17,11 +17,12 @@ import Layout from "./Components/Layout/Layout.jsx";
 import Dustbinlocation from "./Pages/DustbinLocation/Dustbinlocation.jsx";
 import ProtectedRoute from "./Components/ProtectedRoute.jsx";
 import SignUp from "./Pages/Signup/signup.jsx";
-import Forgotpassword from "./Pages/Forgotpassword/forgotpassword.jsx"
+import Forgotpassword from "./Pages/Forgotpassword/Forgotpassword.jsx"
 import NewPassword   from "./Pages/Newpassword/Newpassword.jsx";
 import Counsellor   from "./Pages/Counsellor/CounsellorDashboard.jsx";
 import Usercomplaints   from "./Pages/UserComplaints/Usercomplaint.jsx";
 import Mycomplaint   from "./Pages/UserComplaints/Mycomplaints.jsx";
+import UserProfile   from "./Pages/Userprofile/Userprofile.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -44,8 +45,6 @@ const router = createBrowserRouter(
     </ProtectedRoute>
   }
 />
-     {/* <Route path="UserComplaints" element={<Usercomplaints />} />
-     <Route path="Mycomplaints" element={<Mycomplaint />} /> */}
 
 
       <Route
@@ -69,6 +68,14 @@ const router = createBrowserRouter(
         element={
           <ProtectedRoute>
             <Usercomplaints />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="UserProfile"
+        element={
+          <ProtectedRoute>
+            <UserProfile/>
           </ProtectedRoute>
         }
       />
