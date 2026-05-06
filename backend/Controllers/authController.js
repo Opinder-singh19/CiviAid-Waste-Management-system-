@@ -244,7 +244,7 @@ exports.UserComplaints=async(req,res)=>{
   issueType: req.body.issueType,
   description: req.body.description,
   location: req.body.location,
-  email: counsellor, // EMAIL stored here
+  counsellor: counsellor, // EMAIL stored here
   name: req.session.user.fullName, // from login session
   userId: req.session.user.id,
   status: "Pending",
