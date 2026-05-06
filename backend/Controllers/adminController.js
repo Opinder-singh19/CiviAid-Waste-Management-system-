@@ -13,11 +13,13 @@ const { ObjectId } = require("mongodb");
 // Admin login
 exports.loginAdmin = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { Counselloremail, password } = req.body;
     console.log("Body:", req.body);
 
     const db = getDB();
-    const admin = await db.collection("admin").findOne({ email });
+    const admin = await db.collection("admin").findOne({
+  Counselloremail
+});
 
     console.log("Admin from DB:", admin);
 
@@ -36,9 +38,8 @@ exports.loginAdmin = async (req, res) => {
     req.session.admin = {
   id: admin._id,
   role: admin.role,
-  email: admin.email,
-  name:admin.name,
-  area:admin.area 
+  Counsellorname:
+  admin.Counsellorname
 };
 
     res.json({
@@ -61,11 +62,12 @@ exports.getCounsellorComplaints = async (req, res) => {
       return res.status(401).json({ message: "Not logged in" });
     }
 
-    const email = req.session.admin.email;
+    const counsellorName =
+  req.session.admin.Counsellorname;
 
-    const complaints = await db
-      .collection("userComplaints")
-      .find({ email: email })   // ✅ MUST MATCH DB FIELD
+const complaints = await db
+  .collection("userComplaints")
+  .find({counsellor: counsellorName})
       .sort({ createdAt: -1 })
       .toArray();
 
