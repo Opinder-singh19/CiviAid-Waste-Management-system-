@@ -100,6 +100,15 @@ useEffect(() => {
 
   return () => window.removeEventListener("focus", onFocus);
 }, []);
+useEffect(() => {
+  fetchComplaints(); // initial fetch
+
+  const interval = setInterval(() => {
+    fetchComplaints();
+  }, 5000); // every 5 seconds (adjust as needed)
+
+  return () => clearInterval(interval);
+}, []);
 const handleStart = async (id) => {
   await fetch(`http://localhost:8000/api/admin/complaint/${id}/status`, {
     method: "PATCH",
