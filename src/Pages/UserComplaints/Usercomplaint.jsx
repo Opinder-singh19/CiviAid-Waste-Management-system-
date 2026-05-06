@@ -193,12 +193,12 @@ export default function UserComplaints() {
                 <option value="" disabled>
                   Choose counsellor
                 </option>
-                <option value="civiAid@gmail.com">
+                <option value="Raghav Sharma">
                   Raghav Sharma (Ishar Nagar)
                 </option>
-                <option value="hardeep@gmail.com">Hardeep Singh (Dugri)</option>
-                <option value="tarun@gmail.com">Tarun Gupta (Model Town)</option>
-                <option value="ravinder@gmail.com">
+                <option value="Hardeep Singh">Hardeep Singh (Dugri)</option>
+                <option value="Tarun Gupta">Tarun Gupta (Model Town)</option>
+                <option value="Ravindar Sharma">
                   Ravindar Sharma (Shimlapuri)
                 </option>
               </select>
