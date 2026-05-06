@@ -5,7 +5,8 @@ import { useState } from "react";
 
 
 export default function Admin() {
-  const [email, setEmail] = useState("");
+  const [Counselloremail,
+setEmail] = useState("");
   const [password, setPassword] = useState("");
     const navigate = useNavigate();
   
@@ -20,7 +21,10 @@ export default function Admin() {
           "Content-Type": "application/json"
         },
         credentials: "include",
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({
+  Counselloremail,
+  password
+})
       });
 
       const data = await res.json();
@@ -65,7 +69,7 @@ export default function Admin() {
               <input
                 type="email"
                 placeholder="xyz@gmail.com"
-                value={email}
+                value={Counselloremail}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
