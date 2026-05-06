@@ -1,7 +1,7 @@
 const { getDB } = require("../config/db");
 const nodemailer = require("nodemailer");
 const bcrypt = require("bcrypt");
-
+const { ObjectId } = require("mongodb");
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -33,8 +33,10 @@ if(!isMatch){
 
 req.session.user = {
   id: user._id,
-  role: user.role,
-  fullName: user.fullName
+  email: user.email,
+  fullName: user.fullName,
+  role: user.role
+
 };
 
  res.json({
@@ -72,7 +74,8 @@ await db.collection("users").insertOne({
   email,
   location,
   password: hashedPassword,
-  role:"user"
+  role:"user",
+  createdAt: new Date()
 });
 
  res.json({message:"Signup successful"});
@@ -285,7 +288,7 @@ exports.getUserProfile = async (req, res) => {
     const user = await db
       .collection("users")
       .findOne({
-        _id: req.session.user.id,
+        email: req.session.user.email
       });
 
     if (!user) {
@@ -302,18 +305,9 @@ exports.getUserProfile = async (req, res) => {
       email: user.email,
 
       phone: user.phone,
-
       location: user.location,
+      joined: user.createdAt
 
-      role: user.role,
-
-      coins: user.coins || 0,
-
-      wasteSegregations:
-        user.wasteSegregations || 0,
-
-      joined:
-        user.createdAt || "2026",
     });
 
   } catch (error) {
