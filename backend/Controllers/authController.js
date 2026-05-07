@@ -319,3 +319,36 @@ exports.getUserProfile = async (req, res) => {
     });
   }
 };
+
+exports.updateProfile = async (req, res) => {
+  try {
+    const db = getDB();
+
+    const userId = req.session.user.id;
+
+    const { fullName, phone, location } = req.body;
+
+    await db.collection("users").updateOne(
+      { _id: new ObjectId(userId) },
+      {
+        $set: {
+          fullName,
+          phone,
+          location,
+        },
+      }
+    );
+
+    res.json({
+      success: true,
+      message: "Profile updated",
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
+};
