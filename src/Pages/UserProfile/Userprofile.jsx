@@ -19,6 +19,43 @@ import { Link } from "react-router-dom";
 
 export default function UserProfile() {
   const [userData, setUserData] = useState({});
+  const [isEditing, setIsEditing] = useState(false);
+  const handleChange = (e) => {
+    setUserData({
+      ...userData,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const handleSave = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8000/api/auth/update-profile",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            fullName: userData.fullName,
+            phone: userData.phone,
+            location: userData.location,
+          }),
+        },
+      );
+
+      const data = await response.json();
+
+      console.log(data);
+
+      if (data.success) {
+        setIsEditing(false);
+        alert("Profile updated successfully");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -79,16 +116,15 @@ export default function UserProfile() {
             <div className="pf-joined-row">
               <Calendar size={16} />
               <span>
-  Joined{" "}
-  {userData.joined
-    ? new Date(userData.joined)
-        .toLocaleDateString("en-GB", {
-          day: "2-digit",
-          month: "long",
-          year: "numeric",
-        })
-    : ""}
-</span>
+                Joined{" "}
+                {userData.joined
+                  ? new Date(userData.joined).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "long",
+                      year: "numeric",
+                    })
+                  : ""}
+              </span>
             </div>
           </div>
 
@@ -124,9 +160,18 @@ export default function UserProfile() {
             <div className="pf-info-header">
               <h2>Personal Information</h2>
 
-              <button className="pf-edit-btn">
+              <button
+                className="pf-edit-btn"
+                onClick={() => {
+                  if (isEditing) {
+                    handleSave();
+                  } else {
+                    setIsEditing(true);
+                  }
+                }}
+              >
                 <Pencil size={16} />
-                Edit Profile
+                {isEditing ? "Save Profile" : "Edit Profile"}
               </button>
             </div>
 
@@ -137,7 +182,17 @@ export default function UserProfile() {
                   Full Name
                 </label>
 
-                <div className="pf-info-box">{userData.fullName}</div>
+                {isEditing ? (
+                  <input
+                    type="text"
+                    name="fullName"
+                    value={userData.fullName || ""}
+                    onChange={handleChange}
+                    className="pf-info-box"
+                  />
+                ) : (
+                  <div className="pf-info-box">{userData.fullName}</div>
+                )}
               </div>
 
               <div className="pf-info-item">
@@ -155,7 +210,17 @@ export default function UserProfile() {
                   Phone Number
                 </label>
 
-                <div className="pf-info-box">{userData.phone}</div>
+                {isEditing ? (
+                  <input
+                    type="text"
+                    name="phone"
+                    value={userData.phone || ""}
+                    onChange={handleChange}
+                    className="pf-info-box"
+                  />
+                ) : (
+                  <div className="pf-info-box">{userData.phone}</div>
+                )}
               </div>
 
               <div className="pf-info-item">
@@ -164,7 +229,17 @@ export default function UserProfile() {
                   Location
                 </label>
 
-                <div className="pf-info-box">{userData.location}</div>
+                {isEditing ? (
+                  <input
+                    type="text"
+                    name="location"
+                    value={userData.location || ""}
+                    onChange={handleChange}
+                    className="pf-info-box"
+                  />
+                ) : (
+                  <div className="pf-info-box">{userData.location}</div>
+                )}
               </div>
             </div>
           </div>
