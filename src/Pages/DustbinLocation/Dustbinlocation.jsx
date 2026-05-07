@@ -37,6 +37,7 @@ function Dustbinlocation() {
 }
 
   const [selectedDustbin, setSelectedDustbin] = useState(null);
+  const [focusDustbinOnMap, setFocusDustbinOnMap] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
   const [startRoute, setStartRoute] = useState(null);
   console.log("startRoute:", startRoute); 
@@ -44,6 +45,7 @@ function Dustbinlocation() {
   const theme = getTheme(selectedDustbin?.type);
   const location = useLocation();
   const [isRouting, setIsRouting] = useState(false);
+  
 const binType = location.state?.binType || "";
 const sortedBins = useMemo(() => {
   if (!userLocation) return [];
@@ -118,18 +120,22 @@ const otherBins = sortedBins.slice(1);
             </p>
           </div>
         </div>
+          <div><p>Coins</p></div>
+          
       </div>
       <div className="Waste-main">
         <div className="Location-map-section">
-          <DustbinMap
-            className="dustbin-main"
-            setSelectedDustbin={setSelectedDustbin}
-            setRouteFromParent={setStartRoute}
-            setImageFromParent={setShowImage}
-            setDistanceFromParent={setDistance} 
-              isRouting={isRouting}
-              setIsRouting={setIsRouting}
-          />
+         <DustbinMap
+  className="dustbin-main"
+  setSelectedDustbin={setSelectedDustbin}
+  setRouteFromParent={setStartRoute}
+  setImageFromParent={setShowImage}
+  setDistanceFromParent={setDistance}
+  isRouting={isRouting}
+  setIsRouting={setIsRouting}
+  focusedDustbin={focusDustbinOnMap}
+setFocusedDustbin={setFocusDustbinOnMap}
+/>
           {selectedDustbin && startRoute && (
 <div className="route-panel">
 
@@ -157,7 +163,8 @@ const otherBins = sortedBins.slice(1);
     <button
       className="cancel-btn"
       onClick={() => {
-        setIsRouting(false); //STOP ROUTE
+        setIsRouting(false);
+setFocusDustbinOnMap(null);
       }}
     >
       Cancel
@@ -198,16 +205,16 @@ const otherBins = sortedBins.slice(1);
 
     <div style={{ display: "flex", gap: "10px" }}>
       <button
-        className="direction-btn"
-        onClick={() => {
-          startRoute &&
-          startRoute([selectedDustbin.lat, selectedDustbin.lng]);
-        }}
-      ><div className="get-direction">
-
-      <Navigation size={18} />Get Direction
-      </div>
-      </button>
+  className="direction-btn"
+  onClick={() => {
+    setFocusDustbinOnMap(selectedDustbin);
+  }}
+>
+  <div className="get-direction">
+    <Navigation size={18} />
+    Show on Map
+  </div>
+</button>
 
       {selectedDustbin.image && (
         <button
