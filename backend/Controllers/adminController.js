@@ -14,14 +14,12 @@ const { ObjectId } = require("mongodb");
 exports.loginAdmin = async (req, res) => {
   try {
     const { Counselloremail, password } = req.body;
-    console.log("Body:", req.body);
 
     const db = getDB();
     const admin = await db.collection("admin").findOne({
   Counselloremail
 });
 
-    console.log("Admin from DB:", admin);
 
     if (!admin) {
       return res.status(401).json({ message: "User not found" });
@@ -48,12 +46,10 @@ exports.loginAdmin = async (req, res) => {
     });
 
   } catch (err) {
-    console.log("Admin login error:", err);
     res.status(500).json({ message: "Server error" });
   }
 };
 
-// Get complaints assigned to counsellor
 exports.getCounsellorComplaints = async (req, res) => {
   try {
     const db = getDB();
@@ -71,12 +67,10 @@ const complaints = await db
       .sort({ createdAt: -1 })
       .toArray();
 
-    console.log("FETCHED:", complaints); // 🔥 DEBUG
 
     res.json(complaints);
 
   } catch (err) {
-    console.log("ERROR:", err);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -88,10 +82,7 @@ exports.updateComplaintStatus = async (req, res) => {
     const id = req.params.id;
     const { status } = req.body;
 
-    console.log("🔵 Incoming ID:", id);
-    console.log("🔵 Status:", status);
 
-    // ✅ validate ObjectId FIRST
     if (!ObjectId.isValid(id)) {
       return res.status(400).json({ message: "Invalid complaint ID" });
     }
@@ -101,8 +92,6 @@ exports.updateComplaintStatus = async (req, res) => {
       { $set: { status } }
     );
 
-    console.log("🟢 Matched:", result.matchedCount);
-    console.log("🟢 Modified:", result.modifiedCount);
 
     if (result.matchedCount === 0) {
       return res.status(404).json({ message: "Complaint not found" });
@@ -111,7 +100,6 @@ exports.updateComplaintStatus = async (req, res) => {
     res.json({ message: "Status updated successfully" });
 
   } catch (err) {
-    console.log("❌ ERROR IN UPDATE:", err);
     res.status(500).json({ message: "Server error", error: err.message });
   }
 };

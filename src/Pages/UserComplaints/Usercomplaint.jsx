@@ -194,12 +194,12 @@ export default function UserComplaints() {
                   Choose counsellor
                 </option>
                 <option value="Raghav Sharma">
-                  Raghav Sharma (Ishar Nagar)
+                  Raghav Sharma
                 </option>
-                <option value="Hardeep Singh">Hardeep Singh (Dugri)</option>
-                <option value="Tarun Gupta">Tarun Gupta (Model Town)</option>
+                <option value="Hardeep Singh">Hardeep Singh </option>
+                <option value="Tarun Gupta">Tarun Gupta </option>
                 <option value="Ravindar Sharma">
-                  Ravindar Sharma (Shimlapuri)
+                  Ravindar Sharma 
                 </option>
               </select>
             </div>
