@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const authController = require("../Controllers/authController");
-
+const { updateProfile } = require("../Controllers/authController");
 
 const { loginUser, checkAuth, logoutUser ,signupUser,forgotPassword, verifyOtp,resetPassword ,UserComplaints,mycomplaints} = require("../Controllers/authController");
 
@@ -14,6 +14,7 @@ router.get(
 );
 router.get("/logout", logoutUser);
 router.post("/signup", signupUser);
+router.put("/update-profile", updateProfile);
 
 router.post("/forgot-password", forgotPassword);
 router.post("/verify-otp", verifyOtp);
