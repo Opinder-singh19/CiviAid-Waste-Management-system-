@@ -3,10 +3,22 @@ import { Link,useNavigate } from "react-router-dom";
 import "./CivicA.css";
 import {useState } from "react"
 import handleLogin from "./LoginHandle";
-
+import Toast
+from "../../Components/Popup/Toast";
 export default function CivicALogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showToast,
+setShowToast]
+= useState(false);
+
+const [toastMessage,
+setToastMessage]
+= useState("");
+
+const [toastType,
+setToastType]
+= useState("success");
   return (
     <div className="container">
       <div className="login-card">
@@ -43,7 +55,16 @@ export default function CivicALogin() {
         <Link to="/forgotpassword" className="admin1">
           Forget Password?
         </Link>
-        <button className="login-btn"  onClick={() => handleLogin(email, password)}>Login to CivicAid</button>
+        <button className="login-btn"  onClick={() => handleLogin(
+
+  email,
+  password,
+
+  setToastType,
+  setToastMessage,
+  setShowToast
+
+)}>Login to CivicAid</button>
 
         <Link to="/admin" className="admin">
           Admin Login
@@ -60,6 +81,15 @@ export default function CivicALogin() {
       <RecycleIcon size={150}  className="bg-recycle"/>
       <RecycleIcon size={70}  className="bg-recycle1"/>
       <Leaf size={100}  className="bg-leaf1"/>
+      <Toast
+
+  show={showToast}
+
+  message={toastMessage}
+
+  type={toastType}
+
+/>
     </div>
   );
 }

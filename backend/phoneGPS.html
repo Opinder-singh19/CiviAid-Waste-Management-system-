@@ -23,7 +23,7 @@ const lng = position.coords.longitude;
 document.getElementById("status").innerText =
 "Lat: " + lat + " Lng: " + lng;
 
-fetch("http://10.223.87.161:8000/phone-location",{
+fetch("http://192.168.1.69:8000/phone-location",{
 method:"POST",
 headers:{
 "Content-Type":"application/json"

@@ -2,33 +2,86 @@ import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./Navbar.css";
 
-function Navbar() {
+function Navbar({
+  setRewardType
+}) {
 
   const [role, setRole] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
 
-  useEffect(() => {
-  fetch("http://localhost:8000/api/auth/check-auth", {
-    credentials: "include"
-  })
-    .then(res => res.json())
-    .then(userData => {
-      if (userData.loggedIn) {
-        setLoggedIn(true);
-        setRole(userData.role);
-      } else {
-        fetch("http://localhost:8000/api/admin/check-auth", {
-          credentials: "include"
-        })
-          .then(res => res.json())
-          .then(adminData => {
-            if (adminData.loggedIn) {
-              setLoggedIn(true);
-              setRole("admin");
-            }
-          });
+useEffect(() => {
+
+  const checkAuth = () => {
+
+    fetch(
+      "http://localhost:8000/api/auth/check-auth",
+      {
+        credentials: "include"
       }
+    )
+
+    .then(res => res.json())
+
+    .then(userData => {
+
+      if (userData.loggedIn) {
+
+        setLoggedIn(true);
+
+        setRole("user");
+
+        if (
+          userData.pendingRewards?.length
+        ) {
+
+          const reward =
+            userData.pendingRewards[0];
+
+          setRewardType(reward);
+
+          fetch(
+            "http://localhost:8000/api/auth/clear-reward",
+            {
+
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                "application/json"
+              },
+
+              credentials: "include",
+
+              body: JSON.stringify({
+                rewardType: reward
+              })
+            }
+          );
+
+          setTimeout(() => {
+
+            setRewardType(null);
+
+          }, 3000);
+        }
+
+      }
+
     });
+
+  };
+
+  checkAuth();
+
+  const interval =
+    setInterval(
+      checkAuth,
+      5000
+    );
+
+  return () =>
+    clearInterval(interval);
+
 }, []);
 
   return (

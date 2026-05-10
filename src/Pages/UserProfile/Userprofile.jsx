@@ -59,24 +59,45 @@ export default function UserProfile() {
     }
   };
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const response = await fetch("http://localhost:8000/api/auth/profile", {
-          credentials: "include",
-        });
+useEffect(() => {
 
-        const data = await response.json();
+  const fetchProfile = () => {
 
-
-        setUserData(data);
-      } catch (error) {
-        console.log(error);
+    fetch(
+      "http://localhost:8000/api/auth/profile",
+      {
+        credentials: "include"
       }
-    };
+    )
 
-    fetchProfile();
-  }, []);
+    .then(res => res.json())
+
+    .then(data => {
+
+      setUserData(data);
+
+    })
+
+    .catch(err => {
+
+      console.log(err);
+
+    });
+
+  };
+
+  fetchProfile();
+
+  const interval =
+    setInterval(
+      fetchProfile,
+      3000
+    );
+
+  return () =>
+    clearInterval(interval);
+
+}, []);
   return (
     <div className="pf-main-wrapper">
       <div className="pf-navbar">
