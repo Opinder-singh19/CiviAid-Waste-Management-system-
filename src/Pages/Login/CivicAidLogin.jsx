@@ -3,8 +3,11 @@ import { Link,useNavigate } from "react-router-dom";
 import "./CivicA.css";
 import {useState } from "react"
 import handleLogin from "./LoginHandle";
+import { showReward } from "../../Components/Rewards/rewardUtils";
 
-export default function CivicALogin() {
+export default function CivicALogin({
+  setRewardType,
+}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
     const navigate = useNavigate(); 
@@ -44,7 +47,12 @@ export default function CivicALogin() {
         <Link to="/forgotpassword" className="admin1">
           Forget Password?
         </Link>
-        <button className="login-btn"  onClick={() => handleLogin(email, password,navigate)}>Login to CivicAid</button>
+        <button className="login-btn"  onClick={() => handleLogin(
+  email,
+  password,
+  navigate,
+  setRewardType
+)}>Login to CivicAid</button>
 
         <Link to="/admin" className="admin">
           Admin Login

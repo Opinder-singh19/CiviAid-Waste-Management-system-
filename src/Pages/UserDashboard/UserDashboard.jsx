@@ -8,6 +8,7 @@ import {
   BookOpen,
   MapPin,
 } from "lucide-react";
+import { showReward } from "../../Components/Rewards/rewardUtils";
 
 export default function Userdashboard() {
   return (

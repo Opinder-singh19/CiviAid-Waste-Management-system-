@@ -402,7 +402,6 @@ const inProgress = complaints.filter(
 
   {c.status === "Resolved" && <span>—</span>}
 
-  {/* ✅ ADD THIS */}
   {c.status === "Rejected" && (
     <span style={{ opacity: 0.6 }}>Closed</span>
   )}
