@@ -322,24 +322,17 @@ font-weight: 500;
     
 }
 
-
-
-
-
-/* Popup Container */
 .popup-content {
   text-align: center;
   padding: 4px 6px;
 }
 
-/* Title */
 .popup-content h4 {
   margin: 0 0 8px 0;
   font-size: 14px;
   font-weight: 600;
 }
 
-/* Button Style */
 .direction-btn {
   background: linear-gradient(135deg, #2563eb, #1d4ed8);
   color: white;

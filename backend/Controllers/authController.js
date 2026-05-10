@@ -6,44 +6,95 @@ const { ObjectId } = require("mongodb");
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "civiaidofficial@gmail.com",
-    pass: "vkbfrckhrzixhpny"
+  user: process.env.EMAIL_USER,
+  pass: process.env.EMAIL_PASS
   }
 });
-exports.loginUser = async (req,res)=>{
+exports.loginUser = async (req, res) => {
+  const { email, password } = req.body;
 
- const {email,password} = req.body;
+  const db = getDB();
 
- const db = getDB();
- 
+  const user = await db
+    .collection("users")
+    .findOne({ email });
 
- const user = await db.collection("users").findOne({email});
+  if (!user) {
+    return res.status(401).json({
+      message: "User not found",
+    });
+  }
 
- if(!user){
-   return res.status(401).json({message:"User not found"});
- }
+  const isMatch =
+    await bcrypt.compare(
+      password,
+      user.password
+    );
 
- const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    return res.status(401).json({
+      message: "Wrong password",
+    });
+  }
 
-if(!isMatch){
-  return res.status(401).json({message:"Wrong password"});
-}
+  let rewardType = null;
 
- req.session.admin = null;
+  const today =
+    new Date().toDateString();
 
-req.session.user = {
-  id: user._id,
-  email: user.email,
-  fullName: user.fullName,
-  role: user.role
+  if (
+    !user.lastDailyReward ||
+    new Date(
+      user.lastDailyReward
+    ).toDateString() !== today
+  ) {
+    await db
+      .collection("users")
+      .updateOne(
+        { email },
 
-};
+        {
+          $inc: {
+            coins: 5,
+          },
 
- res.json({
-   message:"Login success",
-   role:user.role
- });
+          $set: {
+            lastDailyReward:
+              new Date(),
+          },
+        }
+      );
 
+    rewardType = "daily";
+  }
+
+  const updatedUser =
+    await db.collection("users").findOne({
+      email,
+    });
+
+  req.session.admin = null;
+
+  req.session.user = {
+    id: updatedUser._id,
+
+    email: updatedUser.email,
+
+    fullName:
+      updatedUser.fullName,
+
+    role: updatedUser.role,
+  };
+
+  res.json({
+    message: "Login success",
+
+    role: updatedUser.role,
+
+    coins: updatedUser.coins,
+
+    rewardType,
+  });
 };
 
 
@@ -74,25 +125,89 @@ await db.collection("users").insertOne({
   email,
   location,
   password: hashedPassword,
-  role:"user",
+
+  role: "user",
+
+  coins: 100,
+
+  signupBonusGiven: true,
+
+  lastDailyReward: new Date(),
+
   createdAt: new Date()
 });
+const newUser =
+  await db.collection("users").findOne({
+    email,
+  });
 
- res.json({message:"Signup successful"});
+req.session.user = {
+  id: newUser._id,
+
+  email: newUser.email,
+
+  fullName: newUser.fullName,
+
+  role: newUser.role,
+};
+ res.json({
+  message: "Signup successful",
+
+  rewardType: "signup",
+
+  coins: 100,
+});
 };
 
 
 
-exports.checkAuth = (req,res)=>{
+exports.checkAuth = async (
+  req,
+  res
+) => {
 
- if(req.session.user){
-   return res.json({
-     loggedIn:true,
-     role:req.session.user.role
-   });
- }
+  try {
 
- res.json({loggedIn:false});
+    if (!req.session.user) {
+
+      return res.json({
+        loggedIn: false
+      });
+    }
+
+    const db = getDB();
+
+    const user = await db
+      .collection("users")
+      .findOne({
+        email:
+        req.session.user.email
+      });
+
+    return res.json({
+
+      loggedIn: true,
+
+      role:
+      req.session.user.role,
+
+      coins:
+      user?.coins || 0
+
+    });
+
+  }
+
+  catch (err) {
+
+    console.log(err);
+
+    res.status(500).json({
+      error:
+      "Server Error"
+    });
+
+  }
 
 };
 
@@ -239,23 +354,47 @@ exports.UserComplaints=async(req,res)=>{
     console.log("SESSION:", req.session);
   console.log("BODY:", req.body);
   const { issueType, description, location, counsellor } = req.body
-  try{
-    await db.collection("userComplaints").insertOne({
-  issueType: req.body.issueType,
-  description: req.body.description,
-  location: req.body.location,
-  counsellor: counsellor, // EMAIL stored here
-  name: req.session.user.fullName, // from login session
-  userId: req.session.user.id,
-  status: "Pending",
-  createdAt: new Date()
-});
-  res.status(200).json({Message:"Your Complaint Submitted "})
+  try {
+
+  await db.collection("userComplaints").insertOne({
+    issueType: req.body.issueType,
+    description: req.body.description,
+    location: req.body.location,
+    counsellor: counsellor,
+    name: req.session.user.fullName,
+    userId: req.session.user.id,
+    status: "Pending",
+    createdAt: new Date()
+  });
+
+  await db.collection("users").updateOne(
+    {
+      _id: new ObjectId(
+        req.session.user.id
+      ),
+    },
+
+    {
+      $inc: {
+        coins: 20,
+      },
+    }
+  );
+
+  res.status(200).json({
+    Message:
+      "Your Complaint Submitted",
+
+    rewardType: "complaint",
+  });
   }
-  catch(err){
-    console.log("ERROR:", err); 
-    res.status(500).json({Message:"Something Went wrong"})
-  }
+catch(err){
+  console.log("ERROR:", err);
+
+  res.status(500).json({
+    Message: "Something Went wrong"
+  });
+}
 }
 
 exports.mycomplaints=async(req,res)=>{
@@ -306,7 +445,9 @@ exports.getUserProfile = async (req, res) => {
 
       phone: user.phone,
       location: user.location,
-      joined: user.createdAt
+      joined: user.createdAt,
+
+coins: user.coins,
 
     });
 

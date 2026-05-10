@@ -5,14 +5,13 @@ function Layout() {
 
   const location = useLocation();
 
-  // 👇 hide navbar on login pages
   const hideNavbar =
     location.pathname === "/civiAlogin" ||
     location.pathname === "/admin";
 
   return (
     <>
-      {!hideNavbar && <Navbar />}   {/* 🔥 FIX */}
+      {!hideNavbar && <Navbar />}  
 
       <div className="page-content">
         <Outlet />
