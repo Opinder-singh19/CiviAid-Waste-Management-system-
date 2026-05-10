@@ -60,6 +60,8 @@ from "./Pages/UserComplaints/Mycomplaints.jsx";
 import UserProfile
 from "./Pages/Userprofile/Userprofile.jsx";
 
+import VerifyDisposal
+from "./Components/Map/VerifyDisposal";
 function AppWrapper() {
 useEffect(() => {
 
@@ -94,7 +96,13 @@ useEffect(() => {
 
         <Route
           path="/"
-          element={<Layout />}
+          element={
+  <Layout
+    setRewardType={
+      setRewardType
+    }
+  />
+}
         >
 
           <Route
@@ -139,6 +147,15 @@ useEffect(() => {
             element={<NewPassword />}
           />
 
+          <Route
+
+  path="/verify-disposal"
+
+  element={
+    <VerifyDisposal />
+  }
+
+/>
           <Route
             path="admin/Counsellordashboard"
             element={

@@ -7,8 +7,55 @@ import { useState, useEffect, useMemo } from "react";
 import { dustbinLocations } from "../../data/Dustbins";
 import { useLocation } from "react-router-dom";
 import civiaidcoin from "../../assets/Dustbins/Civiaidcoin.png";
+import RewardPopup
+from "../../Components/Rewards/RewardPopup";
 
+import {
+rewardMessages
+}
+from "../../Components/Rewards/rewardData";
 function Dustbinlocation() {
+  
+  const [userData, setUserData] = useState({});
+  useEffect(() => {
+
+  const fetchProfile = () => {
+
+    fetch(
+      "http://localhost:8000/api/auth/profile",
+      {
+        credentials: "include"
+      }
+    )
+
+    .then(res => res.json())
+
+    .then(data => {
+
+      setUserData(data);
+
+    })
+
+    .catch(err => {
+
+      console.log(err);
+
+    });
+
+  };
+
+  fetchProfile();
+
+  const interval =
+    setInterval(
+      fetchProfile,
+      6000
+    );
+
+  return () =>
+    clearInterval(interval);
+
+}, []);
   const [distance, setDistance] = useState(0);
   const getTheme = (type) => {
     if (type === "green") {
@@ -41,12 +88,17 @@ function Dustbinlocation() {
   const [focusDustbinOnMap, setFocusDustbinOnMap] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
   const [startRoute, setStartRoute] = useState(null);
-  console.log("startRoute:", startRoute);
   const [showImage, setShowImage] = useState(null);
   const theme = getTheme(selectedDustbin?.type);
   const location = useLocation();
   const [isRouting, setIsRouting] = useState(false);
+  const [showReward,
+setShowReward]
+= useState(false);
 
+const [rewardData,
+setRewardData]
+= useState(null);
   const binType = location.state?.binType || "";
   const sortedBins = useMemo(() => {
     if (!userLocation) return [];
@@ -80,18 +132,57 @@ function Dustbinlocation() {
         const res = await fetch("http://localhost:8000/phone-location");
         const data = await res.json();
 
-        console.log("📍 FROM BACKEND:", data); // 👈 ADD THIS
 
         if (data.lat && data.lng) {
           setUserLocation([data.lat, data.lng]);
         }
       } catch (err) {
-        console.log("❌ Fetch error:", err);
+        console.log(" Fetch error:", err);
       }
     }, 2000);
 
     return () => clearInterval(interval);
   }, []);
+  useEffect(()=>{
+
+const reward =
+
+localStorage.getItem(
+"rewardPopup"
+);
+
+if(reward){
+
+const parsed =
+
+JSON.parse(reward);
+
+setRewardData({
+
+...rewardMessages[
+  parsed.type
+],
+
+amount:
+parsed.amount
+
+});
+
+setShowReward(true);
+
+localStorage.removeItem(
+"rewardPopup"
+);
+
+setTimeout(()=>{
+
+setShowReward(false);
+
+},3500);
+
+}
+
+},[]);
   const nearestBin = sortedBins[0];
   const otherBins = sortedBins.slice(1);
   return (
@@ -125,7 +216,7 @@ function Dustbinlocation() {
             <img src={civiaidcoin} alt="coin" />
           </div>
 
-          <span className="coin-text">1,250</span>
+          <span className="coin-text">{userData.coins}</span>
         </div>
       </div>
       <div className="Waste-main">
@@ -286,6 +377,13 @@ function Dustbinlocation() {
           ))}
         </div>
       </div>
+      <RewardPopup
+
+show={true}
+
+coins={10}
+
+/>
     </div>
   );
 }

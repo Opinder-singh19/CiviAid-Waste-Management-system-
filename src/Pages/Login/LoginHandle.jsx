@@ -1,9 +1,13 @@
-import { showReward }
-from "../../Components/Rewards/rewardUtils";
 
 const handleLogin = (
+
   email,
-  password
+  password,
+
+  setToastType,
+  setToastMessage,
+  setShowToast
+
 ) => {
 
   fetch(
@@ -30,26 +34,48 @@ const handleLogin = (
 
   .then(data => {
 
-    if (data.rewardType) {
+if (
+  data.message ===
+  "Login success"
+) {
 
-      showReward(
-        data.rewardType
-      );
-    }
+  setToastType(
+    "success"
+  );
 
-    if (
-      data.message ===
-      "Login success"
-    ) {
+  setToastMessage(
+    data.message
+  );
 
-      window.location.href = "/";
-    }
+  setShowToast(true);
 
-    else {
+  setTimeout(() => {
 
-      alert(data.message);
+    window.location.href =
+    "/";
 
-    }
+  }, 1500);
+
+}
+
+else {
+
+  setToastType(
+    "error"
+  );
+
+  setToastMessage(
+    data.message
+  );
+
+  setShowToast(true);
+
+  setTimeout(() => {
+
+    setShowToast(false);
+
+  }, 3000);
+}
 
   });
 

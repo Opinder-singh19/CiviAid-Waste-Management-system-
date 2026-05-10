@@ -5,7 +5,7 @@ const session = require("express-session");
 const authRoutes = require("./Routes/authRoutes");
 const { mongoConnect } = require("./config/db");
 const adminRoutes=require("./Routes/adminRoutes")
-
+const activityRoutes =require("./Routes/activityRoutes");
 app.use(cors({
   origin: ["http://localhost:5173"],
   credentials: true
@@ -25,14 +25,11 @@ app.use(session({
 
 app.use("/api/auth", authRoutes);
 app.use("/api/admin",adminRoutes)
+app.use("/api/activity",activityRoutes);
 
-// Backend test route
 app.get("/", (req, res) => {
   res.send("backend is working");
 });
-// ----------------------------
-// 📍 PHONE GPS STORAGE
-// ----------------------------
 let phoneLocation = { lat: null, lng: null };
 
 app.post("/phone-location", (req, res) => {
@@ -49,14 +46,9 @@ app.get("/phone-location", (req, res) => {
   res.json(phoneLocation);
 });
 
-// ----------------------------
-// Start Server
-// ----------------------------
 mongoConnect(() => {
 
   const PORT=8000;
-// const https = require("https");
-// const fs = require("fs");
 
   app.listen(PORT, "0.0.0.0", () => {
   console.log(`your server running at http://localhost:${PORT}`);

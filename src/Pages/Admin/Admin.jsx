@@ -2,9 +2,20 @@ import { Mail, Lock, Shield, ArrowLeft, RecycleIcon } from "lucide-react";
 import { Link ,useNavigate} from "react-router-dom";
 import "./Admin.css";
 import { useState } from "react";
-
+import AdminToast
+from "../../Components/Popup/AdminToast";
 
 export default function Admin() {
+const [showToast,
+setShowToast]
+= useState(false);
+
+const [toastMessage,
+setToastMessage]
+= useState("");
+const [toastType,
+setToastType]
+= useState("success");
   const [Counselloremail,
 setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,14 +38,54 @@ setEmail] = useState("");
 })
       });
 
-      const data = await res.json();
-      alert(data.message);
+const data = await res.json();
 
-    if (data.message === "Login success") {
-        navigate("/admin/Counsellordashboard", { replace: true });
-          window.history.pushState(null, "", "/admin/Counsellordashboard");
+if (
+  data.message ===
+  "Login success"
+) {
+
+  setToastType(
+    "success"
+  );
+
+  setToastMessage(
+    data.message
+  );
+
+  setShowToast(true);
+
+  setTimeout(() => {
+
+    navigate(
+      "/admin/Counsellordashboard",
+      {
+        replace: true
       }
+    );
 
+  }, 1500);
+
+}
+
+else {
+
+  setToastType(
+    "error"
+  );
+
+  setToastMessage(
+    data.message
+  );
+
+  setShowToast(true);
+
+  setTimeout(() => {
+
+    setShowToast(false);
+
+  }, 3000);
+}
     } catch (err) {
       console.log(err);
     }
@@ -109,6 +160,15 @@ setEmail] = useState("");
 
         <p className="footer">CivicAid Admin Portal v2.0 • Secured</p>
       </div>
+      <AdminToast
+
+  show={showToast}
+
+  message={toastMessage}
+
+  type={toastType}
+
+/>
     </div>
   );
 }
