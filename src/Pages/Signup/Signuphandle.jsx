@@ -1,4 +1,10 @@
-const handleSignup = (e) => {
+import { showReward }
+from "../../Components/Rewards/rewardUtils";
+const handleSignup = (
+  e,
+  navigate,
+  setRewardType
+) => {
 
   e.preventDefault();
 
@@ -22,16 +28,27 @@ const handleSignup = (e) => {
     body:JSON.stringify(data)
   })
   .then(res=>res.json())
-  .then(result=>{
+  .then(result => {
+    console.log(result);
 
-    if(result.message === "Signup successful"){
-      window.location.href="/";
-    }else{
-      alert(result.message);
-    }
+  if (result.rewardType) {
 
-  });
+    showReward(
+  setRewardType,
+  result.rewardType
+);
 
+navigate("/");
+
+  }
+
+  else {
+
+    alert(result.message);
+
+  }
+
+})
 };
 
 export default handleSignup;

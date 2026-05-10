@@ -12,10 +12,9 @@ body {
 .pf-main-wrapper {
   min-height: 100vh;
   padding: 30px;
-  background: linear-gradient(to bottom right, #edfdf2, #f7fffa);
+  background: linear-gradient(135deg, #b2d8c6, #e6f7ee, #e6f7ee, #e6f7ee, #b2d8c6);
 }
 
-/* NAVBAR */
 
 .pf-navbar {
   display: flex;
@@ -84,6 +83,7 @@ body {
   border: none;
   background: #dc2626;
   color: white;
+  height: 40px;
   padding: 12px 22px;
   border-radius: 12px;
   cursor: pointer;
@@ -96,7 +96,6 @@ body {
   background: #b91c1c;
 }
 
-/* GRID */
 
 .pf-grid-layout {
   display: grid;
@@ -106,7 +105,6 @@ body {
   align-items: start;
 }
 
-/* LEFT CARD */
 
 .pf-left-card {
   background: white;
@@ -156,7 +154,6 @@ body {
   color: #64748b;
 }
 
-/* STATS */
 
 .pf-stats-wrapper {
   margin-top: 35px;
@@ -220,15 +217,12 @@ body {
   color: #d97706;
 }
 
-/* RIGHT SIDE */
 
 .pf-right-card {
   display: flex;
   flex-direction: column;
   gap: 28px;
 }
-/* COMMON RIGHT CARDS */
-
 .pf-info-card,
 .pf-goal-card,
 .pf-history-card {
@@ -309,15 +303,12 @@ body {
   border-color: #22c55e;
 }
 
-/* RIGHT SECTION */
-
 .pf-right-card {
   display: flex;
   flex-direction: column;
   gap: 28px;
 }
 
-/* COMMON CARD */
 
 .pf-goal-card,
 .pf-history-card,
@@ -329,7 +320,6 @@ body {
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
 }
 
-/* SECTION TITLES */
 
 .pf-section-title h2 {
   font-size: 22px;
@@ -337,7 +327,6 @@ body {
   color: #0f172a;
 }
 
-/* GOAL SECTION */
 
 .pf-goal-header {
   margin-top: 28px;
@@ -347,7 +336,6 @@ body {
   font-size: 17px;
 }
 
-/* PROGRESS BAR */
 
 .pf-progress-bar {
   width: 100%;
@@ -365,7 +353,6 @@ body {
   border-radius: 999px;
 }
 
-/* TEXT */
 
 .pf-goal-text {
   margin-top: 18px;
@@ -373,7 +360,6 @@ body {
   color: #475569;
 }
 
-/* MINI STATS */
 
 .pf-goal-stats {
   margin-top: 34px;
@@ -406,7 +392,6 @@ body {
   font-weight: 700;
 }
 
-/* BLUE CARD */
 
 .blue-mini {
   background: #eff6ff;
@@ -417,7 +402,6 @@ body {
   color: #1d4ed8;
 }
 
-/* GREEN CARD */
 
 .green-mini {
   background: #f0fdf4;
@@ -432,7 +416,6 @@ body {
   font-size: 38px;
 }
 
-/* HISTORY SECTION */
 
 .pf-history-list {
   margin-top: 30px;
@@ -441,7 +424,6 @@ body {
   gap: 18px;
 }
 
-/* SINGLE ITEM */
 
 .pf-history-item {
   background: #f8fafc;
@@ -459,14 +441,12 @@ body {
   box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
-/* ACTIVE */
 
 .active-item {
   background: #f0fdf4;
   border: 1px solid #bbf7d0;
 }
 
-/* LEFT SIDE */
 
 .pf-history-left {
   display: flex;
@@ -474,7 +454,6 @@ body {
   gap: 18px;
 }
 
-/* ICON */
 
 .pf-history-icon {
   width: 56px;
@@ -487,7 +466,6 @@ body {
   font-size: 24px;
 }
 
-/* TEXT */
 
 .pf-history-left h3 {
   font-size: 17px;
@@ -499,8 +477,6 @@ body {
   color: #64748b;
   font-size: 15px;
 }
-
-/* RIGHT SIDE */
 
 .pf-history-right {
   text-align: right;
@@ -518,7 +494,6 @@ body {
   font-size: 15px;
 }
 
-/* RESPONSIVE */
 
 @media (max-width: 900px) {
 
@@ -536,4 +511,49 @@ body {
     text-align: left;
   }
 }
+.profile-icon-logout{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.coin-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+background: #d8f3f7;
+  padding: 25px 10px 25px 5px;
 
+  border-radius: 30px;
+
+  height: 40px;
+
+  box-shadow: 2px 5px 10px rgba(3, 25, 35, 0.18);
+
+}
+
+.coin-icon {
+
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.coin-icon img {
+  width: 78px;
+  height: 78px;
+  margin-top: 7px;
+  margin-left: 1px;
+  object-fit: cover;
+
+  border-radius: 50%;
+}
+.coin-text {
+  font-size: 18px;
+  font-weight: 700;
+   color: #0095d9;
+}

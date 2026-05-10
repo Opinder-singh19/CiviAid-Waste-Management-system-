@@ -17,6 +17,8 @@ import {
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+import civiaidcoin from "../../assets/Dustbins/Civiaidcoin.png";
+
 export default function UserProfile() {
   const [userData, setUserData] = useState({});
   const [isEditing, setIsEditing] = useState(false);
@@ -56,6 +58,7 @@ export default function UserProfile() {
       console.log(error);
     }
   };
+
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -65,7 +68,6 @@ export default function UserProfile() {
 
         const data = await response.json();
 
-        console.log(data);
 
         setUserData(data);
       } catch (error) {
@@ -77,7 +79,6 @@ export default function UserProfile() {
   }, []);
   return (
     <div className="pf-main-wrapper">
-      {/* TOP HEADER */}
       <div className="pf-navbar">
         <div className="pf-navbar-left">
           <Link to="/" className="pf-back-btn">
@@ -97,16 +98,25 @@ export default function UserProfile() {
             </div>
           </div>
         </div>
-
+        <div className="profile-icon-logout">
+        <div className="coin-box">
+                  <div className="coin-icon">
+                    <img src={civiaidcoin} alt="coin" />
+                  </div>
+        
+                  <span className="coin-text">
+  {userData.coins}
+</span>
+                </div>
         <button className="pf-logout-btn" onClick={handleLogout}>
           <LogOut size={18} />
           Logout
         </button>
+        </div>
       </div>
 
-      {/* PROFILE CONTENT */}
+
       <div className="pf-grid-layout">
-        {/* LEFT CARD */}
         <div className="pf-left-card">
           <div className="pf-profile-top">
             <div className="pf-avatar">{userData?.fullName?.charAt(0)}</div>
@@ -128,7 +138,6 @@ export default function UserProfile() {
             </div>
           </div>
 
-          {/* STATS */}
           <div className="pf-stats-wrapper">
             <div className="pf-stat-card green-card">
               <div>
@@ -154,7 +163,6 @@ export default function UserProfile() {
           </div>
         </div>
 
-        {/* RIGHT CARD */}
         <div className="pf-right-card">
           <div className="pf-info-card">
             <div className="pf-info-header">
@@ -243,10 +251,9 @@ export default function UserProfile() {
               </div>
             </div>
           </div>
-          {/* WEEKLY GOAL SECTION */}
           <div className="pf-goal-card">
             <div className="pf-section-title">
-              <h2>🎯 Weekly Goal Progress</h2>
+              <h2> Weekly Goal Progress</h2>
             </div>
 
             <div className="pf-goal-header">
@@ -269,7 +276,7 @@ export default function UserProfile() {
                   <h3>18 times</h3>
                 </div>
 
-                <span>📈</span>
+                <span></span>
               </div>
 
               <div className="pf-mini-card green-mini">
@@ -278,21 +285,20 @@ export default function UserProfile() {
                   <h3>14 times</h3>
                 </div>
 
-                <span>🗑️</span>
+                <span></span>
               </div>
             </div>
           </div>
 
-          {/* RECENT SEGREGATIONS */}
           <div className="pf-history-card">
             <div className="pf-section-title">
-              <h2>📊 Recent Segregations</h2>
+              <h2> Recent Segregations</h2>
             </div>
 
             <div className="pf-history-list">
               <div className="pf-history-item active-item">
                 <div className="pf-history-left">
-                  <div className="pf-history-icon">🗑️</div>
+                  <div className="pf-history-icon"><Trash2/></div>
 
                   <div>
                     <h3>3 segregations</h3>
@@ -302,13 +308,13 @@ export default function UserProfile() {
 
                 <div className="pf-history-right">
                   <h4>Mar 8</h4>
-                  <span>🪙 +15 coins</span>
+                  <span> +15 coins</span>
                 </div>
               </div>
 
               <div className="pf-history-item">
                 <div className="pf-history-left">
-                  <div className="pf-history-icon">🗑️</div>
+                  <div className="pf-history-icon"><Trash2/></div>
 
                   <div>
                     <h3>2 segregations</h3>
@@ -318,7 +324,7 @@ export default function UserProfile() {
 
                 <div className="pf-history-right">
                   <h4>Mar 7</h4>
-                  <span>🪙 +10 coins</span>
+                  <span> +10 coins</span>
                 </div>
               </div>
             </div>
