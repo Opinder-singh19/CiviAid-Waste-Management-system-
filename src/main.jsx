@@ -7,7 +7,7 @@ from "react-dom/client";
 import "leaflet/dist/leaflet.css";
 
 import "./index.css";
-
+import { useEffect } from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -61,7 +61,30 @@ import UserProfile
 from "./Pages/Userprofile/Userprofile.jsx";
 
 function AppWrapper() {
+useEffect(() => {
 
+  const reward =
+    localStorage.getItem(
+      "rewardPopup"
+    );
+
+  if (reward) {
+
+    setRewardType(reward);
+
+    setTimeout(() => {
+
+      setRewardType(null);
+
+      localStorage.removeItem(
+        "rewardPopup"
+      );
+
+    }, 3000);
+
+  }
+
+}, []);
   const [rewardType, setRewardType] =
     useState(null);
 
