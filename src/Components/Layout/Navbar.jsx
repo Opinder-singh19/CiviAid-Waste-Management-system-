@@ -48,7 +48,7 @@ function Navbar() {
       
         {loggedIn && role === "user" && (
           <>
-          <NavLink className="link3" to="/civiAlogin/">User Dashboard</NavLink>
+          <NavLink className="link3" to="/">User Dashboard</NavLink>
             <NavLink className="link4" to="/wasteG">Waste Guidance</NavLink>
             <NavLink className="link5" to="/dustbinlocation">Dustbin Location</NavLink>
             <NavLink className="link6" to="/UserComplaints">User Complaints</NavLink>
