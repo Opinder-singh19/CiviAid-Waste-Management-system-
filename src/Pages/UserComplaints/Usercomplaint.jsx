@@ -10,9 +10,18 @@ import {
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import DustbinMapPicker from "../../Components/Map/DustbinMapPicker";
+import SuccessPopup
+from "../../Components/Popup/SuccessPopup";
 export default function UserComplaints() {
   const [issue, setIssue] = useState("");
   const [description, setDescription] = useState("");
+  const [showPopup,
+setShowPopup]
+= useState(false);
+
+const [popupMessage,
+setPopupMessage]
+= useState("");
 
   const [location, setLocation] = useState({
     address: "",
@@ -92,7 +101,20 @@ export default function UserComplaints() {
       });
 
       const data = await res.json();
-      alert(data.Message);
+
+setPopupMessage(
+  data.Message
+);
+
+setShowPopup(true);
+
+setTimeout(() => {
+
+  setShowPopup(false);
+
+}, 3000);
+
+
     } catch (err) {
       console.log(err);
       alert("Error submitting complaint");
@@ -242,6 +264,13 @@ export default function UserComplaints() {
           </div>
         </div>
       )}
+      <SuccessPopup
+
+  show={showPopup}
+
+  message={popupMessage}
+
+/>
     </div>
   );
 }

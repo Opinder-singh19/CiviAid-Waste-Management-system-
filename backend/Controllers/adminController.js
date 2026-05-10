@@ -87,10 +87,63 @@ exports.updateComplaintStatus = async (req, res) => {
       return res.status(400).json({ message: "Invalid complaint ID" });
     }
 
-    const result = await db.collection("userComplaints").updateOne(
-      { _id: new ObjectId(id) },
-      { $set: { status } }
-    );
+    const complaint =
+  await db.collection(
+    "userComplaints"
+  ).findOne({
+
+    _id:
+    new ObjectId(id)
+
+  });
+
+const result =
+  await db.collection(
+    "userComplaints"
+  ).updateOne(
+
+    {
+      _id:
+      new ObjectId(id)
+    },
+
+    {
+      $set: {
+        status
+      }
+    }
+  );
+
+if (
+  status === "Resolved"
+) {
+
+  await db.collection("users")
+  .updateOne(
+
+    {
+      _id:
+      new ObjectId(
+        complaint.userId
+      )
+    },
+
+    {
+
+      $inc: {
+        coins: 6
+      },
+
+      $push: {
+
+        pendingRewards:
+        "resolved"
+
+      }
+
+    }
+  );
+}
 
 
     if (result.matchedCount === 0) {

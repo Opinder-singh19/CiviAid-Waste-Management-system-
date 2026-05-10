@@ -1,7 +1,9 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
 
-function Layout() {
+function Layout({
+  setRewardType
+}) {
 
   const location = useLocation();
 
@@ -11,7 +13,11 @@ function Layout() {
 
   return (
     <>
-      {!hideNavbar && <Navbar />}  
+      {!hideNavbar && <Navbar
+  setRewardType={
+    setRewardType
+  }
+/>}  
 
       <div className="page-content">
         <Outlet />
