@@ -20,6 +20,7 @@ router.post("/forgot-password", forgotPassword);
 router.post("/verify-otp", verifyOtp);
 router.post("/reset-password", resetPassword);
 router.post("/complaint",UserComplaints)
+router.post("/clear-reward",authController.clearReward);
 router.get("/my-complaints",mycomplaints)
 
 module.exports = router;

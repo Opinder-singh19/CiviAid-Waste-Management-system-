@@ -133,7 +133,7 @@ await db.collection("users").insertOne({
   signupBonusGiven: true,
 
   lastDailyReward: new Date(),
-
+  pendingRewards: [],
   createdAt: new Date()
 });
 const newUser =
@@ -192,7 +192,10 @@ exports.checkAuth = async (
       req.session.user.role,
 
       coins:
-      user?.coins || 0
+      user?.coins || 0,
+
+      pendingRewards: 
+      user?.pendingRewards || [],
 
     });
 
@@ -367,26 +370,10 @@ exports.UserComplaints=async(req,res)=>{
     createdAt: new Date()
   });
 
-  await db.collection("users").updateOne(
-    {
-      _id: new ObjectId(
-        req.session.user.id
-      ),
-    },
-
-    {
-      $inc: {
-        coins: 20,
-      },
-    }
-  );
-
-  res.status(200).json({
-    Message:
-      "Your Complaint Submitted",
-
-    rewardType: "complaint",
-  });
+res.status(200).json({
+  Message:
+  "Your Complaint Submitted"
+});
   }
 catch(err){
   console.log("ERROR:", err);
@@ -492,4 +479,50 @@ exports.updateProfile = async (req, res) => {
       message: "Server error",
     });
   }
+};
+
+exports.clearReward =
+async (req, res) => {
+
+  try {
+
+    const db = getDB();
+
+    const {
+      rewardType
+    } = req.body;
+
+    await db.collection("users")
+    .updateOne(
+
+      {
+        email:
+        req.session.user.email
+      },
+
+      {
+        $pull: {
+          pendingRewards:
+          rewardType
+        }
+      }
+    );
+
+    res.json({
+      success: true
+    });
+
+  }
+
+  catch(err){
+
+    console.log(err);
+
+    res.status(500).json({
+      error:
+      "Server Error"
+    });
+
+  }
+
 };
