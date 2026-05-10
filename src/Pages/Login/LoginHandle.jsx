@@ -3,25 +3,28 @@ from "../../Components/Rewards/rewardUtils";
 
 const handleLogin = (
   email,
-  password,
-  navigate,
-  setRewardType
+  password
 ) => {
 
- fetch("http://localhost:8000/api/auth/login", {
-    method: "POST",
+  fetch(
+    "http://localhost:8000/api/auth/login",
+    {
 
-    headers: {
-      "Content-Type": "application/json"
-    },
+      method: "POST",
 
-    credentials: "include",
+      headers: {
+        "Content-Type":
+        "application/json"
+      },
 
-    body: JSON.stringify({
-      email,
-      password
-    })
-  })
+      credentials: "include",
+
+      body: JSON.stringify({
+        email,
+        password
+      })
+    }
+  )
 
   .then(res => res.json())
 
@@ -30,20 +33,26 @@ const handleLogin = (
     if (data.rewardType) {
 
       showReward(
-        setRewardType,
         data.rewardType
       );
     }
 
-    if(data.message === "Login success"){
+    if (
+      data.message ===
+      "Login success"
+    ) {
 
-      navigate("/", {
-        replace: true
-      });
+      window.location.href = "/";
+    }
+
+    else {
+
+      alert(data.message);
 
     }
 
   });
+
 };
 
 export default handleLogin;

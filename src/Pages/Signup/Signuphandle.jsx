@@ -34,11 +34,10 @@ const handleSignup = (
   if (result.rewardType) {
 
     showReward(
-  setRewardType,
   result.rewardType
 );
 
-navigate("/");
+window.location.href = "/";
 
   }
 
