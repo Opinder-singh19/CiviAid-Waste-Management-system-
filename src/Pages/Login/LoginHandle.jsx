@@ -11,7 +11,7 @@ const handleLogin = (
 ) => {
 
   fetch(
-    "http://localhost:8000/api/auth/login",
+    "https://civiaid-waste-management-system.onrender.com/api/auth/login",
     {
 
       method: "POST",
