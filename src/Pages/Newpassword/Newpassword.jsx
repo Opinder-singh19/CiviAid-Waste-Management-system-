@@ -33,7 +33,7 @@ const handleResetPassword = async () => {
 
   try {
     const res = await axios.post(
-  "http://localhost:8000/api/auth/reset-password",
+  "http://civiaid-waste-management-system.onrender.com:8000/api/auth/reset-password",
   { email, newPassword: password }
 );
 

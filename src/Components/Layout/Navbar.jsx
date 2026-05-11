@@ -47,7 +47,7 @@ setRewardType(reward);
 
 fetch(
 
-"http://localhost:8000/api/auth/clear-reward",
+"http://civiaid-waste-management-system.onrender.com:8000/api/auth/clear-reward",
 
 {
 
@@ -87,7 +87,7 @@ return;
 
 const adminRes = await fetch(
 
-"http://localhost:8000/api/admin/check-auth",
+"http://civiaid-waste-management-system.onrender.com:8000/api/admin/check-auth",
 
 {
 credentials: "include"

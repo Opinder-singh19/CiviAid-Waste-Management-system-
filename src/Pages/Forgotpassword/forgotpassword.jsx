@@ -17,7 +17,7 @@ const handleSendOtp = async (e) => {
   e.preventDefault(); 
 
   try {
-    await axios.post("http://localhost:8000/api/auth/forgot-password", { email });
+    await axios.post("http://civiaid-waste-management-system.onrender.com:8000/api/auth/forgot-password", { email });
 
     setShowOtp(true);
 
@@ -42,7 +42,7 @@ const handleVerifyOtp = async (e) => {
 
   try {
     const res = await axios.post(
-      "http://localhost:8000/api/auth/verify-otp",
+      "http://civiaid-waste-management-system.onrender.com:8000/api/auth/verify-otp",
       { email, otp }
     );
 

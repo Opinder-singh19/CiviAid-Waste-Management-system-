@@ -7,7 +7,7 @@ const { mongoConnect } = require("./config/db");
 const adminRoutes=require("./Routes/adminRoutes")
 const activityRoutes =require("./Routes/activityRoutes");
 app.use(cors({
-  origin: ["http://localhost:5173"],
+  origin: ["http://civiaid-waste-management-system.onrender.com:5173"],
   credentials: true
 }));
 
@@ -51,7 +51,7 @@ mongoConnect(() => {
   const PORT=8000;
 
   app.listen(PORT, "0.0.0.0", () => {
-  console.log(`your server running at http://localhost:${PORT}`);
+  console.log(`your server running at http://civiaid-waste-management-system.onrender.com:${PORT}`);
 });
 
 });
