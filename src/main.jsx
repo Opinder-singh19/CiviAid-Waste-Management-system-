@@ -58,7 +58,7 @@ import Mycomplaint
 from "./Pages/UserComplaints/Mycomplaints.jsx";
 
 import UserProfile
-from "./Pages/Userprofile/Userprofile.jsx";
+from "./Pages/UserProfile/Userprofile.jsx";
 
 import VerifyDisposal
 from "./Components/Map/VerifyDisposal";
