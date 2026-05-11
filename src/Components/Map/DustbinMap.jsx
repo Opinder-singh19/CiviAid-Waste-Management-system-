@@ -447,7 +447,7 @@ export default function DustbinMap({
     formData.append("distance", (distanceTravelled * 1000).toFixed(0));
 
     const res = await fetch(
-      "http://civiaid-waste-management-system.onrender.com:8000/api/activity/verify",
+      "http://civiaid-waste-management-system.onrender.com/api/activity/verify",
 
       {
         method: "POST",
@@ -589,7 +589,7 @@ export default function DustbinMap({
   useEffect(() => {
     const interval = setInterval(async () => {
       try {
-        const res = await fetch("http://civiaid-waste-management-system.onrender.com:8000/phone-location");
+        const res = await fetch("http://civiaid-waste-management-system.onrender.com/phone-location");
         const data = await res.json();
 
         if (data.lat && data.lng) {

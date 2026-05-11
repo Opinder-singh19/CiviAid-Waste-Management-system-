@@ -26,7 +26,7 @@ setEmail] = useState("");
     e.preventDefault(); 
 
     try {
-      const res = await fetch("http://civiaid-waste-management-system.onrender.com:8000/api/admin/login", {
+      const res = await fetch("http://civiaid-waste-management-system.onrender.com/api/admin/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

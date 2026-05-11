@@ -18,7 +18,7 @@ try {
 
 const userRes = await fetch(
 
-"https://civiaid-waste-management-system.onrender.com:8000/api/auth/check-auth",
+"https://civiaid-waste-management-system.onrender.com/api/auth/check-auth",
 
 {
 credentials: "include"
@@ -47,7 +47,7 @@ setRewardType(reward);
 
 fetch(
 
-"http://civiaid-waste-management-system.onrender.com:8000/api/auth/clear-reward",
+"https://civiaid-waste-management-system.onrender.com/api/auth/clear-reward",
 
 {
 
@@ -87,7 +87,7 @@ return;
 
 const adminRes = await fetch(
 
-"http://civiaid-waste-management-system.onrender.com:8000/api/admin/check-auth",
+"https://civiaid-waste-management-system.onrender.com/api/admin/check-auth",
 
 {
 credentials: "include"

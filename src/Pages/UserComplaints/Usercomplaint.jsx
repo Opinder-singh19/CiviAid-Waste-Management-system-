@@ -86,7 +86,7 @@ setPopupMessage]
   location,
   counsellor
 });
-      const res = await fetch("http://civiaid-waste-management-system.onrender.com:8000/api/auth/complaint", {
+      const res = await fetch("http://civiaid-waste-management-system.onrender.com/api/auth/complaint", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

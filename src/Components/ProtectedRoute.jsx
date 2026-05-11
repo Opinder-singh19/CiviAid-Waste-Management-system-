@@ -12,7 +12,7 @@ export default function ProtectedRoute({ children }) {
     window.history.go(1);
   };
 
-    fetch("https://civiaid-waste-management-system.onrender.com:8000/api/auth/check-auth", {
+    fetch("https://civiaid-waste-management-system.onrender.com/api/auth/check-auth", {
       credentials: "include"
     })
       .then(res => res.json())
@@ -22,7 +22,7 @@ export default function ProtectedRoute({ children }) {
           setLoggedIn(true);
           setLoading(false);
         } else {
-          fetch("http://civiaid-waste-management-system.onrender.com:8000/api/admin/check-auth", {
+          fetch("https://civiaid-waste-management-system.onrender.com/api/admin/check-auth", {
             credentials: "include"
           })
             .then(res => res.json())

@@ -22,7 +22,7 @@ function Dustbinlocation() {
   const fetchProfile = () => {
 
     fetch(
-      "http://civiaid-waste-management-system.onrender.com:8000/api/auth/profile",
+      "http://civiaid-waste-management-system.onrender.com/api/auth/profile",
       {
         credentials: "include"
       }
@@ -129,7 +129,7 @@ setRewardData]
   useEffect(() => {
     const interval = setInterval(async () => {
       try {
-        const res = await fetch("http://civiaid-waste-management-system.onrender.com:8000/phone-location");
+        const res = await fetch("http://civiaid-waste-management-system.onrender.com/phone-location");
         const data = await res.json();
 
 
