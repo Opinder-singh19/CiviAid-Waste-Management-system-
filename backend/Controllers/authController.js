@@ -1,3 +1,4 @@
+require("dotenv").config();
 const { getDB } = require("../config/db");
 const nodemailer = require("nodemailer");
 const bcrypt = require("bcrypt");
