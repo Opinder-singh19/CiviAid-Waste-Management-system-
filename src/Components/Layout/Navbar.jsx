@@ -18,7 +18,7 @@ try {
 
 const userRes = await fetch(
 
-"http://https://civiaid-waste-management-system.onrender.com:8000/api/auth/check-auth",
+"https://civiaid-waste-management-system.onrender.com:8000/api/auth/check-auth",
 
 {
 credentials: "include"
