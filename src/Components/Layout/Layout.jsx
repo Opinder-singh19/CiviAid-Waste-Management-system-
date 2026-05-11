@@ -7,9 +7,7 @@ function Layout({
 
   const location = useLocation();
 
-  const hideNavbar =
-    location.pathname === "/civiAlogin" ||
-    location.pathname === "/admin";
+  const hideNavbar = false;
 
   return (
     <>
