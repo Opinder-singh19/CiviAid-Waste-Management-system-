@@ -41,7 +41,7 @@ from "./Pages/DustbinLocation/Dustbinlocation.jsx";
 
 import SignUp
 from "./Pages/Signup/signup.jsx";
-
+//import file error
 import Forgotpassword
 from "./Pages/Forgotpassword/forgotpassword.jsx";
 
