@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./WasteG.css";
 import WasteDrop from "../../Components/Waste/WasteDrop";
 import WasteC from "../../Components/Waste/WasteCard";
-import wasteData from "../../data/wasteData";
+import wasteData from "../../data/WasteData";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
