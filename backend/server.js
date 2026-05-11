@@ -7,7 +7,10 @@ const { mongoConnect } = require("./config/db");
 const adminRoutes=require("./Routes/adminRoutes")
 const activityRoutes =require("./Routes/activityRoutes");
 app.use(cors({
-  origin: ["http://civiaid-waste-management-system.onrender.com:5173"],
+  origin: [
+    "http://localhost:5173",
+    "https://civiaid-project.vercel.app"
+  ],
   credentials: true
 }));
 
