@@ -9,7 +9,7 @@ const activityRoutes =require("./Routes/activityRoutes");
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://civiaid-project.vercel.app"
+    "https://civiaid-shubh-opinder.vercel.app"
   ],
   credentials: true
 }));
