@@ -9,78 +9,84 @@ function Navbar({
   const [role, setRole] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
 
+
 useEffect(() => {
 
-  const checkAuth = () => {
+const checkAuth = async () => {
 
-    fetch(
-      "http://localhost:8000/api/auth/check-auth",
-      {
-        credentials: "include"
-      }
-    )
+try {
 
-    .then(res => res.json())
+const userRes = await fetch(
 
-    .then(userData => {
+"http://localhost:8000/api/auth/check-auth",
 
-      if (userData.loggedIn) {
+{
+credentials: "include"
+}
 
-        setLoggedIn(true);
+);
 
-        setRole("user");
+const userData =
+await userRes.json();
 
-        if (
-          userData.pendingRewards?.length
-        ) {
+if (userData.loggedIn) {
 
-          const reward =
-            userData.pendingRewards[0];
+setLoggedIn(true);
 
-          setRewardType(reward);
+setRole("user");
 
-          fetch(
-            "http://localhost:8000/api/auth/clear-reward",
-            {
+return;
 
-              method: "POST",
+}
 
-              headers: {
-                "Content-Type":
-                "application/json"
-              },
+const adminRes = await fetch(
 
-              credentials: "include",
+"http://localhost:8000/api/admin/check-auth",
 
-              body: JSON.stringify({
-                rewardType: reward
-              })
-            }
-          );
+{
+credentials: "include"
+}
 
-          setTimeout(() => {
+);
 
-            setRewardType(null);
+const adminData =
+await adminRes.json();
 
-          }, 3000);
-        }
+if (adminData.loggedIn) {
 
-      }
+setLoggedIn(true);
 
-    });
+setRole("admin");
 
-  };
+return;
 
-  checkAuth();
+}
 
-  const interval =
-    setInterval(
-      checkAuth,
-      5000
-    );
+setLoggedIn(false);
 
-  return () =>
-    clearInterval(interval);
+setRole(null);
+
+}
+
+catch(err){
+
+console.log(err);
+
+}
+
+};
+
+checkAuth();
+
+const interval =
+
+setInterval(
+checkAuth,
+2000
+);
+
+return () =>
+clearInterval(interval);
 
 }, []);
 
