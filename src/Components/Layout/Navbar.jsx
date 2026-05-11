@@ -35,6 +35,52 @@ setLoggedIn(true);
 
 setRole("user");
 
+if (
+userData.pendingRewards?.length
+) {
+
+const reward =
+
+userData.pendingRewards[0];
+
+setRewardType(reward);
+
+fetch(
+
+"http://localhost:8000/api/auth/clear-reward",
+
+{
+
+method: "POST",
+
+headers: {
+
+"Content-Type":
+"application/json"
+
+},
+
+credentials: "include",
+
+body: JSON.stringify({
+
+rewardType:
+reward
+
+})
+
+}
+
+);
+
+setTimeout(()=>{
+
+setRewardType(null);
+
+},600);
+
+}
+
 return;
 
 }

@@ -6,6 +6,7 @@ import handleLogin from "./LoginHandle";
 import Toast
 from "../../Components/Popup/Toast";
 export default function CivicALogin() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showToast,
@@ -29,7 +30,7 @@ setToastType]
         </div>
 
         <h2 className="title">CivicAid</h2>
-        <p className="subtitle">Sustainable Waste Management</p>
+        <p className="subtitle">Smart Waste & Civic Complaint System</p>
 
         <div className="dots">
           <span className="dotgreen"></span>
@@ -62,7 +63,8 @@ setToastType]
 
   setToastType,
   setToastMessage,
-  setShowToast
+  setShowToast,
+  navigate
 
 )}>Login to CivicAid</button>
 
