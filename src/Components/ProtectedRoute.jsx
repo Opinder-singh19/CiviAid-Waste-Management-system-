@@ -12,7 +12,7 @@ export default function ProtectedRoute({ children }) {
     window.history.go(1);
   };
 
-    fetch("http://localhost:8000/api/auth/check-auth", {
+    fetch("http://https://civiaid-waste-management-system.onrender.com:8000/api/auth/check-auth", {
       credentials: "include"
     })
       .then(res => res.json())
