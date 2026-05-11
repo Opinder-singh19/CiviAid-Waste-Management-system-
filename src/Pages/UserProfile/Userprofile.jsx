@@ -31,7 +31,7 @@ export default function UserProfile() {
   const handleSave = async () => {
     try {
       const response = await fetch(
-        "http://civiaid-waste-management-system.onrender.com/api/auth/update-profile",
+        "https://civiaid-waste-management-system.onrender.com/api/auth/update-profile",
         {
           method: "PUT",
           headers: {
@@ -64,7 +64,7 @@ useEffect(() => {
   const fetchProfile = () => {
 
     fetch(
-      "http://civiaid-waste-management-system.onrender.com/api/auth/profile",
+      "https://civiaid-waste-management-system.onrender.com/api/auth/profile",
       {
         credentials: "include"
       }

@@ -163,7 +163,7 @@ const createDustbinIcon = (color, size = 28) => {
         ">
         
           <svg 
-            xmlns="http://www.w3.org/2000/svg"
+            xmlns="https://www.w3.org/2000/svg"
             width="${iconSize}"
             height="${iconSize}"
             viewBox="0 0 24 24"
@@ -260,7 +260,7 @@ function LocateButton({ userLocation }) {
       }}
     >
       <svg
-        xmlns="http://www.w3.org/2000/svg"
+        xmlns="https://www.w3.org/2000/svg"
         width="24"
         height="24"
         fill="none"
@@ -447,7 +447,7 @@ export default function DustbinMap({
     formData.append("distance", (distanceTravelled * 1000).toFixed(0));
 
     const res = await fetch(
-      "http://civiaid-waste-management-system.onrender.com/api/activity/verify",
+      "https://civiaid-waste-management-system.onrender.com/api/activity/verify",
 
       {
         method: "POST",
@@ -589,7 +589,7 @@ export default function DustbinMap({
   useEffect(() => {
     const interval = setInterval(async () => {
       try {
-        const res = await fetch("http://civiaid-waste-management-system.onrender.com/phone-location");
+        const res = await fetch("https://civiaid-waste-management-system.onrender.com/phone-location");
         const data = await res.json();
 
         if (data.lat && data.lng) {

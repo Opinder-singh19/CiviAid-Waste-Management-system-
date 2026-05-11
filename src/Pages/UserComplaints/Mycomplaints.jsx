@@ -19,7 +19,7 @@ export default function Mycomplaint() {
   const [complaints, setComplaints] = useState([]);
 
   const fetchComplaints = () => {
-    fetch("http://civiaid-waste-management-system.onrender.com/api/auth/my-complaints", {
+    fetch("https://civiaid-waste-management-system.onrender.com/api/auth/my-complaints", {
       credentials: "include",
     })
       .then((res) => res.json())

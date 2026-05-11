@@ -8,7 +8,7 @@ const adminRoutes=require("./Routes/adminRoutes")
 const activityRoutes =require("./Routes/activityRoutes");
 app.use(cors({
   origin: [
-    "http://localhost:5173",
+    "https://localhost:5173",
     "https://civiaid-shubh-opinder.vercel.app"
   ],
   credentials: true
@@ -54,7 +54,7 @@ mongoConnect(() => {
   const PORT=8000;
 
   app.listen(PORT, "0.0.0.0", () => {
-  console.log(`your server running at http://civiaid-waste-management-system.onrender.com:${PORT}`);
+  console.log(`your server running at https://civiaid-waste-management-system.onrender.com:${PORT}`);
 });
 
 });

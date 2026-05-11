@@ -59,7 +59,7 @@ setImage]
     const res =
     await fetch(
 
-      "http://civiaid-waste-management-system.onrender.com/api/activity/verify",
+      "https://civiaid-waste-management-system.onrender.com/api/activity/verify",
 
       {
 

@@ -19,7 +19,7 @@ const handleSignup = (
     confirmPassword: form[5].value
   };
 
- fetch("http://civiaid-waste-management-system.onrender.com/api/auth/signup",{
+ fetch("https://civiaid-waste-management-system.onrender.com/api/auth/signup",{
     method:"POST",
     headers:{
       "Content-Type":"application/json"

@@ -75,7 +75,7 @@ const [complaints, setComplaints] = useState([]);
 
 const fetchComplaints = async () => {
   try {
-    const res = await fetch("http://civiaid-waste-management-system.onrender.com/api/admin/complaints", {
+    const res = await fetch("https://civiaid-waste-management-system.onrender.com/api/admin/complaints", {
       credentials: "include",
     });
 
@@ -110,7 +110,7 @@ useEffect(() => {
   return () => clearInterval(interval);
 }, []);
 const handleStart = async (id) => {
-  await fetch(`http://civiaid-waste-management-system.onrender.com/api/admin/complaint/${id}/status`, {
+  await fetch(`https://civiaid-waste-management-system.onrender.com/api/admin/complaint/${id}/status`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
@@ -125,7 +125,7 @@ const handleStart = async (id) => {
 };
 
 const handleReject = async (id) => {
-  await fetch(`http://civiaid-waste-management-system.onrender.com/api/admin/complaint/${id}/status`, {
+  await fetch(`https://civiaid-waste-management-system.onrender.com/api/admin/complaint/${id}/status`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
@@ -139,7 +139,7 @@ const handleReject = async (id) => {
   );
 };
 const handleWorkDone = async (id) => {
-  await fetch(`http://civiaid-waste-management-system.onrender.com/api/admin/complaint/${id}/status`, {
+  await fetch(`https://civiaid-waste-management-system.onrender.com/api/admin/complaint/${id}/status`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
@@ -167,7 +167,7 @@ const filteredComplaints = complaints.filter((c) => {
 
 const handleAdminLogout = async () => {
   try {
-    await fetch("http://civiaid-waste-management-system.onrender.com/api/admin/logout", {
+    await fetch("https://civiaid-waste-management-system.onrender.com/api/admin/logout", {
       method: "POST",
       credentials: "include"
     });

@@ -1,6 +1,6 @@
 const handleLogout = () => {
 
- fetch("http://civiaid-waste-management-system.onrender.com/api/auth/logout", {
+ fetch("https://civiaid-waste-management-system.onrender.com/api/auth/logout", {
   credentials: "include"
 })
  .then(res => res.json())
