@@ -6,7 +6,6 @@ import handleLogin from "./LoginHandle";
 import Toast
 from "../../Components/Popup/Toast";
 export default function CivicALogin() {
-  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showToast,
@@ -63,8 +62,7 @@ setToastType]
 
   setToastType,
   setToastMessage,
-  setShowToast,
-  navigate
+  setShowToast
 
 )}>Login to CivicAid</button>
 
