@@ -6,8 +6,8 @@ const handleLogin = (
 
   setToastType,
   setToastMessage,
-  setShowToast,
-   navigate
+  setShowToast
+
 ) => {
 
   fetch(
@@ -51,9 +51,8 @@ if (
 
   setTimeout(() => {
 
-    navigate("/", {
-    replace: true
-  });
+    window.location.href =
+    "/";
 
   }, 1500);
 
