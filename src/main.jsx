@@ -43,7 +43,7 @@ import SignUp
 from "./Pages/Signup/signup.jsx";
 
 import Forgotpassword
-from "./Pages/Forgotpassword/Forgotpassword.jsx";
+from "./Pages/Forgotpassword/forgotpassword.jsx";
 
 import NewPassword
 from "./Pages/Newpassword/Newpassword.jsx";
