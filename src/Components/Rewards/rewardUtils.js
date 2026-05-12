@@ -1,10 +1,14 @@
 export const showReward = (
-  type
+  type,
+  amount = null
 ) => {
 
   localStorage.setItem(
     "rewardPopup",
-    type
+    JSON.stringify({
+      type,
+      amount
+    })
   );
 
 };
