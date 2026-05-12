@@ -15,7 +15,7 @@ const {
 }
 =
 require(
-"../controllers/activityController"
+"../Controllers/activityController"
 );
 
 const storage =

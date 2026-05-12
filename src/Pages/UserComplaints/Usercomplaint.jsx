@@ -107,7 +107,21 @@ setPopupMessage(
 );
 
 setShowPopup(true);
+setIssue("");
 
+setDescription("");
+
+setCounsellor("");
+
+setLocation({
+
+address: "",
+
+lat: null,
+
+lng: null,
+
+});
 setTimeout(() => {
 
   setShowPopup(false);

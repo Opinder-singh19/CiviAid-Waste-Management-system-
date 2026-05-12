@@ -52,7 +52,6 @@ async (req, res) => {
     const userId =
     req.session.user.id;
 
-    // SAVE ACTIVITY
 
     await db
     .collection("userActivities")
@@ -73,7 +72,6 @@ async (req, res) => {
 
     });
 
-    // UPDATE USER COINS
 
     await db
     .collection("users")

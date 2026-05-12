@@ -1,129 +1,178 @@
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./Navbar.css";
-
-function Navbar({
-  setRewardType
-}) {
-
+import RewardPopup
+from "../../Components/Rewards/RewardPopup";
+function Navbar({ setRewardType }) {
   const [role, setRole] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
 
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const userRes = await fetch(
+          "http://localhost:8000/api/auth/check-auth",
 
-useEffect(() => {
+          {
+            credentials: "include",
+          },
+        );
 
-const checkAuth = async () => {
+        const userData = await userRes.json();
 
-try {
+        if (userData.loggedIn) {
+          setLoggedIn(true);
 
-const userRes = await fetch(
+          setRole("user");
 
-"http://localhost:8000/api/auth/check-auth",
+          if (userData.pendingRewards?.length) {
+            const reward =
+userData.pendingRewards[
+userData.pendingRewards.length - 1
+];
 
-{
-credentials: "include"
-}
+setRewardType(reward);
 
-);
+            setTimeout(async () => {
+              await fetch("http://localhost:8000/api/auth/clear-reward", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify({
+                  rewardType: reward,
+                }),
+              });
 
-const userData =
-await userRes.json();
+              setRewardType(null);
+            }, 3000);
+          }
 
-if (userData.loggedIn) {
+          return;
+        }
 
-setLoggedIn(true);
+        const adminRes = await fetch(
+          "http://localhost:8000/api/admin/check-auth",
 
-setRole("user");
+          {
+            credentials: "include",
+          },
+        );
 
-return;
+        const adminData = await adminRes.json();
 
-}
+        if (adminData.loggedIn) {
+          setLoggedIn(true);
 
-const adminRes = await fetch(
+          setRole("admin");
 
-"http://localhost:8000/api/admin/check-auth",
+          return;
+        }
 
-{
-credentials: "include"
-}
+        setLoggedIn(false);
 
-);
+        setRole(null);
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
-const adminData =
-await adminRes.json();
+    checkAuth();
 
-if (adminData.loggedIn) {
+    const interval = setInterval(checkAuth, 2000);
 
-setLoggedIn(true);
+    return () => clearInterval(interval);
+  }, []);
+  const [rewardTypePopup,
+  setRewardTypePopup]
+  = useState(null);
+  
+  const [rewardAmountPopup,
+  setRewardAmountPopup]
+  = useState(0);
+  useEffect(() => {
 
-setRole("admin");
+  const reward =
+    localStorage.getItem(
+      "rewardPopup"
+    );
 
-return;
+  if (reward) {
 
-}
+    const parsed =
+      JSON.parse(reward);
 
-setLoggedIn(false);
+    setRewardTypePopup(
+      parsed.type
+    );
 
-setRole(null);
+    setRewardAmountPopup(
+      parsed.amount
+    );
 
-}
+    localStorage.removeItem(
+      "rewardPopup"
+    );
 
-catch(err){
+    setTimeout(() => {
 
-console.log(err);
+      setRewardTypePopup(null);
 
-}
+    }, 3500);
 
-};
-
-checkAuth();
-
-const interval =
-
-setInterval(
-checkAuth,
-2000
-);
-
-return () =>
-clearInterval(interval);
+  }
 
 }, []);
-
   return (
     <div className="Navbar-main-outerbox">
       <nav className="Navbar-main">
-
-      
-
         {!loggedIn && (
           <>
-          <NavLink className="link3" to="/">User Dashboard</NavLink>
-            <NavLink className="link2" to="/civiAlogin">Login</NavLink>
-            <NavLink className="link1" to="/admin">Admin Login</NavLink>
+            <NavLink className="link3" to="/">
+              User Dashboard
+            </NavLink>
+            <NavLink className="link2" to="/civiAlogin">
+              Login
+            </NavLink>
+            <NavLink className="link1" to="/admin">
+              Admin Login
+            </NavLink>
           </>
         )}
 
-      
         {loggedIn && role === "user" && (
           <>
-          <NavLink className="link3" to="/">User Dashboard</NavLink>
-            <NavLink className="link4" to="/wasteG">Waste Guidance</NavLink>
-            <NavLink className="link5" to="/dustbinlocation">Dustbin Location</NavLink>
-            <NavLink className="link6" to="/UserComplaints">User Complaints</NavLink>
-            <NavLink className="link6" to="/UserProfile">User Profile</NavLink>
+            <NavLink className="link3" to="/">
+              User Dashboard
+            </NavLink>
+            <NavLink className="link4" to="/wasteG">
+              Waste Guidance
+            </NavLink>
+            <NavLink className="link5" to="/dustbinlocation">
+              Dustbin Location
+            </NavLink>
+            <NavLink className="link6" to="/UserComplaints">
+              User Complaints
+            </NavLink>
+            <NavLink className="link6" to="/UserProfile">
+              User Profile
+            </NavLink>
           </>
         )}
 
-      
         {loggedIn && role === "admin" && (
-  <>
-          <NavLink className="link6" to="/admin/Counsellordashboard">
-      Counsellor Dashboard
-        </NavLink>
-  </>
-)}
+          <>
+            <NavLink className="link6" to="/admin/Counsellordashboard">
+              Counsellor Dashboard
+            </NavLink>
+          </>
+        )}
       </nav>
+      <RewardPopup
+        rewardType={rewardTypePopup}
+        rewardAmount={rewardAmountPopup}
+      />
     </div>
   );
 }

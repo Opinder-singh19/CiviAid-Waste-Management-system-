@@ -41,9 +41,9 @@ from "./Pages/DustbinLocation/Dustbinlocation.jsx";
 
 import SignUp
 from "./Pages/Signup/signup.jsx";
-
+//import file error
 import Forgotpassword
-from "./Pages/Forgotpassword/Forgotpassword.jsx";
+from "./Pages/Forgotpassword/forgotpassword.jsx";
 
 import NewPassword
 from "./Pages/Newpassword/Newpassword.jsx";
@@ -58,7 +58,7 @@ import Mycomplaint
 from "./Pages/UserComplaints/Mycomplaints.jsx";
 
 import UserProfile
-from "./Pages/Userprofile/Userprofile.jsx";
+from "./Pages/UserProfile/Userprofile.jsx";
 
 import VerifyDisposal
 from "./Components/Map/VerifyDisposal";

@@ -1,76 +1,180 @@
-.reward-popup {
+.reward-toast{
+
   position: fixed;
 
-  top: 30px;
-  right: 30px;
+  top: 24px;
+  right: 24px;
+
+  width: 340px;
 
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 14px;
 
-  background: white;
-
-  padding: 16px 22px;
+  padding:
+  16px 18px;
 
   border-radius: 22px;
 
-  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  background:
+  rgba(255,255,255,0.78);
 
-  z-index: 9999;
+  backdrop-filter:
+  blur(18px);
 
-  animation: rewardSlide 0.4s ease;
+  border:
+  1px solid rgba(255,255,255,0.35);
+
+  box-shadow:
+  0 10px 30px rgba(0,0,0,0.12),
+  0 0 20px rgba(34,197,94,0.12);
+
+  z-index: 999999;
+
+  animation:
+  toastSlide 0.45s ease;
+
+  overflow: hidden;
 }
 
-.reward-icon {
-  width: 70px;
-  height: 70px;
+.reward-toast::before{
+
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 5px;
+  height: 100%;
+
+  background:
+  linear-gradient(
+  to bottom,
+  #22c55e,
+  #15803d
+  );
+
+}
+
+.reward-left{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.reward-check{
+
+  width: 34px;
+  height: 34px;
 
   border-radius: 50%;
 
-  background: white;
+  background:
+  linear-gradient(
+  135deg,
+  #22c55e,
+  #15803d
+  );
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  overflow: hidden;
+  color: white;
+
+  flex-shrink: 0;
 }
 
-.reward-icon img {
-  width: 58px;
-  height: 58px;
+.reward-coin{
 
-  object-fit: cover;
+  width: 48px;
+  height: 48px;
 
-  border-radius: 50%;
+  object-fit: contain;
+
+  animation:
+  coinFloat 1.8s ease-in-out infinite;
 }
 
-.reward-content h2 {
+.reward-info{
+  flex: 1;
+}
+
+.reward-info h3{
+
   margin: 0;
 
-  font-size: 28px;
+  font-size: 17px;
+  font-weight: 700;
 
-  color: #0284c7;
+  color: #166534;
 }
 
-.reward-content p {
-  margin-top: 5px;
+.reward-info p{
 
-  color: #555;
+  margin-top: 4px;
 
-  font-size: 14px;
+  font-size: 13px;
+
+  color: #4b5563;
 }
 
-@keyframes rewardSlide {
-  from {
+.reward-amount{
+
+  min-width: 62px;
+
+  height: 42px;
+
+  border-radius: 14px;
+
+  background:
+  linear-gradient(
+  135deg,
+  #22c55e,
+  #15803d
+  );
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+
+  font-size: 18px;
+  font-weight: 800;
+
+  box-shadow:
+  0 8px 18px rgba(34,197,94,0.28);
+}
+
+@keyframes toastSlide{
+
+  0%{
     opacity: 0;
-    transform: translateY(-20px)
-      scale(0.9);
+    transform:
+    translateX(120px);
   }
 
-  to {
+  100%{
     opacity: 1;
-    transform: translateY(0)
-      scale(1);
+    transform:
+    translateX(0);
   }
+
+}
+
+@keyframes coinFloat{
+
+  0%,100%{
+    transform: translateY(0);
+  }
+
+  50%{
+    transform:
+    translateY(-5px)
+    rotate(6deg);
+  }
+
 }

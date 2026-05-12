@@ -1,5 +1,5 @@
 import { ArrowLeft ,RecycleIcon,User,Phone,Mail,MapPin,Lock} from "lucide-react";
-import './Forgotpassword.css'
+import './forgotpassword.css'
 import { Link,useNavigate } from "react-router-dom";
 import { useState } from "react"; // to store values
 import axios from "axios"; // to call backend

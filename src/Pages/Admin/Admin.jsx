@@ -108,8 +108,8 @@ else {
           </div>
         </div>
 
-        <h1>Admin Portal</h1>
-        <p className="min-heading"> Secure CivicAid Management</p>
+        <h1>Counsellor Portal</h1>
+        <p className="min-heading">CivicAid Management</p>
 
        
         <form onSubmit={handleSubmit}>
