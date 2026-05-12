@@ -1,0 +1,559 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #f4fdf6;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.pf-main-wrapper {
+  min-height: 100vh;
+  padding: 30px;
+  background: linear-gradient(135deg, #b2d8c6, #e6f7ee, #e6f7ee, #e6f7ee, #b2d8c6);
+}
+
+
+.pf-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.pf-navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.pf-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  background: white;
+  padding: 10px 18px;
+  border-radius: 12px;
+  color: #15803d;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: 0.3s;
+}
+
+.pf-back-btn:hover {
+  transform: translateY(-2px);
+}
+
+.pf-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pf-title-row h1 {
+  font-size: 42px;
+  color: #0f5132;
+}
+
+.pf-main-icon {
+  color: #16a34a;
+}
+
+.pf-subtitle-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  color: #4b5563;
+}
+
+.pf-subtitle-row svg {
+  color: #22c55e;
+}
+
+.pf-logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  background: #dc2626;
+  color: white;
+  height: 40px;
+  padding: 12px 22px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.pf-logout-btn:hover {
+  background: #b91c1c;
+}
+
+
+.pf-grid-layout {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 30px;
+
+  align-items: start;
+}
+
+
+.pf-left-card {
+  background: white;
+  border-radius: 28px;
+  padding: 35px 25px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+
+  height: fit-content;
+
+  position: sticky;
+  top: 20px;
+
+  align-self: start;
+}
+
+.pf-profile-top {
+  text-align: center;
+}
+
+.pf-avatar {
+  width: 130px;
+  height: 130px;
+  margin: auto;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: white;
+  font-size: 56px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 25px rgba(34,197,94,0.3);
+}
+
+.pf-profile-top h2 {
+  margin-top: 22px;
+  font-size: 32px;
+  color: #0f172a;
+}
+
+.pf-joined-row {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #64748b;
+}
+
+
+.pf-stats-wrapper {
+  margin-top: 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pf-stat-card {
+  border-radius: 22px;
+  padding: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pf-stat-card p {
+  font-size: 15px;
+  margin-bottom: 10px;
+  color: #475569;
+}
+
+.pf-stat-card h3 {
+  font-size: 32px;
+}
+
+.green-card {
+  background: #f0fdf4;
+  border: 2px solid #bbf7d0;
+}
+
+.green-card h3 {
+  color: #15803d;
+}
+
+.gold-card {
+  background: #fffbeb;
+  border: 2px solid #fde68a;
+}
+
+.gold-card h3 {
+  color: #b45309;
+}
+
+.pf-stat-icon {
+  width: 62px;
+  height: 62px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.green-icon {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.gold-icon {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+
+.pf-right-card {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.pf-info-card,
+.pf-goal-card,
+.pf-history-card {
+  background: white;
+  border-radius: 28px;
+  padding: 35px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+.pf-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.pf-info-header h2 {
+  font-size: 34px;
+  color: #0f172a;
+}
+
+.pf-edit-btn {
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.pf-edit-btn:hover {
+  transform: translateY(-2px);
+}
+
+.pf-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.pf-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pf-info-item label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.pf-info-item label svg {
+  color: #16a34a;
+}
+
+.pf-info-box {
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 16px;
+  font-size: 16px;
+  color: #334155;
+  transition: 0.3s;
+}
+
+.pf-info-box:hover {
+  border-color: #22c55e;
+}
+
+.pf-right-card {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+
+.pf-goal-card,
+.pf-history-card,
+.pf-info-card {
+  background: #ffffff;
+  border: 2px solid #bbf7d0;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+}
+
+
+.pf-section-title h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+
+.pf-goal-header {
+  margin-top: 28px;
+  display: flex;
+  justify-content: space-between;
+  color: #475569;
+  font-size: 17px;
+}
+
+
+.pf-progress-bar {
+  width: 100%;
+  height: 20px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.pf-progress-fill {
+  width: 70%;
+  height: 100%;
+  background: linear-gradient(90deg, #16a34a, #10b981);
+  border-radius: 999px;
+}
+
+
+.pf-goal-text {
+  margin-top: 18px;
+  font-size: 16px;
+  color: #475569;
+}
+
+
+.pf-goal-stats {
+  margin-top: 34px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+.pf-mini-card {
+  padding: 24px;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: 0.3s;
+}
+
+.pf-mini-card:hover {
+  transform: translateY(-3px);
+}
+
+.pf-mini-card p {
+  color: #475569;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.pf-mini-card h3 {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+
+.blue-mini {
+  background: #eff6ff;
+  border: 2px solid #bfdbfe;
+}
+
+.blue-mini h3 {
+  color: #1d4ed8;
+}
+
+
+.green-mini {
+  background: #f0fdf4;
+  border: 2px solid #86efac;
+}
+
+.green-mini h3 {
+  color: #047857;
+}
+
+.pf-mini-card span {
+  font-size: 38px;
+}
+
+
+.pf-history-list {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+
+.pf-history-item {
+  background: #f8fafc;
+  border: 1px solid #dbe4ee;
+  border-radius: 20px;
+  padding: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.3s;
+}
+
+.pf-history-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+
+.active-item {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+
+
+.pf-history-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+
+.pf-history-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+
+.pf-history-left h3 {
+  font-size: 17px;
+  color: #0f172a;
+  margin-bottom: 4px;
+}
+
+.pf-history-left p {
+  color: #64748b;
+  font-size: 15px;
+}
+
+.pf-history-right {
+  text-align: right;
+}
+
+.pf-history-right h4 {
+  font-size: 16px;
+  color: #334155;
+  margin-bottom: 5px;
+}
+
+.pf-history-right span {
+  color: #d97706;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+
+@media (max-width: 900px) {
+
+  .pf-goal-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .pf-history-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .pf-history-right {
+    text-align: left;
+  }
+}
+.profile-icon-logout{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.coin-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+background: #d8f3f7;
+  padding: 25px 10px 25px 5px;
+
+  border-radius: 30px;
+
+  height: 40px;
+
+  box-shadow: 2px 5px 10px rgba(3, 25, 35, 0.18);
+
+}
+
+.coin-icon {
+
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.coin-icon img {
+  width: 78px;
+  height: 78px;
+  margin-top: 7px;
+  margin-left: 1px;
+  object-fit: cover;
+
+  border-radius: 50%;
+}
+.coin-text {
+  font-size: 18px;
+  font-weight: 700;
+   color: #0095d9;
+}

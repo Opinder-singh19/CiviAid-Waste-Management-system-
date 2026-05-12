@@ -1,0 +1,180 @@
+.reward-toast{
+
+  position: fixed;
+
+  top: 24px;
+  right: 24px;
+
+  width: 340px;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding:
+  16px 18px;
+
+  border-radius: 22px;
+
+  background:
+  rgba(255,255,255,0.78);
+
+  backdrop-filter:
+  blur(18px);
+
+  border:
+  1px solid rgba(255,255,255,0.35);
+
+  box-shadow:
+  0 10px 30px rgba(0,0,0,0.12),
+  0 0 20px rgba(34,197,94,0.12);
+
+  z-index: 999999;
+
+  animation:
+  toastSlide 0.45s ease;
+
+  overflow: hidden;
+}
+
+.reward-toast::before{
+
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 5px;
+  height: 100%;
+
+  background:
+  linear-gradient(
+  to bottom,
+  #22c55e,
+  #15803d
+  );
+
+}
+
+.reward-left{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.reward-check{
+
+  width: 34px;
+  height: 34px;
+
+  border-radius: 50%;
+
+  background:
+  linear-gradient(
+  135deg,
+  #22c55e,
+  #15803d
+  );
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+
+  flex-shrink: 0;
+}
+
+.reward-coin{
+
+  width: 48px;
+  height: 48px;
+
+  object-fit: contain;
+
+  animation:
+  coinFloat 1.8s ease-in-out infinite;
+}
+
+.reward-info{
+  flex: 1;
+}
+
+.reward-info h3{
+
+  margin: 0;
+
+  font-size: 17px;
+  font-weight: 700;
+
+  color: #166534;
+}
+
+.reward-info p{
+
+  margin-top: 4px;
+
+  font-size: 13px;
+
+  color: #4b5563;
+}
+
+.reward-amount{
+
+  min-width: 62px;
+
+  height: 42px;
+
+  border-radius: 14px;
+
+  background:
+  linear-gradient(
+  135deg,
+  #22c55e,
+  #15803d
+  );
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+
+  font-size: 18px;
+  font-weight: 800;
+
+  box-shadow:
+  0 8px 18px rgba(34,197,94,0.28);
+}
+
+@keyframes toastSlide{
+
+  0%{
+    opacity: 0;
+    transform:
+    translateX(120px);
+  }
+
+  100%{
+    opacity: 1;
+    transform:
+    translateX(0);
+  }
+
+}
+
+@keyframes coinFloat{
+
+  0%,100%{
+    transform: translateY(0);
+  }
+
+  50%{
+    transform:
+    translateY(-5px)
+    rotate(6deg);
+  }
+
+}

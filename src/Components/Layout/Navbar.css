@@ -1,0 +1,141 @@
+.Navbar-main {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;                     
+  transform: translateX(-50%); 
+
+  width: fit-content;          
+  padding: 0 15px;              
+
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: black;
+  gap: 10px;
+  z-index: 2000;
+  border-radius: 100px;
+  border: 1px solid rgba(242, 243, 245);
+  box-shadow: 0px 1px 5px rgb(209, 209, 209);
+}
+.link1{
+  font-size:12px;
+  font-weight:600;
+  color: black;
+  padding: 0px 20px 0px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  height: 35px;
+  width: auto;
+  transition: background-color 0.2s ease;
+}
+.link1.active{
+  background-color: rgba(0, 187, 88);
+  color: white;
+}
+.link1:not(.active):hover{
+  background-color: rgba(233, 235, 239);
+}
+.link2{
+  font-size:12px;
+  font-weight:600;
+  color: black;
+  padding: 0px 20px 0px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  height: 35px;
+  width: auto;
+  transition: background-color 0.2s ease;
+}
+.link2.active{
+  background-color: rgba(0, 187, 88);
+  color: white;
+}
+.link2:not(.active):hover{
+  background-color: rgba(233, 235, 239);
+}
+.link3{
+  font-size:12px;
+  font-weight:600;
+  color: black;
+  padding: 0px 20px 0px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  height: 35px;
+  width: auto;
+  transition: background-color 0.2s ease;
+}
+.link3.active{
+  background-color: rgba(0, 187, 88);
+  color: white;
+}
+.link3:not(.active):hover{
+  background-color: rgba(233, 235, 239);
+}
+.link4{
+  font-size:12px;
+  font-weight:600;
+  color: black;
+  padding: 0px 20px 0px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  height: 35px;
+  width: auto;
+  transition: background-color 0.2s ease;
+}
+.link4.active{
+  background-color: rgba(0, 187, 88);
+  color: white;
+}
+.link4:not(.active):hover{
+  background-color: rgba(233, 235, 239);
+}
+.link5{
+  font-size:12px;
+  font-weight:600;
+  color: black;
+  padding: 0px 20px 0px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  height: 35px;
+  width: auto;
+  transition: background-color 0.2s ease;
+}
+.link5.active{
+  background-color: rgba(0, 187, 88);
+  color: white;
+}
+.link5:not(.active):hover{
+  background-color: rgba(233, 235, 239);
+}
+.link6{
+  font-size:12px;
+  font-weight:600;
+  color: black;
+  padding: 0px 20px 0px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  height: 35px;
+  width: auto;
+  transition: background-color 0.2s ease;
+}
+.link6.active{
+  background-color: rgba(0, 187, 88);
+  color: white;
+}
+.link6:not(.active):hover{
+  background-color: rgba(233, 235, 239);
+}
