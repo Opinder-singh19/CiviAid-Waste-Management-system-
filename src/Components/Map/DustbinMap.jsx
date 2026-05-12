@@ -639,7 +639,7 @@ export default function DustbinMap({
         bin.lng,
       );
 
-      return distance <= 2000;
+      return distance <= 2;
     });
   }, [userLocation, binType]);
 

@@ -424,20 +424,34 @@ exports.getUserProfile = async (req, res) => {
         message: "User not found",
       });
     }
+const activities =
+  await db
+  .collection("userActivities")
+  .find({
+    userId:
+    req.session.user.id
+  })
+  .sort({
+    createdAt: -1
+  })
+  .toArray();
+   res.json({
 
-    res.json({
+  fullName: user.fullName,
 
-      fullName: user.fullName,
+  email: user.email,
 
-      email: user.email,
+  phone: user.phone,
 
-      phone: user.phone,
-      location: user.location,
-      joined: user.createdAt,
+  location: user.location,
 
-coins: user.coins,
+  joined: user.createdAt,
 
-    });
+  coins: user.coins,
+
+  activities
+
+});
 
   } catch (error) {
 

@@ -21,6 +21,7 @@ import civiaidcoin from "../../assets/Dustbins/Civiaidcoin.png";
 
 export default function UserProfile() {
   const [userData, setUserData] = useState({});
+  const [activities, setActivities] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const handleChange = (e) => {
     setUserData({
@@ -75,6 +76,7 @@ useEffect(() => {
     .then(data => {
 
       setUserData(data);
+      setActivities(data.activities || []);
 
     })
 
@@ -316,39 +318,67 @@ useEffect(() => {
               <h2> Recent Segregations</h2>
             </div>
 
-            <div className="pf-history-list">
-              <div className="pf-history-item active-item">
-                <div className="pf-history-left">
-                  <div className="pf-history-icon"><Trash2/></div>
+           <div className="pf-history-list">
 
-                  <div>
-                    <h3>3 segregations</h3>
-                    <p>Wet Waste</p>
-                  </div>
-                </div>
+  {activities.map((activity) => (
 
-                <div className="pf-history-right">
-                  <h4>Mar 8</h4>
-                  <span> +15 coins</span>
-                </div>
-              </div>
+    <div
+      key={activity._id}
+      className="pf-history-item active-item"
+    >
 
-              <div className="pf-history-item">
-                <div className="pf-history-left">
-                  <div className="pf-history-icon"><Trash2/></div>
+      <div className="pf-history-left">
 
-                  <div>
-                    <h3>2 segregations</h3>
-                    <p>Dry Waste</p>
-                  </div>
-                </div>
+        <div className="pf-history-icon">
+          <Trash2  className="trash2-1"/>
+        </div>
 
-                <div className="pf-history-right">
-                  <h4>Mar 7</h4>
-                  <span> +10 coins</span>
-                </div>
-              </div>
-            </div>
+        <div>
+
+          <h3>
+            {activity.dustbinName}
+          </h3>
+
+          <p>
+            Distance:
+            {" "}
+            {Number(activity.distance).toFixed(2)}
+            km
+          </p>
+
+          <p>
+            Coins:
+            {" "}
+            +{activity.coins}
+          </p>
+
+        </div>
+
+      </div>
+
+      <div className="pf-history-right">
+
+        <h4>
+          {new Date(
+            activity.createdAt
+          ).toLocaleDateString()}
+        </h4>
+
+        <a
+          href={`http://localhost:8000/uploads/${activity.image}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          View Image
+        </a>
+
+      </div>
+
+    </div>
+
+  ))}
+
+</div>
           </div>
         </div>
       </div>

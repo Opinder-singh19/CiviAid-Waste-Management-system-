@@ -93,12 +93,19 @@ setRewardType(reward);
   = useState(0);
   useEffect(() => {
 
-  const reward =
-    localStorage.getItem(
-      "rewardPopup"
-    );
+  if (!loggedIn || role !== "user") {
+    localStorage.removeItem("rewardPopup");
+    return;
+  }
 
-  if (reward) {
+  const checkRewardPopup = () => {
+
+    const reward =
+      localStorage.getItem(
+        "rewardPopup"
+      );
+
+    if (!reward) return;
 
     const parsed =
       JSON.parse(reward);
@@ -121,9 +128,20 @@ setRewardType(reward);
 
     }, 3500);
 
-  }
+  };
 
-}, []);
+  checkRewardPopup();
+
+  const interval =
+    setInterval(
+      checkRewardPopup,
+      1000
+    );
+
+  return () =>
+    clearInterval(interval);
+
+}, [loggedIn, role]);
   return (
     <div className="Navbar-main-outerbox">
       <nav className="Navbar-main">
