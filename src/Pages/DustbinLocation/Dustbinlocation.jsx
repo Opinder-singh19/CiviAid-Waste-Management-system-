@@ -7,8 +7,6 @@ import { useState, useEffect, useMemo } from "react";
 import { dustbinLocations } from "../../data/Dustbins";
 import { useLocation } from "react-router-dom";
 import civiaidcoin from "../../assets/Dustbins/Civiaidcoin.png";
-import RewardPopup
-from "../../Components/Rewards/RewardPopup";
 
 import {
 rewardMessages
@@ -92,13 +90,6 @@ function Dustbinlocation() {
   const theme = getTheme(selectedDustbin?.type);
   const location = useLocation();
   const [isRouting, setIsRouting] = useState(false);
-  const [showReward,
-setShowReward]
-= useState(false);
-
-const [rewardData,
-setRewardData]
-= useState(null);
   const binType = location.state?.binType || "";
   const sortedBins = useMemo(() => {
     if (!userLocation) return [];
@@ -143,46 +134,7 @@ setRewardData]
 
     return () => clearInterval(interval);
   }, []);
-  useEffect(()=>{
 
-const reward =
-
-localStorage.getItem(
-"rewardPopup"
-);
-
-if(reward){
-
-const parsed =
-
-JSON.parse(reward);
-
-setRewardData({
-
-...rewardMessages[
-  parsed.type
-],
-
-amount:
-parsed.amount
-
-});
-
-setShowReward(true);
-
-localStorage.removeItem(
-"rewardPopup"
-);
-
-setTimeout(()=>{
-
-setShowReward(false);
-
-},3500);
-
-}
-
-},[]);
   const nearestBin = sortedBins[0];
   const otherBins = sortedBins.slice(1);
   return (
@@ -377,13 +329,6 @@ setShowReward(false);
           ))}
         </div>
       </div>
-      <RewardPopup
-
-show={true}
-
-coins={10}
-
-/>
     </div>
   );
 }

@@ -541,20 +541,26 @@ export default function DustbinMap({
     );
 
     setDistanceTravelled(distance);
-    if (distance <= 0.003 && isRouting && !reachedDustbin) {
+    if (isRouting && !reachedDustbin) {
       setReachedDustbin(true);
-
+      
       navigate(
         "/verify-disposal",
 
         {
           state: {
-            dustbinName: currentDustbin?.name || "Unknown Dustbin",
+           dustbinName:
+  dustbinLocations.find(
+    (bin) =>
+      bin.lat === targetDustbin[0] &&
+      bin.lng === targetDustbin[1]
+  )?.name || "Unknown Dustbin",
 
-            distance: distanceTravelled,
+            distance: distance,
           },
         },
       );
+
     }
   }, [userLocation, targetDustbin]);
   useEffect(() => {
@@ -647,33 +653,42 @@ export default function DustbinMap({
       if (!onSelectLocation) return;
 
       const handleClick = async (e) => {
-        const lat = e.latlng.lat;
-        const lng = e.latlng.lng;
 
-        try {
-          const res = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`,
-          );
+  const lat = e.latlng.lat;
+  const lng = e.latlng.lng;
 
-          const data = await res.json();
+  try {
 
-          const address = data.display_name || `${lat}, ${lng}`;
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
+    );
 
-          const [selectedLocation, setSelectedLocation] = useState({
-            address: "",
-            lat: null,
-            lng: null,
-          });
-        } catch (err) {
-          console.log(err);
+    const data = await res.json();
 
-          onSelectLocation({
-            address: `${lat}, ${lng}`,
-            lat,
-            lng,
-          });
-        }
-      };
+    const address =
+      data.display_name || `${lat}, ${lng}`;
+
+    onSelectLocation({
+      address,
+      lat,
+      lng,
+    });
+
+  }
+
+  catch (err) {
+
+    console.log(err);
+
+    onSelectLocation({
+      address: `${lat}, ${lng}`,
+      lat,
+      lng,
+    });
+
+  }
+
+};
 
       map.on("click", handleClick);
 
@@ -743,9 +758,9 @@ export default function DustbinMap({
             }}
           ></Marker>
         ))}
-        {routeCoords && (
+        {/* {routeCoords && (
           <Routing userLocation={userLocation} destination={routeCoords} />
-        )}
+        )} */}
       </MapContainer>
       {selectedImage && (
         <div
