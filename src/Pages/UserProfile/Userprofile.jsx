@@ -165,7 +165,7 @@ useEffect(() => {
             <div className="pf-stat-card green-card">
               <div>
                 <p>Waste Segregations</p>
-                <h3>Times</h3>
+                <h3>5 Times</h3>
               </div>
 
               <div className="pf-stat-icon green-icon">
@@ -176,7 +176,7 @@ useEffect(() => {
             <div className="pf-stat-card gold-card">
               <div>
                 <p>Coins Earned</p>
-                <h3></h3>
+                <h3>120</h3>
               </div>
 
               <div className="pf-stat-icon gold-icon">
@@ -280,7 +280,7 @@ useEffect(() => {
             </div>
 
             <div className="pf-goal-header">
-              <span>Current Week: 14 segregations</span>
+              <span>Current Week: 5 segregations</span>
               <span>Goal: 20 segregations</span>
             </div>
 
@@ -289,7 +289,7 @@ useEffect(() => {
             </div>
 
             <p className="pf-goal-text">
-              6 more segregations to reach your goal
+              15 more segregations to reach your goal
             </p>
 
             <div className="pf-goal-stats">

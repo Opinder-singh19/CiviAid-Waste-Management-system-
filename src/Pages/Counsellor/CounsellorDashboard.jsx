@@ -214,10 +214,6 @@ const inProgress = complaints.filter(
               Municipal Counselor - Central Zone
             </p>
           </div>
-          <div className="CD-call">
-            <Phone className="CD-user-leaf" size={14} />
-            <p className="CD-user-subtitle">+91 98765 43210</p>
-          </div>
         </div>
       </div>
       <div className="CD-user-main">

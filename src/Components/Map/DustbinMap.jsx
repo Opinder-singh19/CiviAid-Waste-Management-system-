@@ -758,9 +758,9 @@ export default function DustbinMap({
             }}
           ></Marker>
         ))}
-        {/* {routeCoords && (
+        {routeCoords && (
           <Routing userLocation={userLocation} destination={routeCoords} />
-        )} */}
+        )}
       </MapContainer>
       {selectedImage && (
         <div
