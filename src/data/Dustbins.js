@@ -17,7 +17,7 @@ export const dustbinLocations = [
   },
   {
     id: 3,
-    name: "Opposite MBA Park", 
+    name: "Opposite MBA Block", 
     lat: 30.860056,
     lng: 75.86095,
     type: "green",
@@ -25,7 +25,7 @@ export const dustbinLocations = [
   },
   {
     id: 4,
-    name: "Opposite MBA Park", 
+    name: "Opposite MBA Block", 
     lat: 30.859911,
     lng: 75.86095,
     type: "blue",
