@@ -38,22 +38,22 @@ const Avatar = ({ name, profilePic }) => {
       }}
     />
   ) : (
-    <div
-      style={{
-        width: "70px",
-        height: "70px",
-        borderRadius: "50%",
-        backgroundColor: bgColor,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        color: "#fff",
-        fontWeight: 500,
-        fontSize: "50px",
-      }}
-    >
-      R
-    </div>
+<div
+  style={{
+    width: "70px",
+    height: "70px",
+    borderRadius: "50%",
+    backgroundColor: bgColor,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    color: "#fff",
+    fontWeight: 500,
+    fontSize: "50px",
+  }}
+>
+  {firstLetter}
+</div>
   );
 };
 export default function CounsellorDashboard() {
@@ -182,6 +182,8 @@ const handleAdminLogout = async () => {
   }
 };
 const user = JSON.parse(localStorage.getItem("user"));
+const counsellorName =
+  localStorage.getItem("Counsellorname");
 
 const myComplaints = complaints.filter(
   (c) => c.email === user?.email
@@ -200,14 +202,19 @@ const inProgress = complaints.filter(
     <div className="CD-user-container">
       <div className="CD-user-head">
         <div className="CD-user-head-inline">
-          <Avatar name={user?.fullName} profilePic={user?.profilePic} />
+          <Avatar
+  name={counsellorName}
+  profilePic={null}
+/>
         </div>
         <button className="logout-btn" onClick={handleAdminLogout}>
     Logout
   </button>
 
         <div className="CD-user-subhead-inline">
-          <h1 className="CD-user-title">Raghav Sharma</h1>
+          <h1 className="CD-user-title">
+  {counsellorName}
+</h1>
           <div className="CD-call">
             <MapPin className="CD-user-leaf" size={15} />
             <p className="CD-user-subtitle">

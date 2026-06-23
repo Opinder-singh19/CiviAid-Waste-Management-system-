@@ -42,7 +42,8 @@ exports.loginAdmin = async (req, res) => {
 
     res.json({
       message: "Login success",
-      role: admin.role
+      role: admin.role,
+      Counsellorname: admin.Counsellorname
     });
 
   } catch (err) {

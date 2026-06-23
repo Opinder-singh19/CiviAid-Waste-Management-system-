@@ -44,7 +44,10 @@ if (
   data.message ===
   "Login success"
 ) {
-
+localStorage.setItem(
+  "Counsellorname",
+  data.Counsellorname
+);
   setToastType(
     "success"
   );
